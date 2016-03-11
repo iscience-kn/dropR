@@ -4,11 +4,13 @@ library(shinydashboard)
 library(ggvis)
 
 
-# tab items ####
+# Tab items 
+# Home ####
 tabHome <- tabItem(tabName = "home",
                    h1("dropR"),
                    h2("Drop-out analysis using R"))
 
+# Visual Analysis ####
 tabViz <- tabItem(tabName = "viz",
                   fluidRow(
                     box(plotOutput("plot1", height = 250)),
@@ -19,7 +21,7 @@ tabViz <- tabItem(tabName = "viz",
                     )
                   
                   )
-
+# Upload ####
 tabUpload <- tabItem(tabName = "upload",
                       h2("Upload your data"),
                      fluidRow(
@@ -34,7 +36,7 @@ tabUpload <- tabItem(tabName = "upload",
                                    missing values (i.e. empty cells). Avoid
                                    ambigous coding such as -99, -999 etc."),
                            tags$li("Check the preview window below. Iff your
-                                   is displayed as expected you are good to 
+                                   data is displayed as expected you are good to 
                                    start with your analysis.")
                          ),
                          fileInput('file1', '',
@@ -46,10 +48,10 @@ tabUpload <- tabItem(tabName = "upload",
                          h3("Specify .csv properties"),
                          checkboxInput('header', 'Header', TRUE),
                          radioButtons('sep', 'Separator',
-                                      c(Comma=',',
-                                        Semicolon=';',
+                                      c(Semicolon=';',
+                                        Comma=',',
                                         Tab='\t'),
-                                      ','),
+                                      ';'),
                          radioButtons('quote', 'Text quote',
                                       c(None='',
                                         'Double quote'='"',
@@ -60,7 +62,7 @@ tabUpload <- tabItem(tabName = "upload",
                      fluidRow(
                        box(width = 12,
                          h3("Data Preview"),
-                         DT::dataTableOutput("table")
+                        div(DT::dataTableOutput("table"),style = 'overflow:auto')
                        )
                      )
                      )
