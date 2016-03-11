@@ -1,6 +1,7 @@
 ## app.R ##
 library(shiny)
 library(shinydashboard)
+library(ggvis)
 
 
 # tab items ####
@@ -16,6 +17,7 @@ tabViz <- tabItem(tabName = "viz",
                                     1, 100, 50)
                         )
                     )
+                  
                   )
 
 tabUpload <- tabItem(tabName = "upload",

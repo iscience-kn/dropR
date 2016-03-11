@@ -8,13 +8,16 @@ server <- function(input, output) {
   })
   
   output$table <- DT::renderDataTable(DT::datatable({
-    upfile <- read.csv2(input$file1$datapath,
-                        sep = input$sep,
-                        dec = input$dec,
-                        quote = input$quote,
-                        header = input$header)
-    
-    upfile
+    if(is.null(input$file1)) return(NULL)
+    else{
+      upfile <- read.csv2(input$file1$datapath,
+                          sep = input$sep,
+                          dec = input$dec,
+                          quote = input$quote,
+                          header = input$header)
+      
+      upfile  
+    }
   }
   ))
 }
