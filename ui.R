@@ -25,8 +25,9 @@ tabViz <- tabItem(tabName = "viz",
 tabUpload <- tabItem(tabName = "upload",
                       h2("Upload your data"),
                      fluidRow(
-                       box(
-                         h3("Choose .csv file"),
+                       box(width=6,
+                         h3("1 Choose"),
+                         h4("a .csv file from your disk"),
                          tags$ul(
                            tags$li("Indicate whether the first line of your
                                    data is meant to be a header."),
@@ -44,8 +45,9 @@ tabUpload <- tabItem(tabName = "upload",
                                               'text/comma-separated-values,text/plain', 
                                               '.csv'))
                          ),
-                       box(
-                         h3("Specify .csv properties"),
+                       box(width=3,
+                         h3("2 Specify"),
+                         h4(".csv properties"),
                          checkboxInput('header', 'Header', TRUE),
                          radioButtons('sep', 'Separator',
                                       c(Semicolon=';',
@@ -57,6 +59,12 @@ tabUpload <- tabItem(tabName = "upload",
                                         'Double quote'='"',
                                         'Single quote'="'"),
                                       '"')
+                       ),
+                       box(width=3,
+                         h3("3 Identify"),
+                         h4("questions and conditions"),
+                         uiOutput('choose_condition'),
+                         uiOutput("choose_questions")
                        )
                      ),
                      fluidRow(
