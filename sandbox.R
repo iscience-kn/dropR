@@ -8,23 +8,24 @@ source("R/computeRemaining.R")
 data_in <- read.csv2("data/proper_input.csv")
 
 # outputs position of last record that was not NA... 
-data_in$drop_out <- extract_drop_out_from_df(data_in,2:11)
+data_in$drop_out <- extract_drop_out_from_df(data_in,paste0("q",1:10))
+#extract_drop_out_from_df(data_in,paste0("q",1:10))
+
 # set parameters (later on from shiny) ####
 # number of questions / cols
 n_q <- length(2:11)
 # total share
 
-drpout <- as.data.frame(table(data_in$drop_out))
-drpout$cs <- cumsum(drpout$Freq)
-drpout$remain <- sum(drpout$Freq)-drpout$cs
-drpout$remain_pct <- drpout$remain/sum(drpout$Freq)
 
 
 total_dropout <- computeRemaining(data_in,n_q)
+tdo_df <- data.frame(condition = "total", pct_remain = total_dropout$remain_pct,
+           id = total_dropout$id)
 dropout_by_grp <- computeRemaining(data_in,n_q,"groups")
+dropout_by_grp_full <- rbind(tdo_df,dropout_by_grp)
 
 # some plotting test
-ggvis(dropout_by_grp) %>%
+ggvis(dropout_by_grp_full) %>%
   group_by(condition) %>%
   layer_paths(~id,~pct_remain,stroke=~condition)
 

@@ -13,11 +13,18 @@ tabHome <- tabItem(tabName = "home",
 # Visual Analysis ####
 tabViz <- tabItem(tabName = "viz",
                   fluidRow(
-                    box(plotOutput("plot1", height = 250)),
-                    box(title = "Controls",
-                        sliderInput("slider", "Number of observations:",
-                                    1, 100, 50)
+                    box(width=3,
+                        h3("Options"),
+                        uiOutput("show_conditions"),
+                        sliderInput("strokeW","Stroke width",1,5,2)
+                        ),
+                    box(width = 9,
+                        h3("Dropout by question"),
+                        div(ggvisOutput("dropout_curve"),
+                            style = 'overflow:auto')
+                        
                         )
+                    
                     )
                   
                   )
@@ -38,7 +45,9 @@ tabUpload <- tabItem(tabName = "upload",
                                    ambigous coding such as -99, -999 etc."),
                            tags$li("Check the preview window below. Iff your
                                    data is displayed as expected you are good to 
-                                   start with your analysis.")
+                                   start with your analysis. DON'T forget to 
+                                   hit 'update data' in the right box when
+                                   you're ready.")
                          ),
                          fileInput('file1', '',
                                      accept=c('text/csv', 
@@ -64,7 +73,8 @@ tabUpload <- tabItem(tabName = "upload",
                          h3("3 Identify"),
                          h4("questions and conditions"),
                          uiOutput('choose_condition'),
-                         uiOutput("choose_questions")
+                         uiOutput("choose_questions"),
+                         actionButton("goButton", "update data!")
                        )
                      ),
                      fluidRow(
@@ -73,10 +83,15 @@ tabUpload <- tabItem(tabName = "upload",
                         div(DT::dataTableOutput("table"),style = 'overflow:auto')
                        )
                      )
+                     # fluidRow(
+                     #   box(width = 12),
+                     #   textOutput("debug_txt")
+                     # )
                      )
 
-tabAnalysis <- tabItem(tabName = "viz",
-                       h2("graph"))
+# Tab Analysis ####
+tabAnalysis <- tabItem(tabName = "analysis",
+                       h2("Tests and stats"))
 
 
 
@@ -88,7 +103,7 @@ ui <- dashboardPage(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("home")),
       menuItem("Upload", tabName = "upload", icon = icon("upload")),
-      menuItem("Visual analysis", tabName = "viz",
+      menuItem("Visual inspection", tabName = "viz",
                icon = icon("area-chart",lib="font-awesome"))
     )
   ),
