@@ -16,7 +16,8 @@ tabViz <- tabItem(tabName = "viz",
                     box(width=3,
                         h3("Options"),
                         uiOutput("show_conditions"),
-                        sliderInput("strokeW","Stroke width",1,5,2)
+                        sliderInput("strokeW","Stroke width",1,5,2),
+                        checkboxInput("show_points","Show points and hover tooltips")
                         ),
                     box(width = 9,
                         h3("Dropout by question"),

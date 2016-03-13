@@ -89,10 +89,32 @@ gv <- reactive({
   d <- data_procd()
   d <- d[d$condition %in% input$sel_cond,]
   d %>% ggvis() %>%
-    group_by(condition) %>%
-    layer_paths(~id,~pct_remain,stroke=~condition,
-                strokeWidth := input_strokeW) %>%
-    add_axis("x", title = "question")
+      group_by(condition) %>%
+      layer_paths(~id,~pct_remain,stroke=~condition,
+                  strokeWidth := input_strokeW) %>%
+      layer_points(~id,~pct_remain,fill=~condition) %>%
+      add_axis("x", title = "question") %>%
+      add_tooltip(all_values,"hover")
+
+  # tooltip thing... 
+  # http://stackoverflow.com/questions/24959609/rstudio-shiny-ggvis-tooltip-on-mouse-hover
+  
+  # if(input$show_points){
+  #   d %>% ggvis() %>%
+  #     group_by(condition) %>%
+  #     layer_paths(~id,~pct_remain,stroke=~condition,
+  #                 strokeWidth := input_strokeW) %>%
+  #     layer_points(~id,~pct_remain,fill=~condition) %>%
+  #     add_axis("x", title = "question") %>%
+  #     add_tooltip(all_values,"hover")
+  # } else{
+  #   d %>% ggvis() %>%
+  #     group_by(condition) %>%
+  #     layer_paths(~id,~pct_remain,stroke=~condition,
+  #                 strokeWidth := input_strokeW) %>%
+  #     add_axis("x", title = "question")
+  # }
+
 })
 
 gv %>% bind_shiny("dropout_curve","plot_ui")

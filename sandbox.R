@@ -25,7 +25,15 @@ dropout_by_grp <- computeRemaining(data_in,n_q,"groups")
 dropout_by_grp_full <- rbind(tdo_df,dropout_by_grp)
 
 # some plotting test
-ggvis(dropout_by_grp_full) %>%
+dropout_by_grp_full%>%
+  ggvis() %>%
   group_by(condition) %>%
-  layer_paths(~id,~pct_remain,stroke=~condition)
+  layer_paths(~id,~pct_remain,stroke=~condition) %>%
+  layer_points(~id,~pct_remain,fill=~condition,fill="transparent") %>%
+  add_tooltip(all_values,"hover")
 
+
+all_values <- function(x) {
+  if(is.null(x)) return(NULL)
+  paste0(names(x), ": ", format(x), collapse = "<br />")
+}
