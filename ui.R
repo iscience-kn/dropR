@@ -8,7 +8,9 @@ library(ggvis)
 # Home ####
 tabHome <- tabItem(tabName = "home",
                    h1("dropR"),
-                   h2("Drop-out analysis using R"))
+                   h2("About dropout analysis using R"),
+                   p("Some text about the GUI and the underlying R
+                     package."))
 
 # Visual Analysis ####
 tabViz <- tabItem(tabName = "viz",
@@ -91,7 +93,7 @@ tabUpload <- tabItem(tabName = "upload",
                      )
 
 # Tab Analysis ####
-tabAnalysis <- tabItem(tabName = "analysis",
+tabKaplan <- tabItem(tabName = "kaplan",
                        h2("Tests and stats"))
 
 
@@ -105,7 +107,9 @@ ui <- dashboardPage(
       menuItem("Home", tabName = "home", icon = icon("home")),
       menuItem("Upload", tabName = "upload", icon = icon("upload")),
       menuItem("Visual inspection", tabName = "viz",
-               icon = icon("area-chart",lib="font-awesome"))
+               icon = icon("area-chart",lib="font-awesome")),
+      menuItem("Kaplan-Meier est.", tabName = "kaplan",
+               icon = icon("percent",lib="font-awesome"))
     )
   ),
   # Body of the App #############
@@ -113,7 +117,7 @@ ui <- dashboardPage(
     tabItems(tabHome,
              tabViz,
              tabUpload,
-             tabAnalysis)
+             tabKaplan)
   )
 )
 
