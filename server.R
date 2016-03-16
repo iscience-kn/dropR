@@ -11,7 +11,8 @@ server <- function(input, output) {
                         sep = input$sep,
                         dec = input$dec,
                         quote = input$quote,
-                        header = input$header)
+                        header = input$header,
+                        na.strings = input$nas)
     upfile
   })
   

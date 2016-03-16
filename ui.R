@@ -16,7 +16,7 @@ tabHome <- tabItem(tabName = "home",
 tabViz <- tabItem(tabName = "viz",
                   fluidRow(
                     box(width=3,
-                        h3("Options"),
+                        h3("Plot options"),
                         uiOutput("show_conditions"),
                         sliderInput("strokeW","Stroke width",1,5,2),
                         checkboxInput("show_points","Show points and hover tooltips")
@@ -27,8 +27,16 @@ tabViz <- tabItem(tabName = "viz",
                             style = 'overflow:auto')
                         
                         )
-                    
-                    )
+                    ),
+                  fluidRow(
+                    box(width=5,
+                        HTML("<h3>χ<sup>2</sup>-test options</h3>"),
+                        sliderInput('chisq_question',"Select question",
+                                    1,52,1)
+                                                ),
+                    box(width=7,
+                        h3("Test outcomes"))
+                  )
                   
                   )
 # Upload ####
@@ -41,8 +49,10 @@ tabUpload <- tabItem(tabName = "upload",
                          tags$ul(
                            tags$li("Indicate whether the first line of your
                                    data is meant to be a header."),
-                           tags$li("Choose the proper column delimiter and
-                                   text quote for your file."),
+                           tags$li("Choose the proper column delimiter,
+                                   text quote and missing value coding for your file.
+                                   Note that, proper missing values (empty fields) are 
+                                   accepted in addition by default."),
                            tags$li("Make sure to use reasonable coding for
                                    missing values (i.e. empty cells). Avoid
                                    ambigous coding such as -99, -999 etc."),
@@ -70,7 +80,10 @@ tabUpload <- tabItem(tabName = "upload",
                                       c(None='',
                                         'Double quote'='"',
                                         'Single quote'="'"),
-                                      '"')
+                                      '"'),
+                         checkboxGroupInput('nas','Interpret as missing:',
+                                            c('-99','-999','-9999',
+                                              '#N/A','.'))
                        ),
                        box(width=3,
                          h3("3 Identify"),
@@ -96,9 +109,6 @@ tabUpload <- tabItem(tabName = "upload",
 tabKaplan <- tabItem(tabName = "kaplan",
                        h2("Tests and stats"))
 
-
-
-
 # Main Page structure ####
 ui <- dashboardPage(
   dashboardHeader(title = "dropR"),
@@ -109,7 +119,8 @@ ui <- dashboardPage(
       menuItem("Visual inspection", tabName = "viz",
                icon = icon("area-chart",lib="font-awesome")),
       menuItem("Kaplan-Meier est.", tabName = "kaplan",
-               icon = icon("percent",lib="font-awesome"))
+               icon = icon("percent",lib="font-awesome")),
+      menuItem("About", tabName = "about")
     )
   ),
   # Body of the App #############
