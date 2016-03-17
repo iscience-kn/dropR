@@ -83,7 +83,7 @@ tabUpload <- tabItem(tabName = "upload",
                                       '"'),
                          checkboxGroupInput('nas','Interpret as missing:',
                                             c('-99','-999','-9999',
-                                              '#N/A','.'))
+                                              '#N/A','NA','.'))
                        ),
                        box(width=3,
                          h3("3 Identify"),
@@ -116,7 +116,7 @@ ui <- dashboardPage(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("home")),
       menuItem("Upload", tabName = "upload", icon = icon("upload")),
-      menuItem("Visual inspection", tabName = "viz",
+      menuItem("Visual inspection, Chisq.", tabName = "viz",
                icon = icon("area-chart",lib="font-awesome")),
       menuItem("Kaplan-Meier est.", tabName = "kaplan",
                icon = icon("percent",lib="font-awesome")),
