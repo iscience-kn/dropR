@@ -2,6 +2,7 @@ source("R/extract_drop_out_from_df.R")
 source("R/computeRemaining.R")
 source("R/find_drop_out.R")
 source("R/utils.R")
+library(ggplot2)
 
 server <- function(input, output) {
   # uploaded file
@@ -41,6 +42,14 @@ server <- function(input, output) {
   
 # show conditions ############
   output$show_conditions <- renderUI({
+    # w <- ""
+    # for(i in 1:length(levels(data_procd()$condition))) {
+    #   w <- paste(w, textInput(paste("a", i, sep = ""),
+    #                           paste("a", i, sep = ""),
+    #                           value = levels(data_procd()$condition)[i]))
+    # }
+    # HTML(w)
+    
     checkboxGroupInput('sel_cond', 'conditions to show',
                        levels(data_procd()$condition),
                        selected = levels(data_procd()$condition))
@@ -53,7 +62,8 @@ server <- function(input, output) {
     isolate({
       if(is.null(input$file1) | is.null(input$cond_col) |
          is.null(input$quest_cols)){
-        data.frame(id = 0, pct_remain = 0, condition = "total")
+        #data.frame(id = 0, pct_remain = 0, condition = "total")
+        NULL
       } else {
         # compute dropout
         data_in <- dataset()
@@ -80,45 +90,29 @@ server <- function(input, output) {
   })
 
   # output$debug_txt <- renderText({
-  #   class(input$cond_col)
+  #   #class(data_4_plot())
+  #   
   # })
-  
+  # 
 # reactive plot element ####
-input_strokeW <- reactive({input$strokeW})
-
-gv <- reactive({
-  d <- data_procd()
-  d <- d[d$condition %in% input$sel_cond,]
-  d %>% ggvis() %>%
-      group_by(condition) %>%
-      layer_paths(~id,~pct_remain,stroke=~condition,
-                  strokeWidth := input_strokeW) %>%
-      layer_points(~id,~pct_remain,fill=~condition) %>%
-      add_axis("x", title = "question") %>%
-      add_tooltip(all_values,"hover")
-
-  # tooltip thing... 
-  # http://stackoverflow.com/questions/24959609/rstudio-shiny-ggvis-tooltip-on-mouse-hover
+  output$do_curve_plot <- renderPlot({
+    validate(
+      need(data_procd(),"Please upload a dataset.")
+    )
+    # input$strokeW
+    
+    d <- data_procd()
+    d <- d[d$condition %in% input$sel_cond,]
+    do_curve <- ggplot(d)
+    do_curve <- do_curve + geom_line(aes(x=id,y=pct_remain,col=condition)) +
+      geom_point(aes(x=id,y=pct_remain,col=condition)) +
+      theme_bw() +
+      theme(panel.grid.major.x = element_blank(),
+            panel.grid.minor.x = element_blank(),
+            panel.border = element_blank())
+    do_curve
+  })
   
-  # if(input$show_points){
-  #   d %>% ggvis() %>%
-  #     group_by(condition) %>%
-  #     layer_paths(~id,~pct_remain,stroke=~condition,
-  #                 strokeWidth := input_strokeW) %>%
-  #     layer_points(~id,~pct_remain,fill=~condition) %>%
-  #     add_axis("x", title = "question") %>%
-  #     add_tooltip(all_values,"hover")
-  # } else{
-  #   d %>% ggvis() %>%
-  #     group_by(condition) %>%
-  #     layer_paths(~id,~pct_remain,stroke=~condition,
-  #                 strokeWidth := input_strokeW) %>%
-  #     add_axis("x", title = "question")
-  # }
-
-})
-
-gv %>% bind_shiny("dropout_curve","plot_ui")
 
 # Preview data Table ####
   output$table <- DT::renderDataTable(DT::datatable({

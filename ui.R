@@ -10,7 +10,9 @@ tabHome <- tabItem(tabName = "home",
                    h1("dropR"),
                    h2("About dropout analysis using R"),
                    p("Some text about the GUI and the underlying R
-                     package."))
+                     package."),
+                   textOutput("debug_txt")
+                   )
 
 # Visual Analysis ####
 tabViz <- tabItem(tabName = "viz",
@@ -23,10 +25,10 @@ tabViz <- tabItem(tabName = "viz",
                         ),
                     box(width = 9,
                         h3("Dropout by question"),
-                        div(ggvisOutput("dropout_curve"),
+                        div(plotOutput("do_curve_plot"),
                             style = 'overflow:auto')
-                        
                         )
+                    
                     ),
                   fluidRow(
                     box(width=5,
@@ -83,7 +85,7 @@ tabUpload <- tabItem(tabName = "upload",
                                       '"'),
                          checkboxGroupInput('nas','Interpret as missing:',
                                             c('-99','-999','-9999',
-                                              '#N/A','NA','.'))
+                                              '#N/A','NA','.'),c("NA"))
                        ),
                        box(width=3,
                          h3("3 Identify"),
