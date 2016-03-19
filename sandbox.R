@@ -3,6 +3,7 @@ source("R/extract_drop_out_from_df.R")
 source("R/find_drop_out.R")
 source("R/utils.R")
 source("R/computeRemaining.R")
+source("R/dosteps.R")
 
 # test dataset
 data_in <- read.csv2("data/proper_input.csv")
@@ -38,6 +39,28 @@ do_curve + geom_line(aes(x=id,y=pct_remain,col=condition)) +
   theme(panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.border = element_blank())
+
+# test kaplan meier stuff ####
+library(survival)
+data_in$surv <- with(data_in,Surv(drop_out,drop_out != 52 ))
+fit1 <- survfit(surv~1,data = data_in)
+
+f <- dosteps(fit1$time,fit1$surv)
+u <- dosteps(fit1$time,fit1$upper)
+l <- dosteps(fit1$time,fit1$lower)
+dframe <- cbind(f,uppr = u$y, lwr = l$y)
+
+k <- ggplot(dframe,aes(x,y)) + 
+  geom_line() +
+  geom_ribbon(aes(ymin = lwr, ymax = uppr),alpha=.3) + 
+  theme_bw() + 
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+
+
+
+
+
 
 
 # DEPRECATED ########################
