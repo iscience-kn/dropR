@@ -1,8 +1,6 @@
 ## app.R ##
 library(shiny)
 library(shinydashboard)
-library(ggvis)
-
 
 # Tab items 
 # Home ####
@@ -20,14 +18,25 @@ tabViz <- tabItem(tabName = "viz",
                     box(width=3,
                         h3("Plot options"),
                         uiOutput("show_conditions"),
-                        sliderInput("strokeW","Stroke width",1,5,2),
-                        checkboxInput("show_points","Show points and hover tooltips")
+                        sliderInput("stroke_width","Stroke width",1,5,2),
+                        checkboxInput("show_points","Show points"),
+                        radioButtons("color_palette","Color palettes",
+                                     c("ggplot default" = "default",
+                                       "color blind-friendly" = "color_blind",
+                                       "gray scale" = "gray"),
+                                     "default"),
+                        h5("Condition labels"),
+                        h5("Export plot")
                         ),
-                    box(width = 9,
+                    box(width = 7,
                         h3("Dropout by question"),
                         div(plotOutput("do_curve_plot"),
                             style = 'overflow:auto')
-                        )
+                        ),
+                    box(width = 2,
+                        h3("Inspect"))
+                    
+                    
                     
                     ),
                   fluidRow(

@@ -50,7 +50,7 @@ server <- function(input, output) {
     # }
     # HTML(w)
     
-    checkboxGroupInput('sel_cond', 'conditions to show',
+    checkboxGroupInput('sel_cond', 'Show conditions',
                        levels(data_procd()$condition),
                        selected = levels(data_procd()$condition))
   })
@@ -97,19 +97,43 @@ server <- function(input, output) {
 # reactive plot element ####
   output$do_curve_plot <- renderPlot({
     validate(
-      need(data_procd(),"Please upload a dataset.")
+      need(data_procd(),"Please upload a dataset.
+Make sure to hit 'update data!' in the upload tab.")
     )
-    # input$strokeW
     
     d <- data_procd()
     d <- d[d$condition %in% input$sel_cond,]
     do_curve <- ggplot(d)
-    do_curve <- do_curve + geom_line(aes(x=id,y=pct_remain,col=condition)) +
-      geom_point(aes(x=id,y=pct_remain,col=condition)) +
+    do_curve <- do_curve + geom_line(aes(x=id,y=pct_remain,
+                                         col=condition),
+                                     size = input$stroke_width) +
       theme_bw() +
       theme(panel.grid.major.x = element_blank(),
             panel.grid.minor.x = element_blank(),
             panel.border = element_blank())
+   
+    # optional plot parameters 
+    if(input$show_points){
+      do_curve <- do_curve + geom_point(aes(x=id,y=pct_remain,
+                                            col=condition),
+                                        size = input$stroke_width*1.5)
+    }
+    
+    if(input$color_palette == "color_blind"){
+      do_curve <- do_curve + scale_color_manual(values=c("#000000", "#E69F00",
+                                                         "#56B4E9", "#009E73",
+                                                         "#F0E442", "#0072B2",
+                                                         "#D55E00", "#CC79A7"))
+    }
+    
+    if(input$color_palette == "gray"){
+      do_curve <- do_curve + 
+        scale_color_manual(values = gray(seq(from=0,1,
+                                             by=1/8)[c(1,8,3,7,4,5,2,6)]
+                                         )
+        )
+    }
+    
     do_curve
   })
   
