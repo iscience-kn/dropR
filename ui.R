@@ -25,16 +25,23 @@ tabViz <- tabItem(tabName = "viz",
                                        "color blind-friendly" = "color_blind",
                                        "gray scale" = "gray"),
                                      "default"),
-                        h5("Condition labels"),
-                        h5("Export plot")
+                        textInput("rename_conditions","Rename selected conditions"),
+                        selectInput("export_format","Export graph as:",
+                                    c("pdf" = "pdf",
+                                      "svg" = "svg"),
+                                    "pdf")
                         ),
+                    box(width = 2,
+                        h3("Hints"),
+                        p("- color blind and printer friendly palettes support up to 8 different categories (colors)."),
+                        p("- When re-labelling condtions, use ',' as a seperator. Make sure to list as many names as conditions selected.")
+                    ),
+                    
                     box(width = 7,
                         h3("Dropout by question"),
                         div(plotOutput("do_curve_plot"),
                             style = 'overflow:auto')
-                        ),
-                    box(width = 2,
-                        h3("Inspect"))
+                        )
                     
                     
                     

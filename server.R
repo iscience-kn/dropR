@@ -56,6 +56,8 @@ server <- function(input, output) {
   })
   
   
+    
+  
 # data transformation and computation ####
   data_procd <- reactive({
     input$goButton
@@ -103,7 +105,16 @@ Make sure to hit 'update data!' in the upload tab.")
     
     d <- data_procd()
     d <- d[d$condition %in% input$sel_cond,]
-    do_curve <- ggplot(d)
+    d$condition <- droplevels(d$condition)
+    
+    if(input$rename_conditions != ""){
+      str_by_comma <- unlist(strsplit(input$rename_conditions,","))
+      if(length(str_by_comma) == length(levels(d$condition))){
+        levels(d$condition) <- str_by_comma
+      }
+    } 
+
+        do_curve <- ggplot(d)
     do_curve <- do_curve + geom_line(aes(x=id,y=pct_remain,
                                          col=condition),
                                      size = input$stroke_width) +
@@ -119,21 +130,20 @@ Make sure to hit 'update data!' in the upload tab.")
                                         size = input$stroke_width*1.5)
     }
     
-    if(input$color_palette == "color_blind"){
+    if(input$color_palette == "color_blind" & length(levels(d$condition) < 9)){
       do_curve <- do_curve + scale_color_manual(values=c("#000000", "#E69F00",
                                                          "#56B4E9", "#009E73",
                                                          "#F0E442", "#0072B2",
                                                          "#D55E00", "#CC79A7"))
     }
     
-    if(input$color_palette == "gray"){
+    if(input$color_palette == "gray" & length(levels(d$condition) < 9)){
       do_curve <- do_curve + 
         scale_color_manual(values = gray(seq(from=0,1,
                                              by=1/8)[c(1,8,3,7,4,5,2,6)]
                                          )
         )
     }
-    
     do_curve
   })
   
