@@ -123,9 +123,27 @@ tabUpload <- tabItem(tabName = "upload",
                      # )
                      )
 
-# Tab Analysis ####
+# Tab Kaplan-Meier ####
 tabKaplan <- tabItem(tabName = "kaplan",
-                       h2("Tests and stats"))
+                     h2("Kaplan-Meier Estimation"),
+                     fluidRow(
+                       box(width = 3,
+                           h3("Model specifications"),
+                           selectInput("kaplan_fit","Choose model fit",
+                                       c("total" = "total",
+                                         "by condition" = "conditions"),
+                                       "total"),
+                           h3("Plot options"),
+                           checkboxInput("kpm_ci","confidence bands",T)
+                           # Exports
+                           ),
+                       box(width = 9,
+                           h3("Kaplan-Meier survival curve"),
+                           plotOutput("kpm_plot")
+                           #tableOutput("test_table")
+                           )
+                       )
+                     )
 
 # Main Page structure ####
 ui <- dashboardPage(

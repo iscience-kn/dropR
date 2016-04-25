@@ -2,7 +2,9 @@ source("R/extract_drop_out_from_df.R")
 source("R/computeRemaining.R")
 source("R/find_drop_out.R")
 source("R/utils.R")
+source("R/dosteps.R")
 library(ggplot2)
+library(survival)
 
 server <- function(input, output) {
   # uploaded file
@@ -54,9 +56,6 @@ server <- function(input, output) {
                        levels(data_procd()$condition),
                        selected = levels(data_procd()$condition))
   })
-  
-  
-    
   
 # data transformation and computation ####
   data_procd <- reactive({
@@ -121,7 +120,8 @@ Make sure to hit 'update data!' in the upload tab.")
       theme_bw() +
       theme(panel.grid.major.x = element_blank(),
             panel.grid.minor.x = element_blank(),
-            panel.border = element_blank())
+            panel.border = element_blank(),
+            axis.line = element_line(colour = "black"))
    
     # optional plot parameters 
     if(input$show_points){
@@ -147,7 +147,6 @@ Make sure to hit 'update data!' in the upload tab.")
     do_curve
   })
   
-
 # Preview data Table ####
   output$table <- DT::renderDataTable(DT::datatable({
     if(is.null(input$file1)) return(NULL)
@@ -156,4 +155,42 @@ Make sure to hit 'update data!' in the upload tab.")
     }
   }
   ))
+  
+  kaplan_meier <- reactive({
+    ds <- dataset()
+    ds$drop_out <- extract_drop_out_from_df(ds,input$quest_cols)
+    if(input$kaplan_fit == "total"){
+      ds$surv <- with(ds,Surv(drop_out,drop_out != max(ds$drop_out)))
+      fit1 <- survfit(surv~1,data = ds)
+
+      f <- dosteps(fit1$time,fit1$surv)
+      u <- dosteps(fit1$time,fit1$upper)
+      l <- dosteps(fit1$time,fit1$lower)
+      dframe <- cbind(f,uppr = u$y, lwr = l$y)
+      dframe <- rbind(c(0,1,1,1),dframe)
+      dframe
+    }
+  })  
+  
+  output$kpm_plot <- renderPlot({
+    k <- ggplot(kaplan_meier(),aes(x,y)) +
+      geom_line() +
+      theme_bw() +
+      theme(panel.grid.major.x = element_blank(),
+            panel.grid.minor.x = element_blank(),
+            panel.border = element_blank(),
+            axis.line = element_line(colour = "black"))
+    if(input$kpm_ci){
+      k <- k + geom_ribbon(aes(ymin = lwr, ymax = uppr),alpha=.3)
+    } 
+    k
+  })
+  
+  output$test_table <- renderTable({
+    kaplan_meier()
+  })
+  
+  
+  
+  
 }

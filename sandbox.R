@@ -49,19 +49,42 @@ f <- dosteps(fit1$time,fit1$surv)
 u <- dosteps(fit1$time,fit1$upper)
 l <- dosteps(fit1$time,fit1$lower)
 dframe <- cbind(f,uppr = u$y, lwr = l$y)
+dframe <- rbind(c(0,1,1,1),dframe)
+
 
 k <- ggplot(dframe,aes(x,y)) + 
   geom_line() +
   geom_ribbon(aes(ymin = lwr, ymax = uppr),alpha=.3) + 
   theme_bw() + 
   theme(panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank())
+        panel.grid.minor.x = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(colour = "black"))
+
+k
+
+
+data_in$surv <- with(data_in,Surv(drop_out,drop_out != 52 ))
+fit11 <- survfit(surv~1,data = subset(data_in,.wx.3.experimental_condition == 11))
+fit12 <- survfit(surv~1,data = subset(data_in,.wx.3.experimental_condition == 12))
+fit21 <- survfit(surv~1,data = subset(data_in,.wx.3.experimental_condition == 21))
+fit22 <- survfit(surv~1,data = subset(data_in,.wx.3.experimental_condition == 22))
+fit2 <- survfit(surv~.wx.3.experimental_condition,data = data_in)
+
+
+fit11$upper
+fit12$upper
+fit2$upper
+plot(fit2)
+lines(fit11,col="blue",conf.int = F)
+lines(fit12,col="green",conf.int = F)
+lines(fit22,col="yellow",conf.int = F)
+lines(fit21,col="pink",conf.int = F)
 
 
 
 
-
-
+lines(fit2,col="blue")
 
 # DEPRECATED ########################
 # dropout_by_grp_full %>%
