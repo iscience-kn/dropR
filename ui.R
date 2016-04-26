@@ -134,12 +134,18 @@ tabKaplan <- tabItem(tabName = "kaplan",
                                          "by condition" = "conditions"),
                                        "total"),
                            h3("Plot options"),
-                           checkboxInput("kpm_ci","confidence bands",T)
+                           checkboxInput("kpm_ci","confidence bands",T),
+                           radioButtons("color_palette_kp","Color palettes",
+                                        c("ggplot default" = "default",
+                                          "color blind-friendly" = "color_blind",
+                                          "gray scale" = "gray"),
+                                        "default")
                            # Exports
                            ),
                        box(width = 9,
                            h3("Kaplan-Meier survival curve"),
-                           plotOutput("kpm_plot")
+                           plotOutput("kpm_plot"),
+                           textOutput("test_text")
                            #tableOutput("test_table")
                            )
                        )

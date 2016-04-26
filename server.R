@@ -179,7 +179,7 @@ Make sure to hit 'update data!' in the upload tab.")
   })  
   
   output$kpm_plot <- renderPlot({
-    k <- ggplot(kaplan_meier(),aes(x,y,col=condition)) +
+    k <- ggplot(kaplan_meier(),aes(x,y,col=condition,fill = condition)) +
       geom_line() +
       theme_bw() +
       theme(panel.grid.major.x = element_blank(),
@@ -188,16 +188,38 @@ Make sure to hit 'update data!' in the upload tab.")
             axis.line = element_line(colour = "black"))
     if(input$kpm_ci){
       k <- k + geom_ribbon(aes(ymin = lwr, ymax = uppr,
-                               linetype=NA, fill = condition), alpha=.3)
+                               linetype=NA), alpha=.3)
     } 
-    k
-  })
+    
+    if(input$color_palette_kp == "color_blind"){
+    k <- k + scale_fill_manual(values=c("#000000", "#E69F00",
+                                         "#56B4E9", "#009E73",
+                                         "#F0E442", "#0072B2",
+                                         "#D55E00", "#CC79A7")) +
+      scale_color_manual(values=c("#000000", "#E69F00",
+                                   "#56B4E9", "#009E73",
+                                   "#F0E442", "#0072B2",
+                                   "#D55E00", "#CC79A7"))
+  }
   
+  if(input$color_palette_kp == "gray"){
+    k <- k + 
+      scale_color_manual(values = gray(seq(from=0,1,
+                                           by=1/8)[c(1,8,3,7,4,5,2,6)]
+                                       )) + 
+      scale_fill_manual(values = gray(seq(from=0,1,
+                                           by=1/8)[c(1,8,3,7,4,5,2,6)])
+                        )
+  }
+
+  k
+  })
+
   output$test_table <- renderTable({
     kaplan_meier()
   })
   
-  
+  output$test_text <- renderText({input$color_palette_kp})  
   
   
 }
