@@ -174,12 +174,37 @@ Make sure to hit 'update data!' in the upload tab.")
       })
       
       steps <- do.call("rbind",by_cond_steps)
-      steps
     }
-  })  
+    out <- list()
+    out$steps <- steps
+    out$ds <- ds
+    out
+    
+  })
+  
+  output$rho_tests <- renderUI({
+    if(input$kaplan_fit == "conditions"){
+      selectInput("test_type","",list("rho = 0 (log-rank)" = 0 ,
+                                      "rho = 1 (Peto & Peto Wilcox)" = 1))
+    } else {
+      p("Only available for two or more survival curves.")
+    }
+  })
+  
+  output$surv_tests <- renderPrint({
+    if(input$kaplan_fit == "conditions"){
+      kp_ds <- kaplan_meier()$ds
+      f <- as.formula(paste("surv",input$cond_col,sep="~"))
+      survdiff(f,data = kp_ds,rho = input$test_type)  
+    } else {
+      "Only available for two or more survival curves."
+    }
+    
+    
+  })
   
   output$kpm_plot <- renderPlot({
-    k <- ggplot(kaplan_meier(),aes(x,y,col=condition,fill = condition)) +
+    k <- ggplot(kaplan_meier()$steps,aes(x,y,col=condition,fill = condition)) +
       geom_line() +
       theme_bw() +
       theme(panel.grid.major.x = element_blank(),
@@ -216,7 +241,7 @@ Make sure to hit 'update data!' in the upload tab.")
   })
 
   output$test_table <- renderTable({
-    kaplan_meier()
+    kaplan_meier()$steps
   })
   
   output$test_text <- renderText({input$color_palette_kp})  

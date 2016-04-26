@@ -59,9 +59,21 @@ k <- ggplot(dframe,aes(x,y)) +
   theme(panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.border = element_blank(),
-        axis.line = element_line(colour = "black"))
+        axis.line = element_line(colour = "black")) + 
+  scale_fill_manual(values = "yellow")
 
 k
+
+
+# check log rank test
+
+fit1 <- survfit(surv~1,data = data_in)
+summary(coxph(surv~.wx.3.experimental_condition, data = data_in))
+
+
+survdiff(surv~.wx.3.experimental_condition,data = data_in,rho = 1)
+
+
 
 
 # try to set up a fit by condition

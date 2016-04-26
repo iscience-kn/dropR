@@ -139,14 +139,19 @@ tabKaplan <- tabItem(tabName = "kaplan",
                                         c("ggplot default" = "default",
                                           "color blind-friendly" = "color_blind",
                                           "gray scale" = "gray"),
-                                        "default")
+                                        "default"),
+                           h3("Rho family tests"),
+                           uiOutput("rho_tests")
                            # Exports
                            ),
                        box(width = 9,
                            h3("Kaplan-Meier survival curve"),
+                           #tableOutput("test_table"),
                            plotOutput("kpm_plot"),
-                           textOutput("test_text")
-                           #tableOutput("test_table")
+                           h3("Test Survival Curve Differences"),
+                           verbatimTextOutput("surv_tests")
+                           #textOutput("test_text")
+                           
                            )
                        )
                      )
