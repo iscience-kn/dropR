@@ -64,27 +64,49 @@ k <- ggplot(dframe,aes(x,y)) +
 k
 
 
-data_in$surv <- with(data_in,Surv(drop_out,drop_out != 52 ))
-fit11 <- survfit(surv~1,data = subset(data_in,.wx.3.experimental_condition == 11))
-fit12 <- survfit(surv~1,data = subset(data_in,.wx.3.experimental_condition == 12))
-fit21 <- survfit(surv~1,data = subset(data_in,.wx.3.experimental_condition == 21))
-fit22 <- survfit(surv~1,data = subset(data_in,.wx.3.experimental_condition == 22))
+# try to set up a fit by condition
 fit2 <- survfit(surv~.wx.3.experimental_condition,data = data_in)
+summary(fit2)
+
+# is this equivalent? # seems to be equivalent ! nice... 
+by_cond <- split(data_in,factor(data_in$'.wx.3.experimental_condition'))
+by_cond_fit <- lapply(by_cond,function(x) survfit(surv~1,data = x))
+summary(by_cond_fit$`22`)
+
+# get upper and lower bound CI from sfit object
+getStepsByCond <- function(sfit,condition = NULL){
+  f <- dosteps(sfit$time,sfit$surv)
+  u <- dosteps(sfit$time,sfit$upper)
+  l <- dosteps(sfit$time,sfit$lower)
+  dframe <- cbind(f,uppr = u$y, lwr = l$y)
+  if(!is.null(condition)) dframe$condition <- condition
+  dframe
+}
 
 
-fit11$upper
-fit12$upper
-fit2$upper
-plot(fit2)
-lines(fit11,col="blue",conf.int = F)
-lines(fit12,col="green",conf.int = F)
-lines(fit22,col="yellow",conf.int = F)
-lines(fit21,col="pink",conf.int = F)
+test <- lapply(names(by_cond_fit),function(x){
+  getStepsByCond(by_cond_fit[[x]],x)
+})
+
+test2 <- do.call("rbind",test)
+
+test3 <- subset(test2,condition %in% c(11,12))
 
 
+k <- ggplot(test3,aes(x,y,col=condition)) + 
+  geom_line() +
+  geom_ribbon(aes(ymin = lwr, ymax = uppr,
+                  linetype=NA,fill = condition),
+              alpha=.5) + 
+  theme_bw() + 
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(colour = "black"))
+
+k
 
 
-lines(fit2,col="blue")
 
 # DEPRECATED ########################
 # dropout_by_grp_full %>%

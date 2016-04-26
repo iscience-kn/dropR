@@ -159,21 +159,27 @@ Make sure to hit 'update data!' in the upload tab.")
   kaplan_meier <- reactive({
     ds <- dataset()
     ds$drop_out <- extract_drop_out_from_df(ds,input$quest_cols)
+    ds$surv <- with(ds,Surv(drop_out,drop_out != max(ds$drop_out)))
     if(input$kaplan_fit == "total"){
-      ds$surv <- with(ds,Surv(drop_out,drop_out != max(ds$drop_out)))
       fit1 <- survfit(surv~1,data = ds)
-
-      f <- dosteps(fit1$time,fit1$surv)
-      u <- dosteps(fit1$time,fit1$upper)
-      l <- dosteps(fit1$time,fit1$lower)
-      dframe <- cbind(f,uppr = u$y, lwr = l$y)
-      dframe <- rbind(c(0,1,1,1),dframe)
-      dframe
+      steps <- getStepsByCond(fit1,"total")
+      steps
+    } else {
+      by_cond <- split(ds,factor(data_in[,input$cond_col]))
+      by_cond_fit <- lapply(by_cond,
+                            function(x) survfit(surv~1,data = x))
+      
+      by_cond_steps <- lapply(names(by_cond_fit),function(x){
+        getStepsByCond(by_cond_fit[[x]],x)
+      })
+      
+      steps <- do.call("rbind",by_cond_steps)
+      steps
     }
   })  
   
   output$kpm_plot <- renderPlot({
-    k <- ggplot(kaplan_meier(),aes(x,y)) +
+    k <- ggplot(kaplan_meier(),aes(x,y,col=condition)) +
       geom_line() +
       theme_bw() +
       theme(panel.grid.major.x = element_blank(),
@@ -181,7 +187,8 @@ Make sure to hit 'update data!' in the upload tab.")
             panel.border = element_blank(),
             axis.line = element_line(colour = "black"))
     if(input$kpm_ci){
-      k <- k + geom_ribbon(aes(ymin = lwr, ymax = uppr),alpha=.3)
+      k <- k + geom_ribbon(aes(ymin = lwr, ymax = uppr,
+                               linetype=NA, fill = condition), alpha=.3)
     } 
     k
   })
