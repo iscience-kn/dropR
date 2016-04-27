@@ -165,7 +165,7 @@ Make sure to hit 'update data!' in the upload tab.")
       steps <- getStepsByCond(fit1,"total")
       steps
     } else {
-      by_cond <- split(ds,factor(data_in[,input$cond_col]))
+      by_cond <- split(ds,factor(ds[,input$cond_col]))
       by_cond_fit <- lapply(by_cond,
                             function(x) survfit(surv~1,data = x))
       
