@@ -23,7 +23,7 @@ computeRemaining <- function(dframe,n_cols,
   } else {
     # some sanity check
     stopifnot(by_cond %in% names(dframe))
-    sp <- split(data_in,factor(dframe[,by_cond]))
+    sp <- split(dframe,factor(dframe[,by_cond]))
     
     out <- lapply(sp,function(x){
       N <- nrow(x)
