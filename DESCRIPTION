@@ -1,0 +1,17 @@
+Package: dropR
+Type: Package
+Version: 0.3
+Title: Drop out analysis in R
+Description: Analysis of dropout in surveys and experimental setups. 
+Author: "Matthias Bannert <bannert@kof.ethz.ch> [aut, cre]"
+Depends:
+    R (>= 3.0.0),
+    DT,
+    shiny,
+    shinydashboard,
+    ggplot2,
+    survival
+Date: 2016-05-26
+License: GPL-2
+LazyData: true
+Maintainer: 'Matthias Bannert' <bannert@kof.ethz.ch>

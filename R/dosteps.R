@@ -1,3 +1,4 @@
+#'  @export
 dosteps <- function(x, y,return_df = T) {
   keep <- is.finite(x) & is.finite(y)
   if (!any(keep)) 

@@ -1,10 +1,15 @@
-source("R/extract_drop_out_from_df.R")
-source("R/computeRemaining.R")
-source("R/find_drop_out.R")
-source("R/utils.R")
-source("R/dosteps.R")
-library(ggplot2)
-library(survival)
+# source("R/extract_drop_out_from_df.R")
+# source("R/computeRemaining.R")
+# source("R/find_drop_out.R")
+# source("R/utils.R")
+# source("R/dosteps.R")
+
+library(dropR)
+
+
+# more NA
+# -1, -9, 999
+
 
 server <- function(input, output) {
   # uploaded file
@@ -39,7 +44,8 @@ server <- function(input, output) {
                 selected = names(dataset())[-c(1,length(names(dataset())))],
                 multiple=TRUE,
                 choices = names(dataset()),
-                selectize = FALSE)
+                selectize = FALSE,
+                size = 15)
   })
   
 # show conditions ############

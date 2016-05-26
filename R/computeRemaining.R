@@ -6,7 +6,7 @@
 #' 
 #' @param dframe a data.frame
 #' @param number of questions
-
+#' @export
 computeRemaining <- function(dframe,n_cols,
                              by_cond = NULL,
                              long_format = T,

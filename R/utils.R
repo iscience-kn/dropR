@@ -1,12 +1,13 @@
+#' @export
 n_count <- function(x, n){ length((which(x == n)))}
 
-
+#' @export
 all_values <- function(x) {
   if(is.null(x)) return(NULL)
   paste0(names(x), ": ", format(x), collapse = "<br />")
 }
 
-
+#' @export
 getStepsByCond <- function(sfit,condition = NULL){
   f <- dosteps(sfit$time,sfit$surv)
   u <- dosteps(sfit$time,sfit$upper)
