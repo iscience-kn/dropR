@@ -15,7 +15,7 @@ tabHome <- tabItem(tabName = "home",
 # Visual Analysis ####
 tabViz <- tabItem(tabName = "viz",
                   fluidRow(
-                    box(width=3,
+                    box(width=4,
                         h3("Plot options"),
                         uiOutput("show_conditions"),
                         sliderInput("stroke_width","Stroke width",1,5,2),
@@ -26,21 +26,33 @@ tabViz <- tabItem(tabName = "viz",
                                        "gray scale" = "gray"),
                                      "default"),
                         textInput("rename_conditions","Rename selected conditions"),
-                        selectInput("export_format","Export graph as:",
-                                    c("pdf" = "pdf",
-                                      "svg" = "svg"),
-                                    "pdf")
-                        ),
-                    box(width = 2,
                         h3("Hints"),
                         p("- color blind and printer friendly palettes support up to 8 different categories (colors)."),
-                        p("- When re-labelling condtions, use ',' as a seperator. Make sure to list as many names as conditions selected.")
-                    ),
-                    
-                    box(width = 7,
+                        p("- When re-labelling condtions, use ',' as a seperator. Make sure to list as many names as conditions selected."),
+                        p("- With dropR you can produce graphs for publication in various formats. You may choose from vector formats such as .svg and .pdf and the .png format for rendered pixels. While size is relevant to any format, resolution only applies to .png and will be ignored when vector formats are chosen.")),
+                    box(width = 8,
                         h3("Dropout by question"),
                         div(plotOutput("do_curve_plot"),
-                            style = 'overflow:auto')
+                            style = 'overflow:auto'),
+                        textInput("plot_fname","file name (w/o file extension)",
+                                  width=240,
+                                  value = paste0("dropR_",round(as.numeric(Sys.time())))
+                                  ),
+                        selectInput("export_format","export graph as:",
+                                    c("pdf" = "pdf",
+                                      "svg" = "svg",
+                                      "png" = "png"),
+                                    "pdf",width=240),
+                        sliderInput("dpi","resolution (dpi, .png only)",
+                                    min = 75, max = 600,value = 300,
+                                    width = 240),
+                        sliderInput("h","height (in inches)",
+                                    min = 3, max = 50,value = 4,
+                                    width = 240),
+                        sliderInput("w","width (in inches)",
+                                    min = 3, max = 50,value = 4,
+                                    width = 240),
+                        downloadButton('downloadCurvePlot', 'download plot')
                         )
                     
                     
@@ -83,7 +95,9 @@ tabUpload <- tabItem(tabName = "upload",
                          fileInput('file1', '',
                                      accept=c('text/csv', 
                                               'text/comma-separated-values,text/plain', 
-                                              '.csv'))
+                                              '.csv')),
+                         h4("or use a demo dataset instead"),
+                         checkboxInput("demo_ds","use demo data",value = F)
                          ),
                        box(width=3,
                          h3("2 Specify"),

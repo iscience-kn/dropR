@@ -1,30 +1,25 @@
-# source("R/extract_drop_out_from_df.R")
-# source("R/computeRemaining.R")
-# source("R/find_drop_out.R")
-# source("R/utils.R")
-# source("R/dosteps.R")
-
 library(dropR)
-
-
 # more NA
 # -1, -9, 999
-
-
 server <- function(input, output) {
   # uploaded file
   dataset <- reactive({
-    if(is.null(input$file1)) return(NULL)
-    upfile <- read.csv2(input$file1$datapath,
-                        sep = input$sep,
-                        dec = input$dec,
-                        quote = input$quote,
-                        header = input$header,
-                        na.strings = input$nas)
+    if(input$demo_ds){
+      data("dropRdemo")
+      upfile <- dropRdemo
+    } else {
+      if(is.null(input$file1)) return(NULL)
+      upfile <- read.csv2(input$file1$datapath,
+                          sep = input$sep,
+                          dec = input$dec,
+                          quote = input$quote,
+                          header = input$header,
+                          na.strings = input$nas)  
+    }
     upfile
   })
   
-# dynamic UI based on dataset
+# dynamic UI based on dataset #######
 # Choose experimental condition ####
   output$choose_condition <- renderUI({    
     if(is.null(dataset())) return(NULL)
@@ -67,7 +62,8 @@ server <- function(input, output) {
   data_procd <- reactive({
     input$goButton
     isolate({
-      if(is.null(input$file1) | is.null(input$cond_col) |
+      if((is.null(input$file1) & !input$demo_ds )
+         | is.null(input$cond_col) |
          is.null(input$quest_cols)){
         #data.frame(id = 0, pct_remain = 0, condition = "total")
         NULL
@@ -150,12 +146,31 @@ Make sure to hit 'update data!' in the upload tab.")
                                          )
         )
     }
+    ggsave(paste0("curve_plot.",input$export_format),
+           plot = do_curve, device = input$export_format,
+           dpi = input$dpi,
+           width = input$w,
+           height = input$h)
     do_curve
   })
   
+  
+  
+# download handler plot ############  
+  output$downloadCurvePlot <- downloadHandler(
+    filename = function(){
+      paste(input$plot_fname,input$export_format,sep=".")
+    },
+    content = function(file) {
+      file.copy(paste("curve_plot",input$export_format,sep="."),
+                file, overwrite=TRUE)
+    }
+  )
+  
+  
 # Preview data Table ####
   output$table <- DT::renderDataTable(DT::datatable({
-    if(is.null(input$file1)) return(NULL)
+    if(is.null(input$file1) & !input$demo_ds) return(NULL)
     else{
       dataset()
     }
