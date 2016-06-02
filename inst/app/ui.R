@@ -65,7 +65,8 @@ tabViz <- tabItem(tabName = "viz",
                                     1,52,1)
                                                 ),
                     box(width=7,
-                        h3("Test outcomes"))
+                        h3("Test outcomes"),
+                        tableOutput("ctable"))
                   )
                   
                   )

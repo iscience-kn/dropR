@@ -97,6 +97,11 @@ server <- function(input, output) {
   #   
   # })
   # 
+  
+  output$ctable <- renderTable({
+    dataset()
+  })
+  
 # reactive plot element ####
   output$do_curve_plot <- renderPlot({
     validate(
