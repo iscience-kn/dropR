@@ -92,6 +92,12 @@ server <- function(input, output) {
 
   })
 
+  output$xsq_slider <- renderUI({
+    sliderInput('chisq_question',"Select question",
+                1,length(input$quest_cols),1,1)
+  })
+  
+  
   # output$debug_txt <- renderText({
   #   #class(data_4_plot())
   #   

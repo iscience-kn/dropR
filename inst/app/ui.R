@@ -57,17 +57,8 @@ tabViz <- tabItem(tabName = "viz",
                     
                     
                     
-                    ),
-                  fluidRow(
-                    box(width=5,
-                        HTML("<h3>χ<sup>2</sup>-test options</h3>"),
-                        sliderInput('chisq_question',"Select question",
-                                    1,52,1)
-                                                ),
-                    box(width=7,
-                        h3("Test outcomes"),
-                        tableOutput("ctable"))
-                  )
+                    )
+           
                   
                   )
 # Upload ####
@@ -138,6 +129,21 @@ tabUpload <- tabItem(tabName = "upload",
                      # )
                      )
 
+# Tab Chisq ####
+tabXsq <- tabItem(tabName = "xsq",
+                  fluidRow(
+                    box(width=5,
+                        HTML("<h3>χ<sup>2</sup>-test options</h3>"),
+                        uiOutput("xsq_slider"),
+                        checkboxInput("fisher","Use Fisher's exact test",T)
+                    ),
+                    box(width=7,
+                        h3("Test outcomes"),
+                        tableOutput("ctable"))
+                  )
+                  )
+
+
 # Tab Kaplan-Meier ####
 tabKaplan <- tabItem(tabName = "kaplan",
                      h2("Kaplan-Meier Estimation"),
@@ -178,8 +184,10 @@ ui <- dashboardPage(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("home")),
       menuItem("Upload", tabName = "upload", icon = icon("upload")),
-      menuItem("Visual inspection, Chisq.", tabName = "viz",
+      menuItem("Visual inspection", tabName = "viz",
                icon = icon("area-chart",lib="font-awesome")),
+      menuItem("Chisq", tabName = "xsq",
+               icon = icon("percent",lib="font-awesome")),
       menuItem("Kaplan-Meier est.", tabName = "kaplan",
                icon = icon("percent",lib="font-awesome")),
       menuItem("About", tabName = "about")
@@ -190,6 +198,7 @@ ui <- dashboardPage(
     tabItems(tabHome,
              tabViz,
              tabUpload,
+             tabXsq,
              tabKaplan)
   )
 )
