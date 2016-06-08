@@ -179,6 +179,17 @@ Make sure to hit 'update data!' in the upload tab.")
   )
   
   
+  output$downloadKpmPlot <- downloadHandler(
+    filename = function(){
+      paste(input$kpm_plot_fname,input$kpm_export_format,sep=".")
+    },
+    content = function(file) {
+      file.copy(paste("kpm_plot",input$kpm_export_format,sep="."),
+                file, overwrite=TRUE)
+    }
+  )
+  
+  
 # Preview data Table ####
   output$table <- DT::renderDataTable(DT::datatable({
     if(is.null(input$file1) & !input$demo_ds) return(NULL)
@@ -236,6 +247,10 @@ Make sure to hit 'update data!' in the upload tab.")
   })
   
   output$kpm_plot <- renderPlot({
+    validate(
+      need(dataset(),"Please upload a dataset.
+           Make sure to hit 'update data!' in the upload tab.")
+      )
     k <- ggplot(kaplan_meier()$steps,aes(x,y,col=condition,fill = condition)) +
       geom_line() +
       theme_bw() +
@@ -268,10 +283,14 @@ Make sure to hit 'update data!' in the upload tab.")
                                            by=1/8)[c(1,8,3,7,4,5,2,6)])
                         )
   }
-
-  k
+    ggsave(paste0("kpm_plot.",input$kpm_export_format),
+           plot = k, device = input$kpm_export_format,
+           dpi = input$kpm_dpi,
+           width = input$kpm_w,
+           height = input$kpm_h)
+    k
   })
-
+  
   output$test_table <- renderTable({
     kaplan_meier()$steps
   })
