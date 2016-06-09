@@ -1,21 +1,74 @@
 library(dropR)
+library(data.table)
 data("dropRdemo")
 n_q <- length(grep("vi_",names(dropRdemo)))
 dropRdemo$drop_out_idx <- extract_drop_out_from_df(dropRdemo,grep("vi_",names(dropRdemo)))
 
 library(data.table)
 computeStatistics <- function(df, by_cond = NULL,
-                              do_indicator = "drop_out_idx"
-                              ){
+                              do_indicator = "drop_out_idx",
+                              no_of_vars
+){
+  out <- list()
   dtable <- data.table(df)
-#  if(is.null(by_cond)){
-    out <- dtable[,list(drop_out_count = .N),
-                  keyby = list(do_indicator,by_cond)]
-  #  out[,cs := cumsum(count_remain)]
-    out
- # }
   
+  if(is.null(by_cond)){
+    out$cond <- NULL
+  } else {
+    # drop out count by conditions
+    do_by_cond <- dtable[,list(drop_out_count = .N),
+                         keyby = c(do_indicator,by_cond)]
+    # expand to full grid 
+    no_of_cond <- length(unique(dtable[,get(by_cond)]))
+    full_grid <- merge(do_by_cond,
+                       data.table(id = sort(rep(1:no_of_vars,4)),
+                                  ec = unique(dtable[,get(by_cond)])),
+                       by.x = c(do_indicator,by_cond),
+                       by.y = c("id","ec"),
+                       all.y = T,
+                       allow.cartesian = T)
+    
+    full_grid[is.na(drop_out_count), drop_out_count := 0,]
+    
+    # add cumulative dropout count by condition
+    full_grid[,cs := cumsum(drop_out_count),
+              keyby = by_cond]
+    # add observations per condition to compute remain
+    full_grid <- full_grid[dtable[,.N,keyby = by_cond]]
+    # add remaining and pct remaining
+    full_grid[, remain := N-cs]
+    full_grid[, pct_remain := (N-cs)/N]  
+    out$cond <- full_grid[]
+  } 
+  
+  do_by_total <- dtable[,list(drop_out_count = .N),
+                        keyby = c(do_indicator)]
+  total_grid <- merge(do_by_total,
+                      data.table(id = rep(1:no_of_vars)),
+                      by.x = do_indicator,
+                      by.y = "id",
+                      all.y = T,
+                      allow.cartesian = T)
+  
+  total_grid[is.na(drop_out_count), drop_out_count := 0,]
+  total_grid[,cs := cumsum(drop_out_count)]
+  total_grid[,N := dtable[,.N]]
+  total_grid[, remain := N-cs]
+  total_grid[, pct_remain := (N-cs)/N]  
+  out$total <- total_grid[]
+  
+  out
+
 }
+
+undebug(computeStatistics)
+test <- computeStatistics(dropRdemo,by_cond = "experimental_condition",
+                          no_of_vars = 52)
+
+tt <- subset(test,drop_out_idx == 45)
+ttt <- as.table(as.matrix(tt[,list(experimental_condition,cs,remain)]))
+chisq.test(ttt)
+
 
 dt <- data.table(dropRdemo)
 out <- dt[,list(drop_out_count = .N),
@@ -35,7 +88,7 @@ out[is.na(drop_out_count),drop_out_count := 0,]
 out[,cs := cumsum(drop_out_count),
     keyby = c("experimental_condition")]
 
-out <- out[dt[,.N,keyby = "experimental_condition"]]
+test <- test[dt[,.N,keyby = "experimental_condition"]]
 out[, remain := N-cs]
 out[, pct_remain := (N-cs)/N]
 
