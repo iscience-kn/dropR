@@ -10,6 +10,7 @@ Depends:
     shiny,
     shinydashboard,
     ggplot2,
+    data.table,
     survival
 Date: 2016-05-26
 License: GPL-2
