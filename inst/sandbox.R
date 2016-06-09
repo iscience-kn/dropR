@@ -4,6 +4,40 @@ data("dropRdemo")
 n_q <- length(grep("vi_",names(dropRdemo)))
 dropRdemo$drop_out_idx <- extract_drop_out_from_df(dropRdemo,grep("vi_",names(dropRdemo)))
 
+test <- computeStatistics(dropRdemo,by_cond = "experimental_condition",
+                          no_of_vars = 52)
+
+test <- computeStatistics(dropRdemo,by_cond = "None",
+                          no_of_vars = 52)
+
+d <- test
+d <- as.data.frame(stats())
+d$condition <- factor(d$condition)
+
+d <- subset(d,condition != "total")
+test_input <- subset(d,drop_out_idx == 10)
+# chisq.test(as.table(as.matrix(test_input[,c("condition","cs","remain")])))
+chisq.test(as.table(matrix(test_input[,c("condition","cs","remain")])))
+
+chisq.test(as.table(as.matrix(test_input[,list(condition,cs,remain)])))
+
+Q <- as.table(as.matrix(test_input[,list(condition,cs,remain)]))
+
+chisq.test(Q)
+## From Agresti(2007) p.39
+M <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+dimnames(M) <- list(gender = c("F", "M"),
+                    party = c("Democrat","Independent", "Republican"))
+(Xsq <- chisq.test(M))  # Prints test summary
+
+test
+test$cond
+head(test$total)
+
+debug(computeStatistics)
+
+
+
 library(data.table)
 computeStatistics <- function(df, by_cond = NULL,
                               do_indicator = "drop_out_idx",

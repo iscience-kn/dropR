@@ -139,7 +139,10 @@ tabXsq <- tabItem(tabName = "xsq",
                     ),
                     box(width=7,
                         h3("Test outcomes"),
-                        tableOutput("ctable"))
+                        tableOutput("cond_table"),
+                        tableOutput("chisq_tests")
+                        #tableOutput("ctable")
+                        )
                   )
                   )
 

@@ -2,14 +2,14 @@
 #' 
 #' 
 #' @export
-computeStatistics <- function(df, by_cond = NULL,
+computeStatistics <- function(df, by_cond = "None",
                               do_indicator = "drop_out_idx",
                               no_of_vars
 ){
   out <- list()
   dtable <- data.table(df)
   
-  if(is.null(by_cond)){
+  if(by_cond == "None"){
     out$cond <- NULL
   } else {
     # drop out count by conditions
@@ -34,8 +34,14 @@ computeStatistics <- function(df, by_cond = NULL,
     full_grid <- full_grid[dtable[,.N,keyby = by_cond]]
     # add remaining and pct remaining
     full_grid[, remain := N-cs]
-    full_grid[, pct_remain := (N-cs)/N]  
-    out$cond <- full_grid[]
+    full_grid[, pct_remain := (N-cs)/N]
+    # rename the condition field to a fixed name for easy
+    # rbind later on
+    name_pos <- match(by_cond,names(full_grid))
+    names(full_grid)[name_pos] <- "condition"
+    full_grid$condition <- factor(full_grid$condition)
+    out$cond <- full_grid[,c("drop_out_idx","condition","cs","N","remain",
+                              "pct_remain"),with = FALSE]
   } 
   
   do_by_total <- dtable[,list(drop_out_count = .N),
@@ -52,8 +58,11 @@ computeStatistics <- function(df, by_cond = NULL,
   total_grid[,N := dtable[,.N]]
   total_grid[, remain := N-cs]
   total_grid[, pct_remain := (N-cs)/N]  
-  out$total <- total_grid[]
+  total_grid[, condition := "total"]
+  total_grid$condition <- factor(total_grid$condition)
+  out$total <- total_grid[,c("drop_out_idx","condition","cs","N","remain",
+                             "pct_remain"),with = FALSE]
   
-  out
+  rbind(out$total,out$cond)
   
 }
