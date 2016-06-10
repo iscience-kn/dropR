@@ -331,9 +331,23 @@ server <- function(input, output) {
          lname2 = test_table)
     names(li)[2] <- lname2
     li
-    
-    
   })
+  
+  output$odds_ratio <- renderTable({
+    d <- as.data.frame(stats())
+    d$condition <- factor(d$condition)
+    d <- subset(d,condition != "total")
+    
+    test_input <- subset(d,drop_out_idx == input$chisq_question)
+    
+    OR_matrix <- outer(test_input$pct_remain,
+                       test_input$pct_remain,
+                       FUN = get_odds_ratio)
+    colnames(OR_matrix) <- test_input$condition
+    row.names(OR_matrix) <- test_input$condition
+    OR_matrix
+  })
+  
   
   output$surv_tests <- renderPrint({
     if(input$kaplan_fit == "conditions"){

@@ -10,12 +10,64 @@ test <- computeStatistics(dropRdemo,by_cond = "experimental_condition",
 test <- computeStatistics(dropRdemo,by_cond = "None",
                           no_of_vars = 52)
 
+
+
+share_remain = data.frame(intermediate()$remain)$Freq / data.frame(intermediate()$participants)$Freq
+
+odds <- get_odds(share_remain)
+condition <- data.frame(intermediate()$participants)$Var1
+
+m <- combn(odds,2)
+or <- m[1,]/m[2,]
+nms <- combn(as.character(condition),
+             2,paste0,collapse=' vs. ')
+
+d <- data.frame(t(or))
+colnames(d) <- nms
+d
+
+
+get_odds <- function(p){
+  if(!all(p <= 1 & p >= 0)) stop('Input is not a probability!')
+  p / (1-p)
+} 
+
+test <- subset(test,condition != "total")
+test_input <- subset(test,drop_out_idx == 10)
+
+get_odds_ratio <- function(a,b){
+ get_odds(a)/get_odds(b)
+}
+
+OR_matrix <- outer(test_input$pct_remain,test_input$pct_remain,FUN = get_odds_ratio)
+colnames(OR_matrix) <- test_input$condition
+row.names(OR_matrix) <- test_input$condition
+
+
+
+debug(get_or_matrix)
+oo <- get_or_matrix(test_input,"condition")
+
+mm <- matrix(as.character(oo),2)
+apply(mm,2,function(x) paste0(x[1], x[2]))
+
+
+
+
+
+t(combn(test_input$condition,2))
+
+get_odds(test_input$pct_remain[1])/
+get_odds(test_input$pct_remain[2])
+
+
+
 d <- test
 d <- as.data.frame(stats())
 d$condition <- factor(d$condition)
 
 d <- subset(d,condition != "total")
-test_input <- subset(d,drop_out_idx == 10)
+
 # chisq.test(as.table(as.matrix(test_input[,c("condition","cs","remain")])))
 tbl <- test_input[,c("cs","remain"),with=FALSE]
 tbl2 <- as.table(as.matrix(tbl))

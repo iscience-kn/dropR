@@ -140,8 +140,9 @@ tabXsq <- tabItem(tabName = "xsq",
                     ),
                     box(width=7,
                         h3("Test outcomes"),
-                        verbatimTextOutput("chisq_tests")
-                        #tableOutput("ctable")
+                        verbatimTextOutput("chisq_tests"),
+                        h3("Odds ratio by item"),
+                        tableOutput("odds_ratio")
                         )
                   )
                   )
