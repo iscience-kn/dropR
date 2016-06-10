@@ -47,6 +47,8 @@ server <- function(input, output) {
       } else {
         dta <- dataset()
         dta$drop_out_idx <- extract_drop_out_from_df(dta,input$quest_cols)
+        
+        
         # compute stats
         
 
@@ -194,6 +196,11 @@ server <- function(input, output) {
    
 
     d <- as.data.frame(stats())
+    if(input$cutoff){
+      last_q <- length(input$quest_cols)
+      d <- subset(d,drop_out_idx != last_q)
+    }
+    
     d$condition <- factor(d$condition)
     d <- d[d$condition %in% react_cond_col(),]
     d$condition <- droplevels(d$condition)
@@ -208,8 +215,7 @@ server <- function(input, output) {
     do_curve <- do_curve + geom_line(aes(x=drop_out_idx,
                                          y=pct_remain,
                                          col=factor(condition)),
-                                     # size = input$stroke_width) +
-                                      size = 1) +
+                                      size = input$stroke_width) +
       theme_bw() +
       theme(panel.grid.major.x = element_blank(),
             panel.grid.minor.x = element_blank(),
@@ -345,14 +351,24 @@ server <- function(input, output) {
  
   })
 
-  output$chisq_tests <- renderTable({
+  output$chisq_tests <- renderPrint({
     d <- as.data.frame(stats())
     d$condition <- factor(d$condition)
     
     d <- subset(d,condition != "total")
     test_input <- subset(d,drop_out_idx == input$chisq_question)
+    test_table <- as.table(as.matrix(test_input[,c("cs","remain")]))
+    dimnames(test_table) <- list(conditions = test_input$condition,
+                                 participants = c("dropout","remaining"))
     # chisq.test(as.table(as.matrix(test_input[,c("condition","cs","remain")])))
-    chisq.test(as.table(as.matrix(test_input[,c("condition","cs","remain")])))
+    test_result <- chisq.test(test_table,simulate.p.value = input$fisher)
+    lname2 <- sprintf("Dropout at question %s",input$chisq_question)
+    li <- list("Test result" = test_result,
+         lname2 = test_table)
+    names(li)[2] <- lname2
+    li
+    
+    
   })
   
   output$surv_tests <- renderPrint({

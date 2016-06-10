@@ -17,7 +17,19 @@ d$condition <- factor(d$condition)
 d <- subset(d,condition != "total")
 test_input <- subset(d,drop_out_idx == 10)
 # chisq.test(as.table(as.matrix(test_input[,c("condition","cs","remain")])))
-chisq.test(as.table(matrix(test_input[,c("condition","cs","remain")])))
+tbl <- test_input[,c("cs","remain"),with=FALSE]
+tbl2 <- as.table(as.matrix(tbl))
+dimnames(tbl2) <- list(conditions = as.character(test_input$condition),
+                       participants = c("dropout","remain"))
+
+
+chisq.test(tbl2)
+renderTable(tbl2)
+
+
+tbl <- as.table(matrix(test_input[,list(condition,cs,remain)]))
+
+chisq.test()
 
 chisq.test(as.table(as.matrix(test_input[,list(condition,cs,remain)])))
 

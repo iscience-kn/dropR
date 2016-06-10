@@ -20,6 +20,7 @@ tabViz <- tabItem(tabName = "viz",
                         uiOutput("show_conditions"),
                         sliderInput("stroke_width","Stroke width",1,5,2),
                         checkboxInput("show_points","Show points"),
+                        checkboxInput("cutoff","cut off last question",value = T),
                         radioButtons("color_palette","Color palettes",
                                      c("ggplot default" = "default",
                                        "color blind-friendly" = "color_blind",
@@ -135,12 +136,11 @@ tabXsq <- tabItem(tabName = "xsq",
                     box(width=5,
                         HTML("<h3>χ<sup>2</sup>-test options</h3>"),
                         uiOutput("xsq_slider"),
-                        checkboxInput("fisher","Use Fisher's exact test",T)
+                        checkboxInput("fisher","Simulate p-values",T)
                     ),
                     box(width=7,
                         h3("Test outcomes"),
-                        tableOutput("cond_table"),
-                        tableOutput("chisq_tests")
+                        verbatimTextOutput("chisq_tests")
                         #tableOutput("ctable")
                         )
                   )
