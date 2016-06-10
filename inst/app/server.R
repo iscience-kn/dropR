@@ -89,42 +89,7 @@ server <- function(input, output) {
     out
     
   })
-  
-  
-  # data transformation and computation ####
-  # data_procd <- reactive({
-  #   input$goButton
-  #   isolate({
-  #     if((is.null(input$file1) & !input$demo_ds )
-  #        | is.null(input$cond_col) |
-  #        is.null(input$quest_cols)){
-  #       #data.frame(id = 0, pct_remain = 0, condition = "total")
-  #       NULL
-  #     } else {
-  #       # compute dropout
-  #       data_in <- dataset()
-  #       data_in$drop_out <- extract_drop_out_from_df(data_in,input$quest_cols)
-  #       # number of questions columns
-  #       n_q <- length(input$quest_cols)
-  #       # total share
-  #       total_dropout <- computeRemaining(data_in,n_q)
-  #       tdo_df <- data.frame(condition = "total",
-  #                            pct_remain = total_dropout$remain_pct,
-  #                            id = total_dropout$id)
-  #       # if no condition is column is specified we can only show total
-  #       if(input$cond_col != "None"){
-  #         # reformat the total dropout data.frame to rbind it with the grouped df
-  #         dropout_by_grp <- computeRemaining(data_in,n_q,input$cond_col)
-  #         dropout_by_grp_full <- rbind(tdo_df,dropout_by_grp)  
-  #         dropout_by_grp_full
-  #       } else {
-  #         tdo_df
-  #       }
-  #     }      
-  #   })
-  #   
-  # })
-  
+
   
 # DYNAMIC UI Parts #######
 # Choose experimental condition ####
@@ -254,52 +219,51 @@ server <- function(input, output) {
   })
 
 
- 
-  # 
-  # output$kpm_plot <- renderPlot({
-  #   validate(
-  #     need(dataset(),"Please upload a dataset.
-  #          Make sure to hit 'update data!' in the upload tab.")
-  #   )
-  #   k <- ggplot(kaplan_meier()$steps,aes(x,y,col=condition,fill = condition)) +
-  #     geom_line() +
-  #     theme_bw() +
-  #     theme(panel.grid.major.x = element_blank(),
-  #           panel.grid.minor.x = element_blank(),
-  #           panel.border = element_blank(),
-  #           axis.line = element_line(colour = "black"))
-  #   if(input$kpm_ci){
-  #     k <- k + geom_ribbon(aes(ymin = lwr, ymax = uppr,
-  #                              linetype=NA), alpha=.3)
-  #   } 
-  #   
-  #   if(input$color_palette_kp == "color_blind"){
-  #     k <- k + scale_fill_manual(values=c("#000000", "#E69F00",
-  #                                         "#56B4E9", "#009E73",
-  #                                         "#F0E442", "#0072B2",
-  #                                         "#D55E00", "#CC79A7")) +
-  #       scale_color_manual(values=c("#000000", "#E69F00",
-  #                                   "#56B4E9", "#009E73",
-  #                                   "#F0E442", "#0072B2",
-  #                                   "#D55E00", "#CC79A7"))
-  #   }
-  #   
-  #   if(input$color_palette_kp == "gray"){
-  #     k <- k + 
-  #       scale_color_manual(values = gray(seq(from=0,1,
-  #                                            by=1/8)[c(1,8,3,7,4,5,2,6)]
-  #       )) + 
-  #       scale_fill_manual(values = gray(seq(from=0,1,
-  #                                           by=1/8)[c(1,8,3,7,4,5,2,6)])
-  #       )
-  #   }
-  #   ggsave(paste0("kpm_plot.",input$kpm_export_format),
-  #          plot = k, device = input$kpm_export_format,
-  #          dpi = input$kpm_dpi,
-  #          width = input$kpm_w,
-  #          height = input$kpm_h)
-  #   k
-  # })
+  output$kpm_plot <- renderPlot({
+    validate(
+      need(dataset(),"Please upload a dataset.
+           Make sure to hit 'update data!' in the upload tab.")
+    )
+    k <- ggplot(kaplan_meier()$steps,
+                aes(x,y,col=condition,fill = condition)) +
+      geom_line() +
+      theme_bw() +
+      theme(panel.grid.major.x = element_blank(),
+            panel.grid.minor.x = element_blank(),
+            panel.border = element_blank(),
+            axis.line = element_line(colour = "black"))
+    if(input$kpm_ci){
+      k <- k + geom_ribbon(aes(ymin = lwr, ymax = uppr,
+                               linetype=NA), alpha=.3)
+    }
+
+    if(input$color_palette_kp == "color_blind"){
+      k <- k + scale_fill_manual(values=c("#000000", "#E69F00",
+                                          "#56B4E9", "#009E73",
+                                          "#F0E442", "#0072B2",
+                                          "#D55E00", "#CC79A7")) +
+        scale_color_manual(values=c("#000000", "#E69F00",
+                                    "#56B4E9", "#009E73",
+                                    "#F0E442", "#0072B2",
+                                    "#D55E00", "#CC79A7"))
+    }
+
+    if(input$color_palette_kp == "gray"){
+      k <- k +
+        scale_color_manual(values = gray(seq(from=0,1,
+                                             by=1/8)[c(1,8,3,7,4,5,2,6)]
+        )) +
+        scale_fill_manual(values = gray(seq(from=0,1,
+                                            by=1/8)[c(1,8,3,7,4,5,2,6)])
+        )
+    }
+    ggsave(paste0("kpm_plot.",input$kpm_export_format),
+           plot = k, device = input$kpm_export_format,
+           dpi = input$kpm_dpi,
+           width = input$kpm_w,
+           height = input$kpm_h)
+    k
+  })
 
   
 # download handler plot ############  
