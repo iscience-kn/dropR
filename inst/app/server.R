@@ -152,7 +152,7 @@ server <- function(input, output) {
 # PLOTTING ####################
   
   # reactive plot element ####
-  output$do_curve_plot <- renderPlot({
+  do_curve_plot <- reactive({
     validate(
       need(stats(),"Please upload a dataset.
            Make sure to hit 'update data!' in the upload tab.")
@@ -177,22 +177,41 @@ server <- function(input, output) {
       }
     }
     do_curve <- ggplot(d)
-    do_curve <- do_curve + geom_line(aes(x=drop_out_idx,
-                                         y=pct_remain,
-                                         col=factor(condition)),
-                                      size = input$stroke_width) +
+    
+    if(input$linetypes){
+      do_curve <- do_curve + geom_line(aes(x=drop_out_idx,
+                                           y=(pct_remain)*100,
+                                           col = factor(condition),
+                                           linetype = factor(condition)),
+                                       size = as.numeric(input$stroke_width))
+    } else {
+      do_curve <- do_curve + geom_line(aes(x=drop_out_idx,
+                                           y=(pct_remain)*100,
+                                           col = factor(condition)),
+                                       size = as.numeric(input$stroke_width))  
+    }
+    do_curve <- do_curve + 
       theme_bw() +
       theme(panel.grid.major.x = element_blank(),
             panel.grid.minor.x = element_blank(),
             panel.border = element_blank(),
-            axis.line = element_line(colour = "black"))
-    
+            axis.line = element_line(colour = "black")) + 
+      xlab("Dropout Index") +
+      ylab("Percent Remaining")
+      
+
     # optional plot parameters 
+    if(input$full_scale){
+      do_curve <- do_curve + 
+        scale_y_continuous(limits = c(0,100))
+    }
+    
+    
     if(input$show_points){
       do_curve <- do_curve + geom_point(aes(x=drop_out_idx,
-                                            y=pct_remain,
+                                            y=(pct_remain)*100,
                                             col=condition),
-                                        size = input$stroke_width*1.5)
+                                        size = as.numeric(input$stroke_width)*1.5)
     }
     
     if(input$color_palette == "color_blind" & length(levels(d$condition) < 9)){
@@ -209,16 +228,31 @@ server <- function(input, output) {
         )
         )
     }
-    ggsave(paste0("curve_plot.",input$export_format),
-           plot = do_curve, device = input$export_format,
-           dpi = input$dpi,
-           width = input$w,
-           height = input$h)
-    do_curve
+   
+    do_curve <- do_curve + guides(color = guide_legend(title = NULL), linetype = guide_legend(NULL))
     
+    do_curve
   })
 
 
+  output$do_curve_plot <- renderPlot({
+    
+    dc <- do_curve_plot()
+    
+    ggsave(paste0("curve_plot.",input$export_format),
+           plot = dc, device = input$export_format,
+           dpi = input$dpi,
+           width = input$w,
+           height = input$h)
+    
+    dc
+    
+    })
+  
+  output$do_curve_plot_2 <- renderPlot({do_curve_plot()})
+  
+  
+  
   output$kpm_plot <- renderPlot({
     validate(
       need(dataset(),"Please upload a dataset.

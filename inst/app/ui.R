@@ -5,11 +5,14 @@ library(shinydashboard)
 # Tab items 
 # Home ####
 tabHome <- tabItem(tabName = "home",
-                   h1("dropR"),
-                   h2("About dropout analysis using R"),
-                   p("Some text about the GUI and the underlying R
-                     package."),
-                   textOutput("debug_txt")
+                   div(align="center",
+                       img(src="decrease.svg",width=120),
+                       h1("dropR"),
+                       h2("About dropout analysis using R"),
+                       p("Some text about the GUI and the underlying R
+                     package.")
+                       )
+                   # ,textOutput("debug_txt")
                    )
 
 # Visual Analysis ####
@@ -18,18 +21,20 @@ tabViz <- tabItem(tabName = "viz",
                     box(width=4,
                         h3("Plot options"),
                         uiOutput("show_conditions"),
-                        sliderInput("stroke_width","Stroke width",1,5,2),
-                        checkboxInput("show_points","Show points"),
-                        checkboxInput("cutoff","cut off last question",value = T),
-                        radioButtons("color_palette","Color palettes",
-                                     c("ggplot default" = "default",
-                                       "color blind-friendly" = "color_blind",
-                                       "gray scale" = "gray"),
-                                     "default"),
                         textInput("rename_conditions","Rename selected conditions"),
+                        selectInput("stroke_width","Stroke width",c(1,2,3,4,5),1),
+                        checkboxInput("show_points","Show points"),
+                        checkboxInput("linetypes","Use line type to distinguish conditions",value = T),
+                        checkboxInput("cutoff","cut off last question",value = T),
+                        checkboxInput("full_scale","Show full Y-axis from 0 to 100",value = T),
+                        radioButtons("color_palette","Color palettes",
+                                     c("color blind-friendly" = "color_blind",
+                                       "ggplot default" = "default",
+                                       "gray scale" = "gray"),
+                                     "color_blind"),
                         h3("Hints"),
                         p("- color blind and printer friendly palettes support up to 8 different categories (colors)."),
-                        p("- When re-labelling condtions, use ',' as a seperator. Make sure to list as many names as conditions selected."),
+                        p("- When re-labelling condtions, use comma (,) as a seperator. Make sure to list as many names as conditions selected."),
                         p("- With dropR you can produce graphs for publication in various formats. You may choose from vector formats such as .svg and .pdf and the .png format for rendered pixels. While size is relevant to any format, resolution only applies to .png and will be ignored when vector formats are chosen.")),
                     box(width = 8,
                         h3("Dropout by question"),
@@ -51,7 +56,7 @@ tabViz <- tabItem(tabName = "viz",
                                     min = 3, max = 50,value = 4,
                                     width = 240),
                         sliderInput("w","width (in inches)",
-                                    min = 3, max = 50,value = 4,
+                                    min = 3, max = 50,value = 10,
                                     width = 240),
                         downloadButton('downloadCurvePlot', 'download plot')
                         )
@@ -143,7 +148,9 @@ tabXsq <- tabItem(tabName = "xsq",
                         h3("Test outcomes"),
                         verbatimTextOutput("chisq_tests"),
                         h3("Odds ratio by item"),
-                        tableOutput("odds_ratio")
+                        tableOutput("odds_ratio"),
+                        div(plotOutput("do_curve_plot_2"),
+                            style = 'overflow:auto')
                         )
                   )
                   )
@@ -211,7 +218,7 @@ ui <- dashboardPage(
       menuItem("Upload", tabName = "upload", icon = icon("upload")),
       menuItem("Visual inspection", tabName = "viz",
                icon = icon("area-chart",lib="font-awesome")),
-      menuItem("Chisq", tabName = "xsq",
+      menuItem("Chi-square", tabName = "xsq",
                icon = icon("percent",lib="font-awesome")),
       menuItem("Kaplan-Meier est.", tabName = "kaplan",
                icon = icon("percent",lib="font-awesome")),
