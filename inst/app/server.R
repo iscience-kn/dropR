@@ -62,8 +62,6 @@ server <- function(input, output) {
   })
   
 
-  
-  
   kaplan_meier <- reactive({
     ds <- dataset()
     ds$drop_out <- extract_drop_out_from_df(ds,input$quest_cols)
@@ -132,6 +130,31 @@ server <- function(input, output) {
                          selected = levels(stats()[,get("condition")]))  
     }
   })
+  
+  
+  output$kpm_conditions <- renderUI({
+    # w <- ""
+    # for(i in 1:length(levels(data_procd()$condition))) {
+    #   w <- paste(w, textInput(paste("a", i, sep = ""),
+    #                           paste("a", i, sep = ""),
+    #                           value = levels(data_procd()$condition)[i]))
+    # }
+    # HTML(w)
+    if(input$kaplan_fit == "total"){
+      NULL
+    } else{
+      
+      # remove total from the list cause that's a seperate thing
+      # from the dropdown box... 
+      cs <- levels(stats()[,get("condition")])
+      cs <- cs[-match("total",cs)]
+      
+      checkboxGroupInput('sel_cond_kpm', 'Show conditions',
+                         cs,
+                         selected = levels(stats()[,get("condition")]))  
+    }
+  })
+  
 
   ## Chisq slider ############  
   output$xsq_slider <- renderUI({
@@ -258,8 +281,16 @@ server <- function(input, output) {
       need(dataset(),"Please upload a dataset.
            Make sure to hit 'update data!' in the upload tab.")
     )
-    k <- ggplot(kaplan_meier()$steps,
-                aes(x,y,col=condition,fill = condition)) +
+    
+    if(input$kaplan_fit == "conditions"){
+      k <- ggplot(subset(kaplan_meier()$steps, condition %in% input$sel_cond_kpm),
+                  aes(x,y,col=condition,fill = condition))
+    } else {
+      k <- ggplot(subset(kaplan_meier()$steps, condition %in% "total"),
+                  aes(x,y,col=condition,fill = condition))
+    }
+    
+    k <- k + 
       geom_line() +
       theme_bw() +
       theme(panel.grid.major.x = element_blank(),
@@ -291,6 +322,12 @@ server <- function(input, output) {
                                             by=1/8)[c(1,8,3,7,4,5,2,6)])
         )
     }
+    
+    k <- k + guides(color = guide_legend(title = NULL),
+                    fill = guide_legend(title = NULL)) +
+      xlab("Dropout Index") + 
+      ylab("Percent Remaining")
+    
     ggsave(paste0("kpm_plot.",input$kpm_export_format),
            plot = k, device = input$kpm_export_format,
            dpi = input$kpm_dpi,
