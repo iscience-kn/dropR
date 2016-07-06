@@ -133,13 +133,6 @@ server <- function(input, output) {
   
   
   output$kpm_conditions <- renderUI({
-    # w <- ""
-    # for(i in 1:length(levels(data_procd()$condition))) {
-    #   w <- paste(w, textInput(paste("a", i, sep = ""),
-    #                           paste("a", i, sep = ""),
-    #                           value = levels(data_procd()$condition)[i]))
-    # }
-    # HTML(w)
     if(input$kaplan_fit == "total"){
       NULL
     } else{
@@ -154,6 +147,20 @@ server <- function(input, output) {
                          selected = levels(stats()[,get("condition")]))  
     }
   })
+  
+  output$chisq_conditions <- renderUI({
+      # remove total from the list cause that's a seperate thing
+      # from the dropdown box... 
+      cs <- levels(stats()[,get("condition")])
+      cs <- cs[-match("total",cs)]
+      
+      checkboxGroupInput('sel_cond_chisq', 'Compute test for selected conditions',
+                         cs,
+                         selected = levels(stats()[,get("condition")]))  
+    
+  })
+  
+  
   
 
   ## Chisq slider ############  
@@ -388,9 +395,12 @@ server <- function(input, output) {
 
   output$chisq_tests <- renderPrint({
     d <- as.data.frame(stats())
+    
+    d <- subset(d,condition %in% input$sel_cond_chisq)
     d$condition <- factor(d$condition)
     
-    d <- subset(d,condition != "total")
+    # d <- subset(d,condition != "total")
+    
     test_input <- subset(d,drop_out_idx == input$chisq_question)
     test_table <- as.table(as.matrix(test_input[,c("cs","remain")]))
     dimnames(test_table) <- list(conditions = test_input$condition,
@@ -406,8 +416,9 @@ server <- function(input, output) {
   
   output$odds_ratio <- renderTable({
     d <- as.data.frame(stats())
+    d <- subset(d,condition %in% input$sel_cond_chisq)
     d$condition <- factor(d$condition)
-    d <- subset(d,condition != "total")
+    # d <- subset(d,condition != "total")
     
     test_input <- subset(d,drop_out_idx == input$chisq_question)
     

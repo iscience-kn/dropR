@@ -140,7 +140,8 @@ tabUpload <- tabItem(tabName = "upload",
 tabXsq <- tabItem(tabName = "xsq",
                   fluidRow(
                     box(width=5,
-                        HTML("<h3>χ<sup>2</sup>-test options</h3>"),
+                        HTML("<h3>χ<sup>2</sup>-test options</h3>"),  
+                        uiOutput("chisq_conditions"),
                         uiOutput("xsq_slider"),
                         checkboxInput("fisher","Simulate p-values",T)
                     ),
