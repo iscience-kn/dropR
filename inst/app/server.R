@@ -166,7 +166,7 @@ server <- function(input, output) {
   ## Chisq slider ############  
   output$xsq_slider <- renderUI({
     sliderInput('chisq_question',"Select question",
-                1,length(input$quest_cols),1,1)
+                1,length(input$quest_cols)-1,1,1)
   })
   
   ## Log RANK ###############
@@ -291,10 +291,10 @@ server <- function(input, output) {
     
     if(input$kaplan_fit == "conditions"){
       k <- ggplot(subset(kaplan_meier()$steps, condition %in% input$sel_cond_kpm),
-                  aes(x,y,col=condition,fill = condition))
+                  aes(x,y*100,col=condition,fill = condition))
     } else {
       k <- ggplot(subset(kaplan_meier()$steps, condition %in% "total"),
-                  aes(x,y,col=condition,fill = condition))
+                  aes(x,y*100,col=condition,fill = condition))
     }
     
     k <- k + 
@@ -328,6 +328,11 @@ server <- function(input, output) {
         scale_fill_manual(values = gray(seq(from=0,1,
                                             by=1/8)[c(1,8,3,7,4,5,2,6)])
         )
+    }
+    
+    if(input$full_scale_kpm){
+      k <- k + 
+        scale_y_continuous(limits = c(0,100))
     }
     
     k <- k + guides(color = guide_legend(title = NULL),
