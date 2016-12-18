@@ -7,10 +7,21 @@ library(shinydashboard)
 tabHome <- tabItem(tabName = "home",
                    div(align="center",
                        img(src="decrease.svg",width=120),
-                       h1("dropR"),
-                       h2("About dropout analysis using R"),
-                       p("Some text about the GUI and the underlying R
-                     package.")
+                       h2("dropR"),
+                       p("DropR analyzes data from Internet-based 
+experiments for differences in dropout (aka 
+                         attrition, mortality, break-off) between 
+                         conditions. Currently, DropR supports visual 
+                         inspection of dropout, Odds ratio by item, Chi 
+                         Square tests of differences at any particular 
+                         item (e.g. test for overall dropout difference), 
+                         Kaplan-Maier survival estimation, Rho family 
+                         tests."),
+                       p("DropR follows a simple step-by-step process. 
+                         Begin by uploading your data under 'Upload your 
+                         data' or choose our demo file and choose 
+                         'experimental_condition' as the grouping variable 
+                         under 'Identify' to see what DropR can do for you.")
                        )
                    # ,textOutput("debug_txt")
                    )
@@ -24,7 +35,8 @@ tabViz <- tabItem(tabName = "viz",
                         textInput("rename_conditions","Rename selected conditions"),
                         selectInput("stroke_width","Stroke width",c(1,2,3,4,5),1),
                         checkboxInput("show_points","Show points"),
-                        checkboxInput("linetypes","Use line type to distinguish conditions",value = T),
+                        checkboxInput("linetypes","Use line type to distinguish conditions",
+                                      value = T),
                         checkboxInput("cutoff","cut off last question",value = T),
                         checkboxInput("full_scale","Show full Y-axis from 0 to 100",value = T),
                         radioButtons("color_palette","Color palettes",
@@ -212,6 +224,18 @@ tabKaplan <- tabItem(tabName = "kaplan",
                        )
                      )
 
+tabAbout <- tabItem(tabName = "about",
+                    h2("About"),
+                    HTML("<p>DropR is a joint project by 
+Ulf-Dietrich Reips and Matthias Bannert that 
+          followed naturally from the long-standing need in 
+          <a href='http://iscience.eu'>Internet science</a> and online 
+          research for methods and tools to address the 
+          fact that dropout (aka attrition, mortality, 
+          break-off) occurs much more frequently when 
+          conducted via the Internet than in traditional 
+          lab-based research.</p>"))
+
 # Main Page structure ####
 ui <- dashboardPage(
   dashboardHeader(title = "dropR"),
@@ -234,7 +258,8 @@ ui <- dashboardPage(
              tabViz,
              tabUpload,
              tabXsq,
-             tabKaplan)
+             tabKaplan,
+             tabAbout)
   )
 )
 
