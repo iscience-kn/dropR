@@ -1,6 +1,6 @@
 Package: dropR
 Type: Package
-Version: 0.3
+Version: 0.3.1
 Title: Drop out analysis in R
 Description: Analysis of dropout in surveys and experimental setups.
 Author: "Matthias Bannert <bannert@kof.ethz.ch> [aut, cre]"

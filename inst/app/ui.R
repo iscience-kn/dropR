@@ -125,7 +125,7 @@ tabUpload <- tabItem(tabName = "upload",
                                       '"'),
                          checkboxGroupInput('nas','Interpret as missing:',
                                             c('-99','-999','-9999','-1',
-                                              '999','9',
+                                              '999','9','',
                                               '#N/A','NA','.'),c("NA"))
                        ),
                        box(width=3,
