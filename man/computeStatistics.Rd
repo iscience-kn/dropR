@@ -11,6 +11,15 @@ computeStatistics(
   no_of_vars
 )
 }
+\arguments{
+\item{df}{data.frame}
+
+\item{by_cond}{character group by condition, defaults to None.}
+
+\item{do_indicator}{character dropout indicator}
+
+\item{no_of_vars}{numeric number of variables}
+}
 \description{
 Compute Statistics
 }

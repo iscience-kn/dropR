@@ -6,6 +6,11 @@
 \usage{
 get_odds_ratio(a, b)
 }
+\arguments{
+\item{a}{numeric probability value between 0 and 1.}
+
+\item{b}{numeric probability value between 0 and 1.}
+}
 \description{
-Compute Odds Ratio
+Computes and odds ratio given two probabilites.
 }

@@ -2,10 +2,26 @@
 % Please edit documentation in R/dosteps.R
 \name{dosteps}
 \alias{dosteps}
-\title{@export}
+\title{Calculate Steps for Uneven Data Points}
 \usage{
 dosteps(x, y, return_df = T)
 }
+\arguments{
+\item{x}{Numeric vector representing the x-coordinates.}
+
+\item{y}{Numeric vector representing the y-coordinates.}
+
+\item{return_df}{Logical. If `TRUE`, the function returns a data frame; otherwise, it returns a list.}
+}
+\value{
+A data frame or a list containing the modified `x` and `y` coordinates.
+}
 \description{
-@export
+The `dosteps` function calculates steps for uneven data points represented by vectors `x` and `y`.
+}
+\examples{
+x <- c(1, 2, 3, 4, 5)
+y <- c(10, 20, 30, 40, 50)
+dosteps(x, y)
+
 }

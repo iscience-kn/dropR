@@ -1,6 +1,10 @@
 #' Compute Statistics
 #' 
-#' 
+#' @param df data.frame
+#' @param by_cond character group by condition, defaults to None.
+#' @param do_indicator character dropout indicator
+#' @param no_of_vars numeric number of variables
+#'
 #' @export
 computeStatistics <- function(df, by_cond = "None",
                               do_indicator = "drop_out_idx",
@@ -63,6 +67,6 @@ computeStatistics <- function(df, by_cond = "None",
   out$total <- total_grid[,c("drop_out_idx","condition","cs","N","remain",
                              "pct_remain"),with = FALSE]
   
-  rbind(out$total,out$cond)
+  rbind(out$total, out$cond)
   
 }

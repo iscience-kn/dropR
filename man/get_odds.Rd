@@ -10,5 +10,6 @@ get_odds(p)
 \item{p}{vector of probabilities. May not be larger than 1 or smaller than zero.}
 }
 \description{
-Compute odds from probabilities. The function is vectorized and can handle a vector of probabilities.
+Compute odds from probabilities. The function is vectorized and
+can handle a vector of probabilities.
 }
