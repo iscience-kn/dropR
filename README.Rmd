@@ -1,0 +1,31 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# dropR: An R Package for Dropout Analysis
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+We're busy updating this package. Stay tuned.
+
+## Installation
+
+You can install the development version of dropR from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("mbannert/dropR")
+```
+
