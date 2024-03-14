@@ -12,4 +12,3 @@ get_odds(p)
 \description{
 Compute odds from probabilities. The function is vectorized and can handle a vector of probabilities.
 }
-

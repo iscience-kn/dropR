@@ -10,4 +10,3 @@ startApp()
 Starts the interactive web application to use dropR in your web browser. 
 Make sure to use Google Chrome or Firefox for best experience.
 }
-

@@ -14,4 +14,3 @@ find_drop_out(v, clnms)
 \description{
 Check consecutive NAs from backend of a vector.
 }
-

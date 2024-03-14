@@ -15,4 +15,3 @@ extract_drop_out_from_df(df, q_pos)
 Find drop in Data.frame that contains multiple 
 questions that had been asked sequentially.
 }
-

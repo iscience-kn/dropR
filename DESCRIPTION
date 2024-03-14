@@ -12,8 +12,9 @@ Depends:
     ggplot2,
     data.table,
     survival
-Date: 2016-05-26
+Date: 2024-03-14
 License: GPL-2
 LazyData: true
 Maintainer: 'Matthias Bannert' <bannert@kof.ethz.ch>
-RoxygenNote: 5.0.1
+RoxygenNote: 7.3.1
+URL: http://mbannert.github.io/dropR/

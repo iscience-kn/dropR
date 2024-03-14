@@ -4,10 +4,13 @@
 \alias{computeStatistics}
 \title{Compute Statistics}
 \usage{
-computeStatistics(df, by_cond = "None", do_indicator = "drop_out_idx",
-  no_of_vars)
+computeStatistics(
+  df,
+  by_cond = "None",
+  do_indicator = "drop_out_idx",
+  no_of_vars
+)
 }
 \description{
 Compute Statistics
 }
-

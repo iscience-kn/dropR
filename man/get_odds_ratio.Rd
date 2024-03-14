@@ -9,4 +9,3 @@ get_odds_ratio(a, b)
 \description{
 Compute Odds Ratio
 }
-
