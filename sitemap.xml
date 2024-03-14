@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://mbannert.github.io/dropR/404.html</loc>
+  </url>
+  <url>
+    <loc>http://mbannert.github.io/dropR/authors.html</loc>
+  </url>
+  <url>
+    <loc>http://mbannert.github.io/dropR/index.html</loc>
+  </url>
+  <url>
+    <loc>http://mbannert.github.io/dropR/reference/computeStatistics.html</loc>
+  </url>
+  <url>
+    <loc>http://mbannert.github.io/dropR/reference/dosteps.html</loc>
+  </url>
+  <url>
+    <loc>http://mbannert.github.io/dropR/reference/extract_drop_out_from_df.html</loc>
+  </url>
+  <url>
+    <loc>http://mbannert.github.io/dropR/reference/find_drop_out.html</loc>
+  </url>
+  <url>
+    <loc>http://mbannert.github.io/dropR/reference/get_odds.html</loc>
+  </url>
+  <url>
+    <loc>http://mbannert.github.io/dropR/reference/get_odds_ratio.html</loc>
+  </url>
+  <url>
+    <loc>http://mbannert.github.io/dropR/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>http://mbannert.github.io/dropR/reference/startApp.html</loc>
+  </url>
+</urlset>
