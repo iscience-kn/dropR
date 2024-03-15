@@ -68,7 +68,7 @@ server <- function(input, output) {
     ds$surv <- with(ds,Surv(drop_out,drop_out != max(ds$drop_out)))
     if(input$kaplan_fit == "total"){
       fit1 <- survfit(surv~1,data = ds)
-      steps <- getStepsByCond(fit1,"total")
+      steps <- get_steps_by_condpsByCond(fit1,"total")
       steps
     } else {
       by_cond <- split(ds,factor(ds[,input$cond_col]))
@@ -76,7 +76,7 @@ server <- function(input, output) {
                             function(x) survfit(surv~1,data = x))
       
       by_cond_steps <- lapply(names(by_cond_fit),function(x){
-        getStepsByCond(by_cond_fit[[x]],x)
+        get_steps_by_condpsByCond(by_cond_fit[[x]],x)
       })
       
       steps <- do.call("rbind",by_cond_steps)

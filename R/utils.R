@@ -35,7 +35,7 @@ all_values <- function(x) {
 
 #' Get Steps Data by Condition
 #'
-#' The `getStepsByCond` function calculates steps data based on survival model results.
+#' The `get_steps_by_condpsByCond` function calculates steps data based on survival model results.
 #'
 #' @param sfit An object representing survival model results (e.g., from a Cox proportional hazards model).
 #' @param condition Optional. A condition or group label to include in the output data frame.
@@ -43,10 +43,10 @@ all_values <- function(x) {
 #' @return A data frame containing the steps data, including time, survival estimates, upper confidence bounds, and lower confidence bounds.
 #'
 #' @export
-getStepsByCond <- function(sfit,condition = NULL){
-  f <- dosteps(sfit$time,sfit$surv)
-  u <- dosteps(sfit$time,sfit$upper)
-  l <- dosteps(sfit$time,sfit$lower)
+get_steps_by_condpsByCond <- function(sfit,condition = NULL){
+  f <- do_steps(sfit$time,sfit$surv)
+  u <- do_steps(sfit$time,sfit$upper)
+  l <- do_steps(sfit$time,sfit$lower)
   dframe <- cbind(f,uppr = u$y, lwr = l$y)
   if(!is.null(condition)) dframe$condition <- condition
   dframe

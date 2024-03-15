@@ -1,0 +1,49 @@
+---
+title: "R Console Usage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{r_console_usage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(dropR)
+```
+
+Though the low-hurdle of the online version with its graphical user interface (GUI)
+is appealing for many use cases, there are good reasons to directly use dropR's backend on the R console - without the GUI: Some data.frames may need extra formatting or additional cleaning before they suit the dropR input format or you may want adapt and extend your analysis in a way the GUI does not allow to. 
+
+
+## Walkthrough
+
+This section describes how to extract information on dropout from the demo dataset without using the dropR shiny UI. First, let's make sure the dema dataset is 
+loaded and available. They dataset should look like this
+
+```{r}
+library(dropR)
+data("dropRdemo")
+```
+
+Now, let's extract dropout, i.e., information on when participant dropped out of the questionnaire and never returned. In the demo dataset questions are easily identified by their prefix `vi_`
+
+```{r}
+qs <- which(grepl("vi_", names(dropRdemo)))
+extract_drop_out_from_df(dropRdemo,q_pos = qs)
+
+```
+
+```{r}
+
+```
+
+
+
+

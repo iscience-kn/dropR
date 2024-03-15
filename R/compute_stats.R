@@ -6,7 +6,7 @@
 #' @param no_of_vars numeric number of variables
 #'
 #' @export
-computeStatistics <- function(df, by_cond = "None",
+compute_stats <- function(df, by_cond = "None",
                               do_indicator = "drop_out_idx",
                               no_of_vars
 ){

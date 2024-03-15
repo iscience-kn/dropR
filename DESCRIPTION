@@ -18,3 +18,7 @@ LazyData: true
 Maintainer: 'Matthias Bannert' <bannert@kof.ethz.ch>
 RoxygenNote: 7.3.1
 URL: http://mbannert.github.io/dropR/
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

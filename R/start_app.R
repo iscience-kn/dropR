@@ -4,6 +4,6 @@
 #' Make sure to use Google Chrome or Firefox for best experience.
 #' 
 #' @export
-startApp <- function(){
+start_app <- function(){
   shiny::runApp(system.file('app', package='dropR'),launch.browser = T)  
 }

@@ -9,9 +9,9 @@ extract_drop_out_from_df(df, q_pos)
 \arguments{
 \item{df}{a data.frame}
 
-\item{q_pos}{columns that contain questions}
+\item{q_pos}{numeric columns that contain questions}
 }
 \description{
-Find drop in Data.frame that contains multiple 
+Find drop out posititions in a data.frame that contains multiple 
 questions that had been asked sequentially.
 }
