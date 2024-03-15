@@ -4,6 +4,12 @@
     <loc>http://mbannert.github.io/dropR/404.html</loc>
   </url>
   <url>
+    <loc>http://mbannert.github.io/dropR/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>http://mbannert.github.io/dropR/articles/r_console_usage.html</loc>
+  </url>
+  <url>
     <loc>http://mbannert.github.io/dropR/authors.html</loc>
   </url>
   <url>
@@ -13,10 +19,10 @@
     <loc>http://mbannert.github.io/dropR/reference/all_values.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/computeStatistics.html</loc>
+    <loc>http://mbannert.github.io/dropR/reference/compute_stats.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/dosteps.html</loc>
+    <loc>http://mbannert.github.io/dropR/reference/do_steps.html</loc>
   </url>
   <url>
     <loc>http://mbannert.github.io/dropR/reference/extract_drop_out_from_df.html</loc>
@@ -25,13 +31,13 @@
     <loc>http://mbannert.github.io/dropR/reference/find_drop_out.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/getStepsByCond.html</loc>
-  </url>
-  <url>
     <loc>http://mbannert.github.io/dropR/reference/get_odds.html</loc>
   </url>
   <url>
     <loc>http://mbannert.github.io/dropR/reference/get_odds_ratio.html</loc>
+  </url>
+  <url>
+    <loc>http://mbannert.github.io/dropR/reference/get_steps_by_condpsByCond.html</loc>
   </url>
   <url>
     <loc>http://mbannert.github.io/dropR/reference/index.html</loc>
@@ -40,6 +46,6 @@
     <loc>http://mbannert.github.io/dropR/reference/n_count.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/startApp.html</loc>
+    <loc>http://mbannert.github.io/dropR/reference/start_app.html</loc>
   </url>
 </urlset>
