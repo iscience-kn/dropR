@@ -113,17 +113,11 @@ dropped out of the questionnaire and never returned. In the demo dataset
 questions are easily identified by their prefix <code>vi_</code></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">qs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"vi_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dropRdemo</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/extract_drop_out_from_df.html">extract_drop_out_from_df</a></span><span class="op">(</span><span class="va">dropRdemo</span>,q_pos <span class="op">=</span> <span class="va">qs</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   [1] 52  6 52 52 52 27 52 52 25  4 52 25 52 52 52 40 35 10 52 52 52 52 52 51 20</span></span>
-<span><span class="co">#&gt;  [26] 52 35 52 52 52 12 52 45 52 52 52 39 52 52 10 52  1 52 52  6 52 52 52 22 52</span></span>
-<span><span class="co">#&gt;  [51] 52 52  3  1 52 52 15 29 52  1 22 52 52 52  1 52 23  1 52 52 40 37 52 12 52</span></span>
-<span><span class="co">#&gt;  [76] 52 52  3 12 52 52 52 52 44 52  4 52 52 52  8 52 52  2 18  1 52 52 52 52 52</span></span>
-<span><span class="co">#&gt; [101] 36 52 52 52 52 52 52 52 36 52 52 46 16 52 19 52 52  7 52 52 17 52 47 10  7</span></span>
-<span><span class="co">#&gt; [126] 52 52 52 52 52 52  1 52 52 52 52 52 52 52 52 52 52  4  3 52 52 52 12 33 52</span></span>
-<span><span class="co">#&gt; [151] 12  1 52 10 48 52 30 52 52 52  3 45  7 52  9  3 52 23 52 52 35 52 52 52 52</span></span>
-<span><span class="co">#&gt; [176] 28 52 52 52 52  1 52 15 52 52  5 52 52 52 52 12 52  6 26 52 52 52 52  2 52</span></span>
-<span><span class="co">#&gt; [201] 52 46  3 52 12 11 52 47 52  8 52  3 52 52 52 52 52 52 52 52 21  2 31 52 18</span></span>
-<span><span class="co">#&gt; [226] 19 52 52  3  6 52 52 32 52 52 34 52 52 52 52  1 52  7  3 18 21</span></span></code></pre></div>
+<span><span class="co"># add numeric drop out position to original dataset</span></span>
+<span><span class="va">dropRdemo</span><span class="op">$</span><span class="va">do_idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_drop_out_from_df.html">extract_drop_out_from_df</a></span><span class="op">(</span><span class="va">dropRdemo</span>,q_pos <span class="op">=</span> <span class="va">qs</span><span class="op">)</span></span></code></pre></div>
+<p>The <code>experimnetal_condition</code> column indicates belonging to
+a group each of which was treated differently. For example, one group
+received a different sequence of questions.</p>
 </div>
   </main>
 </div>

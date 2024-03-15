@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   r_console_usage: r_console_usage.html
-last_built: 2024-03-15T21:24Z
+last_built: 2024-03-15T21:51Z
 urls:
   reference: http://mbannert.github.io/dropR/reference
   article: http://mbannert.github.io/dropR/articles
