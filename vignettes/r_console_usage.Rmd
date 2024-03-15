@@ -36,11 +36,16 @@ Now, let's extract dropout, i.e., information on when participant dropped out of
 
 ```{r}
 qs <- which(grepl("vi_", names(dropRdemo)))
-extract_drop_out_from_df(dropRdemo,q_pos = qs)
-
+# add numeric drop out position to original dataset
+dropRdemo$do_idx <- extract_drop_out_from_df(dropRdemo,q_pos = qs)
 ```
 
+The `experimnetal_condition` column indicates belonging to a group each of which was treated differently. For example, one group received a different sequence of questions. 
+
 ```{r}
+
+
+
 
 ```
 

@@ -44,7 +44,7 @@ compute_stats <- function(df, by_cond = "None",
     name_pos <- match(by_cond,names(full_grid))
     names(full_grid)[name_pos] <- "condition"
     full_grid$condition <- factor(full_grid$condition)
-    out$cond <- full_grid[,c("drop_out_idx","condition","cs","N","remain",
+    out$cond <- full_grid[,c(do_indicator,"condition","cs","N","remain",
                               "pct_remain"),with = FALSE]
   } 
   
@@ -64,7 +64,7 @@ compute_stats <- function(df, by_cond = "None",
   total_grid[, pct_remain := (N-cs)/N]  
   total_grid[, condition := "total"]
   total_grid$condition <- factor(total_grid$condition)
-  out$total <- total_grid[,c("drop_out_idx","condition","cs","N","remain",
+  out$total <- total_grid[,c(do_indicator,"condition","cs","N","remain",
                              "pct_remain"),with = FALSE]
   
   rbind(out$total, out$cond)
