@@ -1,5 +1,5 @@
 ---
-title: "R Console Usage"
+title: "Interactive Dropout Analysis on the R Console"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{r_console_usage}
