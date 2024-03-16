@@ -40,7 +40,7 @@ Now, let's extract dropout, i.e., information on when participant dropped out of
 ```{r}
 qs <- which(grepl("vi_", names(dropRdemo)))
 # add numeric drop out position to original dataset
-dropRdemo <- add_dropout_idx(dropRdemo,q_pos = qs)
+dropRdemo <- add_dropout_idx(dropRdemo, q_pos = qs)
 head(dropRdemo[,c(1:3,53,54)])
 ```
 
@@ -69,6 +69,20 @@ plot_do_curve(stats_table)
 
 ```
 
+
+### Running a Chi-sq. Test for a Selected Question
+
+> **_NOTE:_**  Chi-sq. tests are only available when an column denoting the experimental condition is given.
+
+Let's compute a Chisq test at question 15 for experimentatl conditions `11` and `12`, dropR's dropout Chisq-Test returns a list containing the actual *test results* and dropout overview table at the selected question. 
+
+
+```{r}
+do_chisq(stats_table,
+         chisq_question = 15,
+         sel_cond_chisq = c('11','12'),
+         fisher = TRUE)
+```
 
 
 
