@@ -6,19 +6,22 @@ Description: Analysis of dropout in surveys and experimental setups.
 Author: "Matthias Bannert <bannert@kof.ethz.ch> [aut, cre]"
 Depends:
     R (>= 3.0.0),
+Imports:
     DT,
     shiny,
     shinydashboard,
     ggplot2,
     data.table,
-    survival
+    survival,
+Suggests:
+    knitr,
+    rmarkdown,
+    kableExtra
 Date: 2024-03-14
 License: GPL-2
 LazyData: true
 Maintainer: 'Matthias Bannert' <bannert@kof.ethz.ch>
 RoxygenNote: 7.3.1
 URL: http://mbannert.github.io/dropR/
-Suggests: 
-    knitr,
-    rmarkdown
 VignetteBuilder: knitr
+Encoding: UTF-8
