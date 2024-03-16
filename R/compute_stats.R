@@ -5,6 +5,7 @@
 #' @param do_indicator character dropout indicator
 #' @param no_of_vars numeric number of variables
 #'
+#' @import data.table
 #' @export
 compute_stats <- function(df, by_cond = "None",
                               do_indicator = "drop_out_idx",
