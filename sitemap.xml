@@ -16,6 +16,9 @@
     <loc>http://mbannert.github.io/dropR/index.html</loc>
   </url>
   <url>
+    <loc>http://mbannert.github.io/dropR/reference/add_dropout_idx.html</loc>
+  </url>
+  <url>
     <loc>http://mbannert.github.io/dropR/reference/all_values.html</loc>
   </url>
   <url>
@@ -23,9 +26,6 @@
   </url>
   <url>
     <loc>http://mbannert.github.io/dropR/reference/do_steps.html</loc>
-  </url>
-  <url>
-    <loc>http://mbannert.github.io/dropR/reference/extract_drop_out_from_df.html</loc>
   </url>
   <url>
     <loc>http://mbannert.github.io/dropR/reference/find_drop_out.html</loc>
@@ -37,13 +37,16 @@
     <loc>http://mbannert.github.io/dropR/reference/get_odds_ratio.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/get_steps_by_condpsByCond.html</loc>
+    <loc>http://mbannert.github.io/dropR/reference/get_steps_by_cond.html</loc>
   </url>
   <url>
     <loc>http://mbannert.github.io/dropR/reference/index.html</loc>
   </url>
   <url>
     <loc>http://mbannert.github.io/dropR/reference/n_count.html</loc>
+  </url>
+  <url>
+    <loc>http://mbannert.github.io/dropR/reference/plot_do_curve.html</loc>
   </url>
   <url>
     <loc>http://mbannert.github.io/dropR/reference/start_app.html</loc>
