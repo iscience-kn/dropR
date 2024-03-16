@@ -52,7 +52,7 @@ server <- function(input, output) {
         # compute stats
         
 
-        stats <- computeStatistics(dta,
+        stats <- compute_stats(dta,
                                    by_cond = input$cond_col,
                                    do_indicator = "drop_out_idx",
                                    no_of_vars = length(input$quest_cols))
@@ -68,7 +68,7 @@ server <- function(input, output) {
     ds$surv <- with(ds,Surv(drop_out,drop_out != max(ds$drop_out)))
     if(input$kaplan_fit == "total"){
       fit1 <- survfit(surv~1,data = ds)
-      steps <- get_steps_by_condpsByCond(fit1,"total")
+      steps <- get_steps_by_cond(fit1,"total")
       steps
     } else {
       by_cond <- split(ds,factor(ds[,input$cond_col]))
@@ -76,7 +76,7 @@ server <- function(input, output) {
                             function(x) survfit(surv~1,data = x))
       
       by_cond_steps <- lapply(names(by_cond_fit),function(x){
-        get_steps_by_condpsByCond(by_cond_fit[[x]],x)
+        get_steps_by_cond(by_cond_fit[[x]],x)
       })
       
       steps <- do.call("rbind",by_cond_steps)
