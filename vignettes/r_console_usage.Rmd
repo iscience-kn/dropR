@@ -60,6 +60,12 @@ The `cs` column shows the cummulative dropout count.
 
 ### Plotting Dropout Curves
 
+Based on the above statistics table, we can dropR can conveniently plot dropout curves.
+
+```{r}
+plot_do_curve(stats_table)
+
+```
 
 
 
