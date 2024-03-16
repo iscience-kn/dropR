@@ -22,7 +22,7 @@ Though the low-hurdle of the online version with its graphical user interface (G
 is appealing for many use cases, there are good reasons to directly use dropR's backend on the R console - without the GUI: Some data.frames may need extra formatting or additional cleaning before they suit the dropR input format or you may want adapt and extend your analysis in a way the GUI does not allow to. 
 
 
-## Walkthrough
+## Dropout Analysis Walkthrough
 
 This section describes how to extract information on dropout from the demo dataset without using the dropR shiny UI. First, let's make sure the dema dataset is 
 loaded and available. They dataset should look like this
@@ -32,6 +32,9 @@ library(dropR)
 data("dropRdemo")
 ```
 
+
+### Basic Dropout Statistics
+
 Now, let's extract dropout, i.e., information on when participant dropped out of the questionnaire and never returned. In the demo dataset questions are easily identified by their prefix `vi_`
 
 ```{r}
@@ -40,15 +43,19 @@ qs <- which(grepl("vi_", names(dropRdemo)))
 dropRdemo$do_idx <- extract_drop_out_from_df(dropRdemo,q_pos = qs)
 ```
 
-The `experimnetal_condition` column indicates belonging to a group each of which was treated differently. For example, one group received a different sequence of questions. 
+The `experimental_condition` column indicates belonging to a sub sample group each of which was treated differently. For example, groups receive a different sequence of questions or different wording. Now, let's compute a table containing basic dropout statistics for each item.
 
 ```{r}
-
-
-
-
+library(kableExtra)
+stats_table <- compute_stats(dropRdemo, by_cond = "experimental_condition",
+              do_indicator = "do_idx",
+              no_of_vars = length(qs))
+# kable(stats_table)
 ```
 
+Out of `r nrow(dropRDemo)` participants in the demo sample, `r stats_table$remain[1]` remain in the survey, accounting for `r round(stats_table$pct_remain[1]* 100,digits=2)` percent of the sample.
+The `cs` column shows the cummulative dropout count.
 
 
+### Dropout Curves
 
