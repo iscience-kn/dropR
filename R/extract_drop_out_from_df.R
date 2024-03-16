@@ -6,7 +6,7 @@
 #' @param df a data.frame
 #' @param q_pos numeric columns that contain questions
 #' @export
-extract_drop_out_from_df <- function(df, q_pos){
+add_dropout_idx <- function(df, q_pos){
   nms <- names(df[,q_pos])
   tf <- is.na(df[,q_pos])
   tpos <- apply(tf, 1, which)
@@ -16,7 +16,7 @@ extract_drop_out_from_df <- function(df, q_pos){
 
   # out vector contains drop out position
   # dpos <- 
-  sapply(tpos, find_drop_out, clnms = nms)
-  
+  df$do_idx <- sapply(tpos, find_drop_out, clnms = nms)
+  df
 }
 

@@ -2,14 +2,14 @@
 #' 
 #' @param df data.frame
 #' @param by_cond character group by condition, defaults to None.
-#' @param do_indicator character dropout indicator
+#' @param do_idx character dropout indicator
 #' @param no_of_vars numeric number of variables
 #'
 #' @import data.table
 #' @export
-compute_stats <- function(df, by_cond = "None",
-                              do_indicator = "drop_out_idx",
-                              no_of_vars
+compute_stats <- function(df,
+                          by_cond = "None",
+                          no_of_vars
 ){
   out <- list()
   dtable <- data.table(df)
@@ -19,13 +19,13 @@ compute_stats <- function(df, by_cond = "None",
   } else {
     # drop out count by conditions
     do_by_cond <- dtable[,list(drop_out_count = .N),
-                         keyby = c(do_indicator,by_cond)]
+                         keyby = c("do_idx",by_cond)]
     # expand to full grid 
     no_of_cond <- length(unique(dtable[,get(by_cond)]))
     full_grid <- merge(do_by_cond,
                        data.table(id = sort(rep(1:no_of_vars,4)),
                                   ec = unique(dtable[,get(by_cond)])),
-                       by.x = c(do_indicator,by_cond),
+                       by.x = c("do_idx",by_cond),
                        by.y = c("id","ec"),
                        all.y = T,
                        allow.cartesian = T)
@@ -45,15 +45,15 @@ compute_stats <- function(df, by_cond = "None",
     name_pos <- match(by_cond,names(full_grid))
     names(full_grid)[name_pos] <- "condition"
     full_grid$condition <- factor(full_grid$condition)
-    out$cond <- full_grid[,c(do_indicator,"condition","cs","N","remain",
+    out$cond <- full_grid[,c("do_idx","condition","cs","N","remain",
                               "pct_remain"),with = FALSE]
   } 
   
   do_by_total <- dtable[,list(drop_out_count = .N),
-                        keyby = c(do_indicator)]
+                        keyby = c("do_idx")]
   total_grid <- merge(do_by_total,
                       data.table(id = rep(1:no_of_vars)),
-                      by.x = do_indicator,
+                      by.x = "do_idx",
                       by.y = "id",
                       all.y = T,
                       allow.cartesian = T)
@@ -65,7 +65,7 @@ compute_stats <- function(df, by_cond = "None",
   total_grid[, pct_remain := (N-cs)/N]  
   total_grid[, condition := "total"]
   total_grid$condition <- factor(total_grid$condition)
-  out$total <- total_grid[,c(do_indicator,"condition","cs","N","remain",
+  out$total <- total_grid[,c("do_idx","condition","cs","N","remain",
                              "pct_remain"),with = FALSE]
   
   rbind(out$total, out$cond)

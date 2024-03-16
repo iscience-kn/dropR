@@ -4,16 +4,16 @@
 \alias{compute_stats}
 \title{Compute Statistics}
 \usage{
-compute_stats(df, by_cond = "None", do_indicator = "drop_out_idx", no_of_vars)
+compute_stats(df, by_cond = "None", no_of_vars)
 }
 \arguments{
 \item{df}{data.frame}
 
 \item{by_cond}{character group by condition, defaults to None.}
 
-\item{do_indicator}{character dropout indicator}
-
 \item{no_of_vars}{numeric number of variables}
+
+\item{do_idx}{character dropout indicator}
 }
 \description{
 Compute Statistics

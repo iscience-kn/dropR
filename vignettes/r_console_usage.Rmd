@@ -40,16 +40,17 @@ Now, let's extract dropout, i.e., information on when participant dropped out of
 ```{r}
 qs <- which(grepl("vi_", names(dropRdemo)))
 # add numeric drop out position to original dataset
-dropRdemo$do_idx <- extract_drop_out_from_df(dropRdemo,q_pos = qs)
+dropRdemo <- add_dropout_idx(dropRdemo,q_pos = qs)
+dropRdemo
 ```
 
 The `experimental_condition` column indicates belonging to a sub sample group each of which was treated differently. For example, groups receive a different sequence of questions or different wording. Now, let's compute a table containing basic dropout statistics for each item.
 
 ```{r}
 library(kableExtra)
-stats_table <- compute_stats(dropRdemo, by_cond = "experimental_condition",
-              do_indicator = "do_idx",
-              no_of_vars = length(qs))
+stats_table <- compute_stats(dropRdemo,
+                             by_cond = "experimental_condition",
+                             no_of_vars = length(qs))
 # kable(stats_table)
 ```
 
@@ -57,5 +58,9 @@ Out of `r nrow(dropRDemo)` participants in the demo sample, `r stats_table$remai
 The `cs` column shows the cummulative dropout count.
 
 
-### Dropout Curves
+### Plotting Dropout Curves
+
+
+
+
 
