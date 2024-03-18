@@ -84,5 +84,20 @@ do_chisq(stats_table,
          fisher = TRUE)
 ```
 
+### Kaplan-Meier Estimation
+
+```{r}
+do_kpm(d = dropRdemo,
+           qs = qs,
+           condition_col = "experimental_condition",
+           model_fit = "total")
+
+
+
+```
+
+
+
+
 
 

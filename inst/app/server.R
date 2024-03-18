@@ -46,7 +46,7 @@ server <- function(input, output) {
         NULL
       } else {
         dta <- dataset()
-        dta <- add_dropout_idx(dta,input$quest_cols)
+        dta <- add_dropout_idx(dta, input$quest_cols)
         
         
         # compute stats
@@ -60,29 +60,11 @@ server <- function(input, output) {
   
 
   kaplan_meier <- reactive({
-    ds <- dataset()
-    ds$drop_out <- add_dropout_idx(ds,input$quest_cols)
-    ds$surv <- with(ds,Surv(drop_out,drop_out != max(ds$drop_out)))
-    if(input$kaplan_fit == "total"){
-      fit1 <- survfit(surv~1,data = ds)
-      steps <- get_steps_by_cond(fit1,"total")
-      steps
-    } else {
-      by_cond <- split(ds,factor(ds[,input$cond_col]))
-      by_cond_fit <- lapply(by_cond,
-                            function(x) survfit(surv~1,data = x))
-      
-      by_cond_steps <- lapply(names(by_cond_fit),function(x){
-        get_steps_by_cond(by_cond_fit[[x]],x)
-      })
-      
-      steps <- do.call("rbind",by_cond_steps)
-    }
-    out <- list()
-    out$steps <- steps
-    out$ds <- ds
-    out
-    
+    dta <- dataset()
+    do_kpm(d = dta,
+           qs = input$quest_cols,
+           condition_col = input$cond_col,
+           model_fit = input$kaplan_fit)
   })
 
   
@@ -236,56 +218,12 @@ server <- function(input, output) {
            Make sure to hit 'update data!' in the upload tab.")
     )
     
-    if(input$kaplan_fit == "conditions"){
-      k <- ggplot(subset(kaplan_meier()$steps, condition %in% input$sel_cond_kpm),
-                  aes(x,y*100,col=condition,fill = condition))
-    } else {
-      k <- ggplot(subset(kaplan_meier()$steps, condition %in% "total"),
-                  aes(x,y*100,col=condition,fill = condition))
-    }
+    k <- do_kpm_plot(kds = kaplan_meier(),
+                sel_cond_kpm = input$sel_cond_kpm,
+                kpm_ci = input$kpm_ci,
+                color_palette_kp = input$color_palette_kp,
+                full_scale_kpm = input$full_scale_kpm)
     
-    k <- k + 
-      geom_line() +
-      theme_bw() +
-      theme(panel.grid.major.x = element_blank(),
-            panel.grid.minor.x = element_blank(),
-            panel.border = element_blank(),
-            axis.line = element_line(colour = "black"))
-    if(input$kpm_ci){
-      k <- k + geom_ribbon(aes(ymin = lwr, ymax = uppr,
-                               linetype=NA), alpha=.3)
-    }
-
-    if(input$color_palette_kp == "color_blind"){
-      k <- k + scale_fill_manual(values=c("#000000", "#E69F00",
-                                          "#56B4E9", "#009E73",
-                                          "#F0E442", "#0072B2",
-                                          "#D55E00", "#CC79A7")) +
-        scale_color_manual(values=c("#000000", "#E69F00",
-                                    "#56B4E9", "#009E73",
-                                    "#F0E442", "#0072B2",
-                                    "#D55E00", "#CC79A7"))
-    }
-
-    if(input$color_palette_kp == "gray"){
-      k <- k +
-        scale_color_manual(values = gray(seq(from=0,1,
-                                             by=1/8)[c(1,8,3,7,4,5,2,6)]
-        )) +
-        scale_fill_manual(values = gray(seq(from=0,1,
-                                            by=1/8)[c(1,8,3,7,4,5,2,6)])
-        )
-    }
-    
-    if(input$full_scale_kpm){
-      k <- k + 
-        scale_y_continuous(limits = c(0,100))
-    }
-    
-    k <- k + guides(color = guide_legend(title = NULL),
-                    fill = guide_legend(title = NULL)) +
-      xlab("Dropout Index") + 
-      ylab("Percent Remaining")
     
     ggsave(paste0("kpm_plot.",input$kpm_export_format),
            plot = k, device = input$kpm_export_format,
@@ -373,9 +311,11 @@ server <- function(input, output) {
   
   output$surv_tests <- renderPrint({
     if(input$kaplan_fit == "conditions"){
-      kp_ds <- kaplan_meier()$ds
-      f <- as.formula(paste("surv",input$cond_col,sep="~"))
-      survdiff(f,data = kp_ds,rho = input$test_type)  
+      kp_ds <- kaplan_meier()$d
+      
+      get_survdiff(d = kp_ds, cond = input$cond_col,
+                   test_type =  input$test_type)
+      
     } else {
       "Only available for two or more survival curves."
     }
