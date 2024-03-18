@@ -35,7 +35,7 @@ tabHome <- tabItem(tabName = "home",
                          data' or choose our demo file.", br(),
                          "2. Specify some datafile characteristics, such as csv separator or NA coding.", br(),
                          "3. Identify the experimental condition variable, i.e. 'experimental_condition' in demo data 
-                         or something similar in your data.", br(),
+                         or something similar in your data and select all experimental variables for which to analyze dropout.", br(),
                          "Make sure to click 'update data!' to get started on analyses 
                          and visualization.", class="extraslimtext"),
                        p("To read more about dropout as a relevant dependent variable in analysis of internet-based
@@ -106,7 +106,7 @@ tabUpload <- tabItem(tabName = "upload",
                        ),
                        box(width=3,
                            h3("3. Identify"),
-                           h4("questions and conditions"),
+                           h4("conditions and questions to analyze"),
                            uiOutput('choose_condition'),
                            uiOutput("choose_questions"),
                            actionButton("goButton", "Update data!")

@@ -38,14 +38,13 @@ server <- function(input, output) {
   observeEvent(input$goButton, {
     showNotification("Updated!", duration = 2)
   })
-  # 
   
   stats <- reactive({
     input$goButton
     isolate({
       if((is.null(input$file1) & !input$demo_ds )
-         | is.null(input$cond_col) | # no such input
-         is.null(input$quest_cols)){ # no such input
+         | is.null(input$cond_col) | 
+         is.null(input$quest_cols)){ 
         #data.frame(id = 0, pct_remain = 0, condition = "total")
         NULL
       } else {
@@ -188,11 +187,10 @@ server <- function(input, output) {
   do_curve_plot <- reactive({
     validate(
       need(stats(),"Please upload a dataset.
-           Make sure to hit 'update data!' in the upload tab.")
+           Make sure to hit 'Update data!' in the upload tab.")
       )
     
    
-
     d <- as.data.frame(stats())
     if(input$cutoff){
       last_q <- length(input$quest_cols)
@@ -229,7 +227,7 @@ server <- function(input, output) {
             panel.grid.minor.x = element_blank(),
             panel.border = element_blank(),
             axis.line = element_line(colour = "black")) + 
-      xlab("Dropout Index") +
+      xlab("Question Index") + #Dropout Index is very misleading imho
       ylab("Percent Remaining")
       
 
@@ -340,7 +338,7 @@ server <- function(input, output) {
     
     k <- k + guides(color = guide_legend(title = NULL),
                     fill = guide_legend(title = NULL)) +
-      xlab("Dropout Index") + 
+      xlab("Question Index") + 
       ylab("Percent Remaining")
     
     ggsave(paste0("kpm_plot.",input$kpm_export_format),
