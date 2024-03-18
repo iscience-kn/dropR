@@ -5,23 +5,43 @@ library(shinydashboard)
 # Tab items 
 # Home ####
 tabHome <- tabItem(tabName = "home",
+                   tags$style(HTML("
+                                .slimtext {
+                                  width: 60%;
+                                  word-break: break-word;
+                                }
+                                
+                                .extraslimtext {
+                                  width: 35%;
+                                  word-break: break-word;
+                                }
+                                ")
+                   ),
+                   
                    div(align="center",
                        img(src="decrease.svg",width=120),
                        h2("dropR"),
-                       p("DropR analyzes data from Internet-based 
-experiments for differences in dropout (aka 
-                         attrition, mortality, break-off) between 
-                         conditions. Currently, DropR supports visual 
+                       p("dropR analyzes data from Internet-based 
+                       experiments for", strong("differences in dropout between conditions."), 
+                         class="slimtext"),
+                       p("Currently, dropR supports visual 
                          inspection of dropout, Odds ratio by item, Chi 
                          Square tests of differences at any particular 
                          item (e.g. test for overall dropout difference), 
                          Kaplan-Maier survival estimation, Rho family 
-                         tests."),
-                       p("DropR follows a simple step-by-step process. 
-                         Begin by uploading your data under 'Upload your 
-                         data' or choose our demo file and choose 
-                         'experimental_condition' as the grouping variable 
-                         under 'Identify' to see what DropR can do for you.")
+                         tests.", class="slimtext"),
+                       p("dropR follows a simple step-by-step process which starts in the Upload tab.", br(),
+                         "1. Upload your data under 'Upload your 
+                         data' or choose our demo file.", br(),
+                         "2. Specify some datafile characteristics, such as csv separator or NA coding.", br(),
+                         "3. Identify the experimental condition variable, i.e. 'experimental_condition' in demo data 
+                         or something similar in your data.", br(),
+                         "Make sure to click 'update data!' to get started on analyses 
+                         and visualization.", class="extraslimtext"),
+                       p("To read more about dropout as a relevant dependent variable in analysis of internet-based
+                         experiments, we recommend",
+                         a("this paper by Reips (2002)", href = "https://www.uni-konstanz.de/iscience/reips/pubs/papers/Reips2002.pdf"), 
+                         "as a starting point.", class="slimtext")
                        )
                    # ,textOutput("debug_txt")
                    )
@@ -84,7 +104,7 @@ tabUpload <- tabItem(tabName = "upload",
                       h2("Upload your data"),
                      fluidRow(
                        box(width=6,
-                         h3("1 Choose"),
+                         h3("1. Choose"),
                          h4("a .csv file from your disk"),
                          tags$ul(
                            tags$li("Indicate whether the first line of your
@@ -110,7 +130,7 @@ tabUpload <- tabItem(tabName = "upload",
                          checkboxInput("demo_ds","use demo data",value = F)
                          ),
                        box(width=3,
-                         h3("2 Specify"),
+                         h3("2. Specify"),
                          h4(".csv properties"),
                          checkboxInput('header', 'Header', TRUE),
                          radioButtons('sep', 'Separator',
@@ -129,7 +149,7 @@ tabUpload <- tabItem(tabName = "upload",
                                               '#N/A','NA','.'),c("NA"))
                        ),
                        box(width=3,
-                         h3("3 Identify"),
+                         h3("3. Identify"),
                          h4("questions and conditions"),
                          uiOutput('choose_condition'),
                          uiOutput("choose_questions"),
