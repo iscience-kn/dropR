@@ -109,7 +109,7 @@ tabUpload <- tabItem(tabName = "upload",
                            h4("questions and conditions"),
                            uiOutput('choose_condition'),
                            uiOutput("choose_questions"),
-                           actionButton("goButton", "update data!")
+                           actionButton("goButton", "Update data!")
                        )
                      ),
                      fluidRow(

@@ -35,19 +35,22 @@ server <- function(input, output) {
     
   })
   
+  observeEvent(input$goButton, {
+    showNotification("Updated!", duration = 2)
+  })
+  # 
   
   stats <- reactive({
     input$goButton
     isolate({
       if((is.null(input$file1) & !input$demo_ds )
-         | is.null(input$cond_col) |
-         is.null(input$quest_cols)){
+         | is.null(input$cond_col) | # no such input
+         is.null(input$quest_cols)){ # no such input
         #data.frame(id = 0, pct_remain = 0, condition = "total")
         NULL
       } else {
         dta <- dataset()
-        dta$drop_out_idx <- extract_drop_out_from_df(dta,input$quest_cols)
-        
+        dta$drop_out_idx <- extract_drop_out_from_df(dta,input$quest_cols) #doesnt work
         
         # compute stats
         
