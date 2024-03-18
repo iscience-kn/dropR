@@ -45,6 +45,84 @@ tabHome <- tabItem(tabName = "home",
                        )
                    # ,textOutput("debug_txt")
                    )
+# Upload ####
+tabUpload <- tabItem(tabName = "upload",
+                     h2("Upload your data"),
+                     fluidRow(
+                       box(width=5,
+                           h3("1. Choose"),
+                           h4("a .csv file from your disk"),
+                           strong('How To dropR'),
+                           tags$ul(
+                             tags$li("Indicate whether the first line of your
+                                   data is a header."),
+                             tags$li("Choose the proper column delimiter,
+                                   text quote and missing value coding for your file.
+                                   Note that empty cells are recognized as 
+                                   missing values by default."),
+                             tags$li("Make sure to use reasonable coding for
+                                   missing values in your data. Add custom missing values
+                                   if necessary."),
+                             tags$li("Check the data preview below. If your
+                                   data is displayed as expected you are good to 
+                                   start with your analysis.")
+                           ),
+                           p("DON'T forget to hit 'update data' in the box on the right when 
+                             you're ready!"),
+                           fileInput('file1', '',
+                                     accept=c('text/csv', 
+                                              'text/comma-separated-values,text/plain', 
+                                              '.csv')),
+                           h4("or use a demo dataset (52 variables, 4 experimental conditions) instead"),
+                           checkboxInput("demo_ds","use demo data",value = F)
+                       ),
+                       box(width=2,
+                           h3("2. Specify"),
+                           h4(".csv properties"),
+                           checkboxInput('header', 'Header', TRUE),
+                           radioButtons('sep', 'Separator',
+                                               c(Semicolon=';',
+                                                 Comma=',',
+                                                 Tab='\t'),
+                                               ';'),
+                           radioButtons('quote', 'Text quote',
+                                               c(None='',
+                                                 'Double quote'='"',
+                                                 'Single quote'="'"),
+                                               '"')
+                          
+                       ),
+                       box(width=2,
+                           h3("2.1 Missings"),
+                           checkboxGroupInput('nas','Interpret as missing:',
+                                              c('NA', '#N/A','.', '-99','-999',
+                                                '-1',''),c("NA")),
+                           textInput('nas_custom1', label = 'Add your own NA coding:',
+                                     value = "-66", width = '30%'),
+                           textInput('nas_custom2', label = NULL,
+                                     value = "-77", width = '30%'),
+                           textInput('nas_custom3', label = NULL,
+                                     value = "-9999", width = '30%')
+                       ),
+                       box(width=3,
+                           h3("3. Identify"),
+                           h4("questions and conditions"),
+                           uiOutput('choose_condition'),
+                           uiOutput("choose_questions"),
+                           actionButton("goButton", "update data!")
+                       )
+                     ),
+                     fluidRow(
+                       box(width = 12,
+                           h3("Data Preview"),
+                           div(DT::dataTableOutput("table"),style = 'overflow:auto')
+                       )
+                     )
+                     # fluidRow(
+                     #   box(width = 12),
+                     #   textOutput("debug_txt")
+                     # )
+                  )
 
 # Visual Analysis ####
 tabViz <- tabItem(tabName = "viz",
@@ -92,81 +170,8 @@ tabViz <- tabItem(tabName = "viz",
                                     width = 240),
                         downloadButton('downloadCurvePlot', 'download plot')
                         )
-                    
-                    
-                    
                     )
-           
-                  
                   )
-# Upload ####
-tabUpload <- tabItem(tabName = "upload",
-                      h2("Upload your data"),
-                     fluidRow(
-                       box(width=6,
-                         h3("1. Choose"),
-                         h4("a .csv file from your disk"),
-                         tags$ul(
-                           tags$li("Indicate whether the first line of your
-                                   data is meant to be a header."),
-                           tags$li("Choose the proper column delimiter,
-                                   text quote and missing value coding for your file.
-                                   Note that, proper missing values (empty fields) are 
-                                   accepted in addition by default."),
-                           tags$li("Make sure to use reasonable coding for
-                                   missing values (i.e. empty cells). Avoid
-                                   ambigous coding such as -99, -999 etc."),
-                           tags$li("Check the preview window below. Iff your
-                                   data is displayed as expected you are good to 
-                                   start with your analysis. DON'T forget to 
-                                   hit 'update data' in the right box when
-                                   you're ready.")
-                         ),
-                         fileInput('file1', '',
-                                     accept=c('text/csv', 
-                                              'text/comma-separated-values,text/plain', 
-                                              '.csv')),
-                         h4("or use a demo dataset instead"),
-                         checkboxInput("demo_ds","use demo data",value = F)
-                         ),
-                       box(width=3,
-                         h3("2. Specify"),
-                         h4(".csv properties"),
-                         checkboxInput('header', 'Header', TRUE),
-                         radioButtons('sep', 'Separator',
-                                      c(Semicolon=';',
-                                        Comma=',',
-                                        Tab='\t'),
-                                      ';'),
-                         radioButtons('quote', 'Text quote',
-                                      c(None='',
-                                        'Double quote'='"',
-                                        'Single quote'="'"),
-                                      '"'),
-                         checkboxGroupInput('nas','Interpret as missing:',
-                                            c('-99','-999','-9999','-1',
-                                              '999','9','',
-                                              '#N/A','NA','.'),c("NA"))
-                       ),
-                       box(width=3,
-                         h3("3. Identify"),
-                         h4("questions and conditions"),
-                         uiOutput('choose_condition'),
-                         uiOutput("choose_questions"),
-                         actionButton("goButton", "update data!")
-                       )
-                     ),
-                     fluidRow(
-                       box(width = 12,
-                         h3("Data Preview"),
-                        div(DT::dataTableOutput("table"),style = 'overflow:auto')
-                       )
-                     )
-                     # fluidRow(
-                     #   box(width = 12),
-                     #   textOutput("debug_txt")
-                     # )
-                     )
 
 # Tab Chisq ####
 tabXsq <- tabItem(tabName = "xsq",

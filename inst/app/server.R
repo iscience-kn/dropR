@@ -16,7 +16,7 @@ server <- function(input, output) {
                           dec = input$dec,
                           quote = input$quote,
                           header = input$header,
-                          na.strings = input$nas)  
+                          na.strings = c(input$nas, input$nas_custom1, input$nas_custom2, input$nas_custom3))
     }
     upfile
   })
