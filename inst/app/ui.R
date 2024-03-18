@@ -143,16 +143,20 @@ tabViz <- tabItem(tabName = "viz",
                                        "gray scale" = "gray"),
                                      "color_blind"),
                         h3("Hints"),
-                        p("- color blind and printer friendly palettes support up to 8 different categories (colors)."),
-                        p("- When re-labelling conditions, use comma (,) as a seperator. Make sure to list as many names as conditions selected."),
-                        p("- With dropR you can produce graphs for publication in various formats. You may choose from vector formats such as .svg and .pdf and the .png format for rendered pixels. While size is relevant to any format, resolution only applies to .png and will be ignored when vector formats are chosen.")),
+                        tags$ul(
+                          tags$li("Color-blind friendly palettes support up to 8 different conditions (colors)."),
+                          tags$li("When renaming conditions, use a comma (,) as a seperator. Make sure to list 
+                                  as many names as conditions you have selected."),
+                          tags$li("With dropR you can produce graphs for publication in various formats. You may 
+                                  choose vector formats such as .svg and .pdf or the .png format for rendered pixels.")
+                        )),
                     box(width = 8,
                         h3("Dropout by question"),
-                        div(plotOutput("do_curve_plot"),
+                        div(plotOutput("do_curve_plot_1"),
                             style = 'overflow:auto'),
-                        textInput("plot_fname","file name (w/o file extension)",
+                        textInput("plot_fname","file name (without file extension)",
                                   width=240,
-                                  value = paste0("dropR_",round(as.numeric(Sys.time())))
+                                  value = paste0("dropR_", round(as.numeric(Sys.time())))
                                   ),
                         selectInput("export_format","export graph as:",
                                     c("pdf" = "pdf",

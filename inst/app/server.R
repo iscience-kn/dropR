@@ -49,14 +49,14 @@ server <- function(input, output) {
         NULL
       } else {
         dta <- dataset()
-        dta$drop_out_idx <- extract_drop_out_from_df(dta,input$quest_cols) #doesnt work
-        
+        # dta$drop_out_idx <- extract_drop_out_from_df(dta,input$quest_cols) #doesnt work
+        dta$drop_out_idx <- add_dropout_idx(dta,input$quest_cols)
         # compute stats
         
 
         stats <- compute_stats(dta,
                                    by_cond = input$cond_col,
-                                   do_indicator = "drop_out_idx",
+                                   do_idx = "drop_out_idx", # apparently needed to be changed?
                                    no_of_vars = length(input$quest_cols))
         stats
       }
@@ -66,7 +66,9 @@ server <- function(input, output) {
 
   kaplan_meier <- reactive({
     ds <- dataset()
-    ds$drop_out <- extract_drop_out_from_df(ds,input$quest_cols)
+    # ds$drop_out <- extract_drop_out_from_df(ds,input$quest_cols)
+    ds$drop_out <- add_dropout_idx(ds,input$quest_cols)
+    
     ds$surv <- with(ds,Surv(drop_out,drop_out != max(ds$drop_out)))
     if(input$kaplan_fit == "total"){
       fit1 <- survfit(surv~1,data = ds)
@@ -266,7 +268,7 @@ server <- function(input, output) {
   })
 
 
-  output$do_curve_plot <- renderPlot({
+  output$do_curve_plot_1 <- renderPlot({
     
     dc <- do_curve_plot()
     
