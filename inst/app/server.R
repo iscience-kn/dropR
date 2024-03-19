@@ -50,13 +50,13 @@ server <- function(input, output) {
       } else {
         dta <- dataset()
         # dta$drop_out_idx <- extract_drop_out_from_df(dta,input$quest_cols) #doesnt work
-        dta$drop_out_idx <- add_dropout_idx(dta,input$quest_cols)
-        # compute stats
+        dta <- add_dropout_idx(dta, input$quest_cols)
         
+        # compute stats
 
         stats <- compute_stats(dta,
                                    by_cond = input$cond_col,
-                                   do_idx = "drop_out_idx", # apparently needed to be changed?
+                                   # do_idx = "drop_out_idx", # apparently needed to be changed?
                                    no_of_vars = length(input$quest_cols))
         stats
       }
@@ -65,30 +65,34 @@ server <- function(input, output) {
   
 
   kaplan_meier <- reactive({
-    ds <- dataset()
+    # ds <- dataset()
     # ds$drop_out <- extract_drop_out_from_df(ds,input$quest_cols)
-    ds$drop_out <- add_dropout_idx(ds,input$quest_cols)
-    
-    ds$surv <- with(ds,Surv(drop_out,drop_out != max(ds$drop_out)))
-    if(input$kaplan_fit == "total"){
-      fit1 <- survfit(surv~1,data = ds)
-      steps <- get_steps_by_cond(fit1,"total")
-      steps
-    } else {
-      by_cond <- split(ds,factor(ds[,input$cond_col]))
-      by_cond_fit <- lapply(by_cond,
-                            function(x) survfit(surv~1,data = x))
-      
-      by_cond_steps <- lapply(names(by_cond_fit),function(x){
-        get_steps_by_cond(by_cond_fit[[x]],x)
-      })
-      
-      steps <- do.call("rbind",by_cond_steps)
-    }
-    out <- list()
-    out$steps <- steps
-    out$ds <- ds
-    out
+    # 
+    # ds$surv <- with(ds,Surv(drop_out,drop_out != max(ds$drop_out)))
+    # if(input$kaplan_fit == "total"){
+    #   fit1 <- survfit(surv~1,data = ds)
+    #   steps <- get_steps_by_cond(fit1,"total")
+    #   steps
+    # } else {
+    #   by_cond <- split(ds,factor(ds[,input$cond_col]))
+    #   by_cond_fit <- lapply(by_cond,
+    #                         function(x) survfit(surv~1,data = x))
+    #   
+    #   by_cond_steps <- lapply(names(by_cond_fit),function(x){
+    #     get_steps_by_cond(by_cond_fit[[x]],x)
+    #   })
+    #   
+    #   steps <- do.call("rbind",by_cond_steps)
+    # }
+    # out <- list()
+    # out$steps <- steps
+    # out$ds <- ds
+    # out
+    dta <- dataset()
+    do_kpm(d = dta,
+           qs = input$quest_cols,
+           condition_col = input$cond_col,
+           model_fit = input$kaplan_fit)
     
   })
 
@@ -196,7 +200,7 @@ server <- function(input, output) {
     d <- as.data.frame(stats())
     if(input$cutoff){
       last_q <- length(input$quest_cols)
-      d <- subset(d,drop_out_idx != last_q)
+      d <- subset(d,do_idx != last_q)
     }
     
     d$condition <- factor(d$condition)
@@ -394,7 +398,7 @@ server <- function(input, output) {
       d$condition <- factor(d$condition)
       
       d <- subset(d,condition != "total")
-      test_input <- subset(d,drop_out_idx == input$chisq_question)
+      test_input <- subset(d,do_idx == input$chisq_question)
       # #chisq.test(as.table(as.matrix(test_input)))
       # test_input
       test_input
