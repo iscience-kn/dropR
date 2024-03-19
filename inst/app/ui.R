@@ -271,14 +271,15 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("home")),
-      menuItem("Upload", tabName = "upload", icon = icon("upload")),
+      menuItem("Start: Upload", tabName = "upload", icon = icon("upload")),
       menuItem("Visual inspection", tabName = "viz",
                icon = icon("area-chart",lib="font-awesome")),
       menuItem("Chi-square", tabName = "xsq",
                icon = icon("percent",lib="font-awesome")),
       menuItem("Kaplan-Meier est.", tabName = "kaplan",
                icon = icon("percent",lib="font-awesome")),
-      menuItem("About", tabName = "about")
+      menuItem("About", tabName = "about",
+               icon = icon("circle-info",lib="font-awesome"))
     )
   ),
   # Body of the App #############
