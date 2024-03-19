@@ -40,7 +40,7 @@ plot_do_curve <- function(d,
           panel.grid.minor.x = element_blank(),
           panel.border = element_blank(),
           axis.line = element_line(colour = "black")) + 
-    xlab("Dropout Index") +
+    xlab("Question Index") +
     ylab("Percent Remaining")
   
   if(full_scale){

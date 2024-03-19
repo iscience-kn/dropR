@@ -221,7 +221,7 @@ server <- function(input, output) {
   })
 
 
-  output$do_curve_plot_1 <- renderPlot({
+  output$do_curve_plot <- renderPlot({
     
     dc <- do_curve_plot()
     
