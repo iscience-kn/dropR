@@ -1,3 +1,7 @@
+#' Dropout Odds Ration Table
+#' 
+#' 
+#' 
 #' @param d data.frame stats table as computed by compute_stats.
 #' @export
 do_or_table <- function(d,
