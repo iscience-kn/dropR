@@ -106,8 +106,8 @@ tabUpload <- tabItem(tabName = "upload",
                                      accept=c('text/csv', 
                                               'text/comma-separated-values,text/plain', 
                                               '.csv')),
-                         h4("or use a demo dataset instead"),
-                         checkboxInput("demo_ds","use demo data",value = F)
+                         h4("or use the default demo dataset instead"),
+                         checkboxInput("demo_ds","use demo data",value = T)
                          ),
                        box(width=3,
                          h3("2 Specify"),
