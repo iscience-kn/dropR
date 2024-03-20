@@ -255,15 +255,15 @@ tabKaplan <- tabItem(tabName = "kaplan",
 
 tabAbout <- tabItem(tabName = "about",
                     h2("About"),
-                    HTML("<p>DropR is a joint project by 
-Ulf-Dietrich Reips and Matthias Bannert that 
-          followed naturally from the long-standing need in 
-          <a href='http://iscience.eu'>Internet science</a> and online 
-          research for methods and tools to address the 
-          fact that dropout (aka attrition, mortality, 
-          break-off) occurs much more frequently when 
-          conducted via the Internet than in traditional 
-          lab-based research.</p>"))
+                    p("DropR is a joint project by Ulf-Dietrich Reips, Matthias Bannert and Annika Tave Overlander that 
+                      followed naturally from the long-standing need in",
+                      a("Internet science", href = "http://iscience.eu"), 
+                      "and online research for methods and tools to address the fact that dropout (aka attrition, mortality, 
+                      break-off) occurs much more frequently when research is conducted via the Internet than traditionally
+                      in the lab.", class="slimtext"),
+                    p("You can find the full documentation of the dropR package on",
+                      a("GitHub.", href = "https://mbannert.github.io/dropR/articles/r_console_usage.html"), class="slimtext")
+                    )
 
 # Main Page structure ####
 ui <- dashboardPage(
