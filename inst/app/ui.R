@@ -194,6 +194,15 @@ tabXsq <- tabItem(tabName = "xsq",
                         div(plotOutput("do_curve_plot_2"),
                             style = 'overflow:auto')
                         )
+                  ), 
+                  fluidRow(
+                    box(width=5,
+                        HTML("<h3>Kolmogorov-Smirnov Test</h3>"), 
+                        p("A p-value < 0.5 indicates that the most different/extreme conditions 
+                          are not from the same population."),
+                        uiOutput('choose_condition'),
+                        verbatimTextOutput("ks_tests")
+                    )
                   )
                   )
 
