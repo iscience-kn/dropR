@@ -91,7 +91,7 @@ do_kpm_plot <- function(
   
   k <- k + guides(color = guide_legend(title = NULL),
                   fill = guide_legend(title = NULL)) +
-    xlab("Dropout Index") + 
+    xlab("Question Index") + 
     ylab("Percent Remaining")
   
   k

@@ -16,7 +16,7 @@ server <- function(input, output) {
                           dec = input$dec,
                           quote = input$quote,
                           header = input$header,
-                          na.strings = input$nas)  
+                          na.strings = c(input$nas, input$nas_custom1, input$nas_custom2, input$nas_custom3))
     }
     upfile
   })
@@ -35,19 +35,22 @@ server <- function(input, output) {
     
   })
   
+  observeEvent(input$goButton, {
+    showNotification("Updated!", duration = 2)
+  })
   
   stats <- reactive({
     input$goButton
     isolate({
       if((is.null(input$file1) & !input$demo_ds )
-         | is.null(input$cond_col) |
-         is.null(input$quest_cols)){
+         | is.null(input$cond_col) | 
+         is.null(input$quest_cols)){ 
         #data.frame(id = 0, pct_remain = 0, condition = "total")
         NULL
       } else {
         dta <- dataset()
+
         dta <- add_dropout_idx(dta, input$quest_cols)
-        
         
         # compute stats
         stats <- compute_stats(dta,
@@ -65,6 +68,7 @@ server <- function(input, output) {
            qs = input$quest_cols,
            condition_col = input$cond_col,
            model_fit = input$kaplan_fit)
+
   })
 
   
@@ -76,7 +80,7 @@ server <- function(input, output) {
     selectInput('cond_col',
                 'Experimental conditions',
                 choices = c('None',names(dataset())),
-                selected = 'experimental_condition',
+                selected = 'None',
                 multiple = F
     )
   })
@@ -164,11 +168,10 @@ server <- function(input, output) {
   do_curve_plot <- reactive({
     validate(
       need(stats(),"Please upload a dataset.
-           Make sure to hit 'update data!' in the upload tab.")
+           Make sure to hit 'Update data!' in the upload tab.")
       )
     
    
-
     d <- as.data.frame(stats())
     if(input$cutoff){
       last_q <- length(input$quest_cols)
@@ -186,10 +189,35 @@ server <- function(input, output) {
       }
     }
     
+# <<<<<<< HEAD
+#     if(input$linetypes){
+#       do_curve <- do_curve + geom_line(aes(x=drop_out_idx,
+#                                            y=(pct_remain)*100,
+#                                            col = factor(condition),
+#                                            linetype = factor(condition)),
+#                                        size = as.numeric(input$stroke_width))
+#     } else {
+#       do_curve <- do_curve + geom_line(aes(x=drop_out_idx,
+#                                            y=(pct_remain)*100,
+#                                            col = factor(condition)),
+#                                        size = as.numeric(input$stroke_width))  
+#     }
+#     do_curve <- do_curve + 
+#       theme_bw() +
+#       theme(panel.grid.major.x = element_blank(),
+#             panel.grid.minor.x = element_blank(),
+#             panel.border = element_blank(),
+#             axis.line = element_line(colour = "black")) + 
+#       xlab("Question Index") + #Dropout Index is very misleading imho
+#       ylab("Percent Remaining")
+#       
+# =======
     plot_do_curve(d, linetypes = input$linetypes,
                   stroke_width = input$stroke_width,
                   show_points = input$show_points,
+                  full_scale = input$full_scale,
                   color_palette = input$color_palette)
+# >>>>>>> main
 
   })
 
@@ -224,6 +252,51 @@ server <- function(input, output) {
                 color_palette_kp = input$color_palette_kp,
                 full_scale_kpm = input$full_scale_kpm)
     
+# <<<<<<< HEAD
+#     k <- k + 
+#       geom_line() +
+#       theme_bw() +
+#       theme(panel.grid.major.x = element_blank(),
+#             panel.grid.minor.x = element_blank(),
+#             panel.border = element_blank(),
+#             axis.line = element_line(colour = "black"))
+#     if(input$kpm_ci){
+#       k <- k + geom_ribbon(aes(ymin = lwr, ymax = uppr,
+#                                linetype=NA), alpha=.3)
+#     }
+# 
+#     if(input$color_palette_kp == "color_blind"){
+#       k <- k + scale_fill_manual(values=c("#000000", "#E69F00",
+#                                           "#56B4E9", "#009E73",
+#                                           "#F0E442", "#0072B2",
+#                                           "#D55E00", "#CC79A7")) +
+#         scale_color_manual(values=c("#000000", "#E69F00",
+#                                     "#56B4E9", "#009E73",
+#                                     "#F0E442", "#0072B2",
+#                                     "#D55E00", "#CC79A7"))
+#     }
+# 
+#     if(input$color_palette_kp == "gray"){
+#       k <- k +
+#         scale_color_manual(values = gray(seq(from=0,1,
+#                                              by=1/8)[c(1,8,3,7,4,5,2,6)]
+#         )) +
+#         scale_fill_manual(values = gray(seq(from=0,1,
+#                                             by=1/8)[c(1,8,3,7,4,5,2,6)])
+#         )
+#     }
+#     
+#     if(input$full_scale_kpm){
+#       k <- k + 
+#         scale_y_continuous(limits = c(0,100))
+#     }
+#     
+#     k <- k + guides(color = guide_legend(title = NULL),
+#                     fill = guide_legend(title = NULL)) +
+#       xlab("Question Index") + 
+#       ylab("Percent Remaining")
+# =======
+# >>>>>>> main
     
     ggsave(paste0("kpm_plot.",input$kpm_export_format),
            plot = k, device = input$kpm_export_format,
