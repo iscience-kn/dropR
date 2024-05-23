@@ -2,9 +2,10 @@ pandoc: 3.1.11
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
-  r_console_usage: r_console_usage.html
-last_built: 2024-05-23T10:50Z
+  interactive: interactive.html
+  tests: tests.html
+last_built: 2024-05-23T11:01Z
 urls:
-  reference: http://mbannert.github.io/dropR/reference
-  article: http://mbannert.github.io/dropR/articles
+  reference: https://iscience-kn.github.io/dropR/reference
+  article: https://iscience-kn.github.io/dropR/articles
 

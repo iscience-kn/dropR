@@ -1,54 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://mbannert.github.io/dropR/404.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/404.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/articles/index.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/articles/index.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/articles/r_console_usage.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/articles/interactive.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/authors.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/articles/tests.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/index.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/authors.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/add_dropout_idx.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/index.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/all_values.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/reference/add_dropout_idx.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/compute_stats.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/reference/all_values.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/do_steps.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/reference/compute_stats.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/find_drop_out.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/reference/do_steps.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/get_odds.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/reference/find_drop_out.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/get_odds_ratio.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/reference/get_odds.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/get_steps_by_cond.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/reference/get_odds_ratio.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/index.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/reference/get_steps_by_cond.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/n_count.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/reference/index.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/plot_do_curve.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/reference/n_count.html</loc>
   </url>
   <url>
-    <loc>http://mbannert.github.io/dropR/reference/start_app.html</loc>
+    <loc>https://iscience-kn.github.io/dropR/reference/plot_do_curve.html</loc>
+  </url>
+  <url>
+    <loc>https://iscience-kn.github.io/dropR/reference/start_app.html</loc>
   </url>
 </urlset>
