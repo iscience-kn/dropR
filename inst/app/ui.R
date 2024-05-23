@@ -5,26 +5,124 @@ library(shinydashboard)
 # Tab items 
 # Home ####
 tabHome <- tabItem(tabName = "home",
+                   tags$style(HTML("
+                                .slimtext {
+                                  width: 60%;
+                                  word-break: break-word;
+                                }
+                                
+                                .extraslimtext {
+                                  width: 35%;
+                                  word-break: break-word;
+                                }
+                                ")
+                   ),
+                   
                    div(align="center",
                        img(src="decrease.svg",width=120),
                        h2("dropR"),
-                       p("DropR analyzes data from Internet-based 
-experiments for differences in dropout (aka 
-                         attrition, mortality, break-off) between 
-                         conditions. Currently, DropR supports visual 
+                       p("dropR analyzes data from Internet-based 
+                       experiments for", strong("differences in dropout between conditions."), 
+                         class="slimtext"),
+                       p("Currently, dropR supports visual 
                          inspection of dropout, Odds ratio by item, Chi 
                          Square tests of differences at any particular 
                          item (e.g. test for overall dropout difference), 
                          Kaplan-Maier survival estimation, Rho family 
-                         tests."),
-                       p("DropR follows a simple step-by-step process. 
-                         Begin by uploading your data under 'Upload your 
-                         data' or choose our demo file and choose 
-                         'experimental_condition' as the grouping variable 
-                         under 'Identify' to see what DropR can do for you.")
+                         tests.", class="slimtext"),
+                       p("dropR follows a simple step-by-step process which starts in the Upload tab.", br(),
+                         "1. Upload your data under 'Upload your 
+                         data' or choose our demo file.", br(),
+                         "2. Specify some datafile characteristics, such as csv separator or NA coding.", br(),
+                         "3. Identify the experimental condition variable, i.e. 'experimental_condition' in demo data 
+                         or something similar in your data and select all experimental variables for which to analyze dropout.", br(),
+                         "Make sure to click 'update data!' to get started on analyses 
+                         and visualization.", class="extraslimtext"),
+                       p("To read more about dropout as a relevant dependent variable in analysis of internet-based
+                         experiments, we recommend",
+                         a("this paper by Reips (2002)", href = "https://www.uni-konstanz.de/iscience/reips/pubs/papers/Reips2002.pdf"), 
+                         "as a starting point.", class="slimtext")
                        )
                    # ,textOutput("debug_txt")
                    )
+# Upload ####
+tabUpload <- tabItem(tabName = "upload",
+                     h2("Upload your data"),
+                     fluidRow(
+                       box(width=5,
+                           h3("1. Choose"),
+                           h4("a .csv file from your disk"),
+                           strong('How To dropR'),
+                           tags$ul(
+                             tags$li("Indicate whether the first line of your
+                                   data is a header."),
+                             tags$li("Choose the proper column delimiter,
+                                   text quote and missing value coding for your file.
+                                   Note that empty cells are recognized as 
+                                   missing values by default."),
+                             tags$li("Make sure to use reasonable coding for
+                                   missing values in your data. Add custom missing values
+                                   if necessary."),
+                             tags$li("Check the data preview below. If your
+                                   data is displayed as expected you are good to 
+                                   start with your analysis.")
+                           ),
+                           p("DON'T forget to hit 'update data' in the box on the right when 
+                             you're ready!"),
+                           fileInput('file1', '',
+                                     accept=c('text/csv', 
+                                              'text/comma-separated-values,text/plain', 
+                                              '.csv')),
+                           h4("or use the default demo dataset (52 variables, 4 experimental conditions) instead"),
+                           checkboxInput("demo_ds","use demo data", value = TRUE)
+                       ),
+                       box(width=2,
+                           h3("2. Specify"),
+                           h4(".csv properties"),
+                           checkboxInput('header', 'Header', TRUE),
+                           radioButtons('sep', 'Separator',
+                                               c(Semicolon=';',
+                                                 Comma=',',
+                                                 Tab='\t'),
+                                               ';'),
+                           radioButtons('quote', 'Text quote',
+                                               c(None='',
+                                                 'Double quote'='"',
+                                                 'Single quote'="'"),
+                                               '"')
+                          
+                       ),
+                       box(width=2,
+                           h3("2.1 Missings"),
+                           checkboxGroupInput('nas','Interpret as missing:',
+                                              c('NA', '#N/A','.', '-99','-999',
+                                                '-1',''),c("NA")),
+                           textInput('nas_custom1', label = 'Add your own NA coding:',
+                                     value = "-66", width = '30%'),
+                           textInput('nas_custom2', label = NULL,
+                                     value = "-77", width = '30%'),
+                           textInput('nas_custom3', label = NULL,
+                                     value = "-9999", width = '30%')
+                       ),
+                       box(width=3,
+                           h3("3. Identify"),
+                           h4("conditions and questions to analyze"),
+                           uiOutput('choose_condition'),
+                           uiOutput("choose_questions"),
+                           actionButton("goButton", "Update data!")
+                       )
+                     ),
+                     fluidRow(
+                       box(width = 12,
+                           h3("Data Preview"),
+                           div(DT::dataTableOutput("table"),style = 'overflow:auto')
+                       )
+                     )
+                     # fluidRow(
+                     #   box(width = 12),
+                     #   textOutput("debug_txt")
+                     # )
+                  )
 
 # Visual Analysis ####
 tabViz <- tabItem(tabName = "viz",
@@ -45,16 +143,20 @@ tabViz <- tabItem(tabName = "viz",
                                        "gray scale" = "gray"),
                                      "color_blind"),
                         h3("Hints"),
-                        p("- color blind and printer friendly palettes support up to 8 different categories (colors)."),
-                        p("- When re-labelling conditions, use comma (,) as a seperator. Make sure to list as many names as conditions selected."),
-                        p("- With dropR you can produce graphs for publication in various formats. You may choose from vector formats such as .svg and .pdf and the .png format for rendered pixels. While size is relevant to any format, resolution only applies to .png and will be ignored when vector formats are chosen.")),
+                        tags$ul(
+                          tags$li("Color-blind friendly palettes support up to 8 different conditions (colors)."),
+                          tags$li("When renaming conditions, use a comma (,) as a seperator. Make sure to list 
+                                  as many names as conditions you have selected."),
+                          tags$li("With dropR you can produce graphs for publication in various formats. You may 
+                                  choose vector formats such as .svg and .pdf or the .png format for rendered pixels.")
+                        )),
                     box(width = 8,
                         h3("Dropout by question"),
                         div(plotOutput("do_curve_plot"),
                             style = 'overflow:auto'),
-                        textInput("plot_fname","file name (w/o file extension)",
+                        textInput("plot_fname","file name (without file extension)",
                                   width=240,
-                                  value = paste0("dropR_",round(as.numeric(Sys.time())))
+                                  value = paste0("dropR_", round(as.numeric(Sys.time())))
                                   ),
                         selectInput("export_format","export graph as:",
                                     c("pdf" = "pdf",
@@ -72,81 +174,9 @@ tabViz <- tabItem(tabName = "viz",
                                     width = 240),
                         downloadButton('downloadCurvePlot', 'download plot')
                         )
-                    
-                    
-                    
                     )
-           
-                  
                   )
-# Upload ####
-tabUpload <- tabItem(tabName = "upload",
-                      h2("Upload your data"),
-                     fluidRow(
-                       box(width=6,
-                         h3("1 Choose"),
-                         h4("a .csv file from your disk"),
-                         tags$ul(
-                           tags$li("Indicate whether the first line of your
-                                   data is meant to be a header."),
-                           tags$li("Choose the proper column delimiter,
-                                   text quote and missing value coding for your file.
-                                   Note that, proper missing values (empty fields) are 
-                                   accepted in addition by default."),
-                           tags$li("Make sure to use reasonable coding for
-                                   missing values (i.e. empty cells). Avoid
-                                   ambigous coding such as -99, -999 etc."),
-                           tags$li("Check the preview window below. Iff your
-                                   data is displayed as expected you are good to 
-                                   start with your analysis. DON'T forget to 
-                                   hit 'update data' in the right box when
-                                   you're ready.")
-                         ),
-                         fileInput('file1', '',
-                                     accept=c('text/csv', 
-                                              'text/comma-separated-values,text/plain', 
-                                              '.csv')),
-                         h4("or use the default demo dataset instead"),
-                         checkboxInput("demo_ds","use demo data",value = T)
-                         ),
-                       box(width=3,
-                         h3("2 Specify"),
-                         h4(".csv properties"),
-                         checkboxInput('header', 'Header', TRUE),
-                         radioButtons('sep', 'Separator',
-                                      c(Semicolon=';',
-                                        Comma=',',
-                                        Tab='\t'),
-                                      ';'),
-                         radioButtons('quote', 'Text quote',
-                                      c(None='',
-                                        'Double quote'='"',
-                                        'Single quote'="'"),
-                                      '"'),
-                         checkboxGroupInput('nas','Interpret as missing:',
-                                            c('-99','-999','-9999','-1',
-                                              '999','9','',
-                                              '#N/A','NA','.'),c("NA"))
-                       ),
-                       box(width=3,
-                         h3("3 Identify"),
-                         h4("questions and conditions"),
-                         uiOutput('choose_condition'),
-                         uiOutput("choose_questions"),
-                         actionButton("goButton", "update data!")
-                       )
-                     ),
-                     fluidRow(
-                       box(width = 12,
-                         h3("Data Preview"),
-                        div(DT::dataTableOutput("table"),style = 'overflow:auto')
-                       )
-                     )
-                     # fluidRow(
-                     #   box(width = 12),
-                     #   textOutput("debug_txt")
-                     # )
-                     )
+
 
 # Tab Chisq ####
 tabXsq <- tabItem(tabName = "xsq",
@@ -226,15 +256,15 @@ tabKaplan <- tabItem(tabName = "kaplan",
 
 tabAbout <- tabItem(tabName = "about",
                     h2("About"),
-                    HTML("<p>DropR is a joint project by 
-Ulf-Dietrich Reips and Matthias Bannert that 
-          followed naturally from the long-standing need in 
-          <a href='http://iscience.eu'>Internet science</a> and online 
-          research for methods and tools to address the 
-          fact that dropout (aka attrition, mortality, 
-          break-off) occurs much more frequently when 
-          conducted via the Internet than in traditional 
-          lab-based research.</p>"))
+                    p("DropR is a joint project by Ulf-Dietrich Reips, Matthias Bannert and Annika Tave Overlander that 
+                      followed naturally from the long-standing need in",
+                      a("Internet science", href = "http://iscience.eu"), 
+                      "and online research for methods and tools to address the fact that dropout (aka attrition, mortality, 
+                      break-off) occurs much more frequently when research is conducted via the Internet than traditionally
+                      in the lab.", class="slimtext"),
+                    p("You can find the full documentation of the dropR package on",
+                      a("GitHub.", href = "https://mbannert.github.io/dropR/articles/r_console_usage.html"), class="slimtext")
+                    )
 
 # Main Page structure ####
 ui <- dashboardPage(
@@ -242,14 +272,15 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("home")),
-      menuItem("Upload", tabName = "upload", icon = icon("upload")),
+      menuItem("Start: Upload", tabName = "upload", icon = icon("upload")),
       menuItem("Visual inspection", tabName = "viz",
                icon = icon("area-chart",lib="font-awesome")),
       menuItem("Chi-square", tabName = "xsq",
                icon = icon("percent",lib="font-awesome")),
       menuItem("Kaplan-Meier est.", tabName = "kaplan",
                icon = icon("percent",lib="font-awesome")),
-      menuItem("About", tabName = "about")
+      menuItem("About", tabName = "about",
+               icon = icon("circle-info",lib="font-awesome"))
     )
   ),
   # Body of the App #############

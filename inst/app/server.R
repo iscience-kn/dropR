@@ -16,7 +16,7 @@ server <- function(input, output) {
                           dec = input$dec,
                           quote = input$quote,
                           header = input$header,
-                          na.strings = input$nas)  
+                          na.strings = c(input$nas, input$nas_custom1, input$nas_custom2, input$nas_custom3))
     }
     upfile
   })
@@ -35,19 +35,22 @@ server <- function(input, output) {
     
   })
   
+  observeEvent(input$goButton, {
+    showNotification("Updated!", duration = 2)
+  })
   
   stats <- reactive({
     input$goButton
     isolate({
       if((is.null(input$file1) & !input$demo_ds )
-         | is.null(input$cond_col) |
-         is.null(input$quest_cols)){
+         | is.null(input$cond_col) | 
+         is.null(input$quest_cols)){ 
         #data.frame(id = 0, pct_remain = 0, condition = "total")
         NULL
       } else {
         dta <- dataset()
+
         dta <- add_dropout_idx(dta, input$quest_cols)
-        
         
         # compute stats
         stats <- compute_stats(dta,
@@ -65,6 +68,7 @@ server <- function(input, output) {
            qs = input$quest_cols,
            condition_col = input$cond_col,
            model_fit = input$kaplan_fit)
+
   })
 
   
@@ -164,11 +168,10 @@ server <- function(input, output) {
   do_curve_plot <- reactive({
     validate(
       need(stats(),"Please upload a dataset.
-           Make sure to hit 'update data!' in the upload tab.")
+           Make sure to hit 'Update data!' in the upload tab.")
       )
     
    
-
     d <- as.data.frame(stats())
     if(input$cutoff){
       last_q <- length(input$quest_cols)
@@ -186,12 +189,12 @@ server <- function(input, output) {
       }
     }
     
+
     plot_do_curve(d, linetypes = input$linetypes,
                   stroke_width = input$stroke_width,
                   show_points = input$show_points,
                   full_scale = input$full_scale,
                   color_palette = input$color_palette)
-
   })
 
 
@@ -224,8 +227,7 @@ server <- function(input, output) {
                 kpm_ci = input$kpm_ci,
                 color_palette_kp = input$color_palette_kp,
                 full_scale_kpm = input$full_scale_kpm)
-    
-    
+
     ggsave(paste0("kpm_plot.",input$kpm_export_format),
            plot = k, device = input$kpm_export_format,
            dpi = input$kpm_dpi,
@@ -331,10 +333,6 @@ server <- function(input, output) {
 
 
 
-
-
-
-# TEST ##########
 output$debug_txt <- renderText({
   input$cond_col
 })

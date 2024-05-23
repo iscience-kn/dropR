@@ -2,12 +2,12 @@ library(dropR)
 library(data.table)
 data("dropRdemo")
 n_q <- length(grep("vi_",names(dropRdemo)))
-dropRdemo$drop_out_idx <- extract_drop_out_from_df(dropRdemo,grep("vi_",names(dropRdemo)))
+dropRdemo$drop_out_idx <- add_dropout_idx(dropRdemo,grep("vi_",names(dropRdemo)))
 
-test <- computeStatistics(dropRdemo,by_cond = "experimental_condition",
+test <- compute_stats(dropRdemo,by_cond = "experimental_condition",
                           no_of_vars = 52)
 
-test <- computeStatistics(dropRdemo,by_cond = "None",
+test <- compute_stats(dropRdemo,by_cond = "None",
                           no_of_vars = 52)
 
 
@@ -98,12 +98,12 @@ test
 test$cond
 head(test$total)
 
-debug(computeStatistics)
+debug(compute_stats)
 
 
 
 library(data.table)
-computeStatistics <- function(df, by_cond = NULL,
+compute_stats <- function(df, by_cond = NULL,
                               do_indicator = "drop_out_idx",
                               no_of_vars
 ){
@@ -159,8 +159,8 @@ computeStatistics <- function(df, by_cond = NULL,
 
 }
 
-undebug(computeStatistics)
-test <- computeStatistics(dropRdemo,by_cond = "experimental_condition",
+undebug(compute_stats)
+test <- compute_stats(dropRdemo,by_cond = "experimental_condition",
                           no_of_vars = 52)
 
 tt <- subset(test,drop_out_idx == 45)
@@ -202,7 +202,7 @@ dtable[,list(drop_out_count = .N),
        keyby = list(do_indicator,by_cond)]
 
 
-aa <- computeStatistics(dropRdemo,by_cond = "experimental_condition")
+aa <- compute_stats(dropRdemo,by_cond = "experimental_condition")
 aa <- merge(aa,data.table(id = 1:52),
             by.x = "drop_out_idx",
             by.y = "id",
