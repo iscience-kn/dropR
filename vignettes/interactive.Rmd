@@ -1,8 +1,8 @@
 ---
-title: "Interactive Dropout Analysis on the R Console"
+title: "Interactive Dropout Analysis with R"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{r_console_usage}
+  %\VignetteIndexEntry{Interactive Dropout Analysis with R}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -68,36 +68,4 @@ Based on the above statistics table, dropR plots dropout curves very convenientl
 plot_do_curve(stats_table)
 
 ```
-
-
-### Running a Chi-sq. Test for a Selected Question
-
-> **_NOTE:_**  Chi-sq. tests are only available when an column denoting the experimental condition is given.
-
-Let's compute a Chisq test at question 15 for experimentatl conditions `11` and `12`, dropR's dropout Chisq-Test returns a list containing the actual *test results* and dropout overview table at the selected question. 
-
-
-```{r}
-do_chisq(stats_table,
-         chisq_question = 15,
-         sel_cond_chisq = c('11','12'),
-         fisher = TRUE)
-```
-
-### Kaplan-Meier Estimation
-
-```{r}
-do_kpm(d = dropRdemo,
-           qs = qs,
-           condition_col = "experimental_condition",
-           model_fit = "total")
-
-
-
-```
-
-
-
-
-
 

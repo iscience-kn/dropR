@@ -1,9 +1,9 @@
 Package: dropR
 Type: Package
-Version: 0.4
+Version: 1.0
 Title: Drop out analysis in R
 Description: Analysis of dropout in surveys and experimental setups.
-Author: "Matthias Bannert <bannert@kof.ethz.ch> [aut, cre]"
+Authors@R: c(person("Annika Tave", "Overlander", role = c("aut","cre"), email = "annika-tave.overlander@uni.kn"), person("Matthias", "Bannert", role = c("aut"), email = "bannert@kof.ethz.ch"), person("Ulf-Dietrich", "Reips", role = c("ctb")))
 Depends:
     R (>= 3.0.0),
 Imports:
@@ -17,11 +17,10 @@ Suggests:
     knitr,
     rmarkdown,
     kableExtra
-Date: 2024-03-14
+Date: 2024-05-23
 License: GPL-2
 LazyData: true
-Maintainer: 'Matthias Bannert' <bannert@kof.ethz.ch>
 RoxygenNote: 7.3.1
-URL: http://mbannert.github.io/dropR/
+URL: https://iscience-kn.github.io/dropR/
 VignetteBuilder: knitr
 Encoding: UTF-8

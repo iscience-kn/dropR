@@ -18,7 +18,6 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-We're busy updating this package. Stay tuned.
 
 ## Installation
 
@@ -26,6 +25,51 @@ You can install the development version of dropR from [GitHub](https://github.co
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("mbannert/dropR")
+remotes::install_github("iscience-kn/dropR")
 ```
+
+We are currently working to get `dropR` back on CRAN. Once it's up again, you can
+install dropR via 
+
+```{r, eval=FALSE}
+install.packages("dropR")
+```
+
+
+## Usage as a Shiny App (Graphical User Interface)
+
+To start `dropR's` built-in GUI, run
+
+```{r,eval=FALSE}
+dropR::start_app()
+```
+
+## Interactive Usage (use dropR on the R Console)
+
+You can also use dropR's functionality within R, i.e., either on the console or within your
+own functions and packages. Read more about interactive usage of dropR in our [walkthrough article](articles/interactive.html).
+
+
+
+```{r, echo=FALSE}
+library(dropR)
+data("dropRdemo")
+
+qs <- which(grepl("vi_", names(dropRdemo)))
+# add numeric drop out position to original dataset
+dropRdemo <- add_dropout_idx(dropRdemo, q_pos = qs)
+
+stats_table <- compute_stats(dropRdemo,
+                             by_cond = "experimental_condition",
+                             no_of_vars = length(qs))
+
+
+```
+
+```{r, echo=FALSE}
+plot_do_curve(stats_table)
+```
+
+
+
 
