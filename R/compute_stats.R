@@ -23,7 +23,7 @@ compute_stats <- function(df,
     # expand to full grid 
     no_of_cond <- length(unique(dtable[,get(by_cond)]))
     full_grid <- merge(do_by_cond,
-                       data.table(id = sort(rep(1:no_of_vars,4)),
+                       data.table(id = sort(rep(1:no_of_vars,no_of_cond)),
                                   ec = unique(dtable[,get(by_cond)])),
                        by.x = c("do_idx",by_cond),
                        by.y = c("id","ec"),
