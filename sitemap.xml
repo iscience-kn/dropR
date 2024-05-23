@@ -34,10 +34,19 @@
     <loc>https://iscience-kn.github.io/dropR/reference/do_kpm.html</loc>
   </url>
   <url>
+    <loc>https://iscience-kn.github.io/dropR/reference/do_kpm_plot.html</loc>
+  </url>
+  <url>
+    <loc>https://iscience-kn.github.io/dropR/reference/do_ks.html</loc>
+  </url>
+  <url>
     <loc>https://iscience-kn.github.io/dropR/reference/do_or_table.html</loc>
   </url>
   <url>
     <loc>https://iscience-kn.github.io/dropR/reference/do_steps.html</loc>
+  </url>
+  <url>
+    <loc>https://iscience-kn.github.io/dropR/reference/dropRdemo.html</loc>
   </url>
   <url>
     <loc>https://iscience-kn.github.io/dropR/reference/find_drop_out.html</loc>
@@ -50,6 +59,9 @@
   </url>
   <url>
     <loc>https://iscience-kn.github.io/dropR/reference/get_steps_by_cond.html</loc>
+  </url>
+  <url>
+    <loc>https://iscience-kn.github.io/dropR/reference/get_survdiff.html</loc>
   </url>
   <url>
     <loc>https://iscience-kn.github.io/dropR/reference/index.html</loc>
