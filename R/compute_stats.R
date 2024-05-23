@@ -2,7 +2,6 @@
 #' 
 #' @param df data.frame
 #' @param by_cond character group by condition, defaults to None.
-#' @param do_idx character dropout indicator
 #' @param no_of_vars numeric number of variables
 #'
 #' @import data.table

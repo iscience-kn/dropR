@@ -3,7 +3,9 @@
 #' 
 #' 
 #' @param d data.frame stats table computed by compute_stats.
-#' @importFrom stats chisq.test
+#' @param chisq_question question.
+#' @param sel_cond_chisq selected condition.
+#' @param fisher simulate p value parameter.
 #' @export
 do_chisq <- function(d,
                      chisq_question,

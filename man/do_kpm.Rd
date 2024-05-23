@@ -6,6 +6,15 @@
 \usage{
 do_kpm(d, qs, condition_col, model_fit)
 }
+\arguments{
+\item{d}{dataset}
+
+\item{qs}{character vector of questions column indicator.}
+
+\item{condition_col}{character column denoting the experimental condition}
+
+\item{model_fit}{?}
+}
 \description{
 Kaplan-Meier
 }

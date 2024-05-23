@@ -1,4 +1,5 @@
 library(dropR)
+library(DT)
 # more NA
 # -1, -9, 999
 server <- function(input, output) {
@@ -294,7 +295,7 @@ server <- function(input, output) {
 ####################################################  
   
   # Preview data Table ####
-  output$table <- DT::renderDataTable(DT::datatable({
+  output$table <- renderDataTable(datatable({
     if(is.null(input$file1) & !input$demo_ds) return(NULL)
     else{
       dataset()

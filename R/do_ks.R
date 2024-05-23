@@ -3,12 +3,10 @@
 #' @param data A dataset made from dropR::compute_stats(), containing information on the percent remaining per question per condition
 #' @param questions Number of questions to be included in analysis
 #'
-#' @return
+#' @importFrom dplyr %>% filter pull
+#' @importFrom stats ks.test
 #' @export
-#'
-#' @examples do_ks(stats, 51)
 do_ks <- function(data, questions){
-  library(dplyr)
   
   extremes <- data %>% 
     filter(do_idx == questions, #length(input$quest_cols)-1

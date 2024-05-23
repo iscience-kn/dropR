@@ -8,6 +8,12 @@ do_chisq(d, chisq_question, sel_cond_chisq, fisher)
 }
 \arguments{
 \item{d}{data.frame stats table computed by compute_stats.}
+
+\item{chisq_question}{question.}
+
+\item{sel_cond_chisq}{selected condition.}
+
+\item{fisher}{simulate p value parameter.}
 }
 \description{
 Compute Chisq-Test Given a Question Position

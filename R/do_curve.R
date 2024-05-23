@@ -8,7 +8,7 @@
 #' @param linetypes boolean show we use different linetypes, defaults to TRUE.
 #' @param stroke_width numeric stroke width, defaults to 1.
 #' @param full_scale boolean should scale range from 0,100? Defaults to TRUE, FALSE cuts off at max.
-#' @param show points boolean should the plot show points for each item? Defaults to FALSE.
+#' @param show_points boolean should lines show points? Defaults to FALSE.
 #' @param color_palette character indicating which color palette to use. Defaults to 'color_blind',
 #' alternatively choose 'gray'. 
 #' @import ggplot2

@@ -8,6 +8,10 @@ do_or_table(d, chisq_question, sel_cond_chisq)
 }
 \arguments{
 \item{d}{data.frame stats table as computed by compute_stats.}
+
+\item{chisq_question}{description}
+
+\item{sel_cond_chisq}{description}
 }
 \description{
 Dropout Odds Ration Table

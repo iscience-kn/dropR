@@ -1,7 +1,10 @@
 #' Kaplan-Meier 
 #' 
 #' 
-#' 
+#' @param d dataset
+#' @param qs character vector of questions column indicator.
+#' @param condition_col character column denoting the experimental condition
+#' @param model_fit ?
 #' @importFrom survival Surv survfit
 #' @export
 do_kpm <- function(d,
@@ -33,6 +36,13 @@ do_kpm <- function(d,
 }
 
 
+#' Draw a Kaplan Meier Plot
+#' 
+#' @param kds description
+#' @param sel_cond_kpm selected experimental conditions. 
+#' @param kpm_ci confidence bands
+#' @param color_palette_kp different color palettes
+#' @param full_scale_kpm ?
 #' @import ggplot2
 #' @export
 do_kpm_plot <- function(
@@ -98,8 +108,12 @@ do_kpm_plot <- function(
   
 }
 
-
+#' Test Survival Curve Difference
+#' 
 #' @importFrom survival survdiff
+#' @param d description
+#' @param cond description
+#' @param test_type ?
 #' @export
 get_survdiff <- function(d, cond, test_type){
   f <- as.formula(paste("surv", cond, sep="~"))

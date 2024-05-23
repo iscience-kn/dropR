@@ -12,8 +12,6 @@ compute_stats(df, by_cond = "None", no_of_vars)
 \item{by_cond}{character group by condition, defaults to None.}
 
 \item{no_of_vars}{numeric number of variables}
-
-\item{do_idx}{character dropout indicator}
 }
 \description{
 Compute Statistics

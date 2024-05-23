@@ -23,10 +23,10 @@ Make sure your stats table contains a do_idx column indexing all items sequentia
 
 \item{full_scale}{boolean should scale range from 0,100? Defaults to TRUE, FALSE cuts off at max.}
 
+\item{show_points}{boolean should lines show points? Defaults to FALSE.}
+
 \item{color_palette}{character indicating which color palette to use. Defaults to 'color_blind',
 alternatively choose 'gray'.}
-
-\item{show}{points boolean should the plot show points for each item? Defaults to FALSE.}
 }
 \description{
 This functions uses ggplot to create drop out curves.

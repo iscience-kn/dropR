@@ -3,6 +3,8 @@
 #' 
 #' 
 #' @param d data.frame stats table as computed by compute_stats.
+#' @param chisq_question description
+#' @param sel_cond_chisq description
 #' @export
 do_or_table <- function(d,
                         chisq_question,
