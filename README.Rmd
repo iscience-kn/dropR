@@ -28,4 +28,6 @@ You can install the development version of dropR from [GitHub](https://github.co
 # install.packages("remotes")
 remotes::install_github("mbannert/dropR")
 ```
-
+<!--Link to "use as an app" with shiny website and dropR::start_App()
+Move Article stuff here to main page and split current article to be more deep dive-y for the single tests 
+Link literature using the tests & DO analysis in general -->
