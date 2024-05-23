@@ -76,7 +76,7 @@ server <- function(input, output) {
     selectInput('cond_col',
                 'Experimental conditions',
                 choices = c('None',names(dataset())),
-                selected = 'None',
+                selected = 'experimental_condition',
                 multiple = F
     )
   })
