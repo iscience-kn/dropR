@@ -17,7 +17,7 @@ add_dropout_idx <- function(df, q_pos){
   # # out vector contains drop out position
   # # dpos <-
   # df$do_idx <- sapply(tpos, find_drop_out, clnms = nms)
-  df$do_idx <- rowSums(sapply(df[, q_pos], !is.na))
+  df$do_idx <- length(q_pos) - rowSums(sapply(df[, q_pos], is.na))
   
   df
 }
