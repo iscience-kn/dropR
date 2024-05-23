@@ -1,6 +1,6 @@
 #' Extract Drop Out from a Data.Frame
 #' 
-#' Find drop out posititions in a data.frame that contains multiple 
+#' Find drop out positions in a data.frame that contains multiple 
 #' questions that had been asked sequentially.
 #' 
 #' @param df a data.frame
