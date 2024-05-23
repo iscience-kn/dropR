@@ -65,8 +65,8 @@ plot_do_curve <- function(d,
   
   if(color_palette == "gray" & length(levels(d$condition) < 9)){
     do_curve <- do_curve + 
-      scale_color_manual(values = gray(seq(from=0,1,
-                                           by=1/8)[c(1,8,3,7,4,5,2,6)]
+      scale_color_manual(values = gray(seq(from = 0,1,
+                                           by = 1/8)[c(1,8,3,7,4,5,2,6)]
       )
       )
   }

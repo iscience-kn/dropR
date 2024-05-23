@@ -80,7 +80,7 @@ server <- function(input, output) {
     selectInput('cond_col',
                 'Experimental conditions',
                 choices = c('None',names(dataset())),
-                selected = 'None',
+                selected = 'experimental_condition',
                 multiple = F
     )
   })
@@ -189,36 +189,12 @@ server <- function(input, output) {
       }
     }
     
-# <<<<<<< HEAD
-#     if(input$linetypes){
-#       do_curve <- do_curve + geom_line(aes(x=drop_out_idx,
-#                                            y=(pct_remain)*100,
-#                                            col = factor(condition),
-#                                            linetype = factor(condition)),
-#                                        size = as.numeric(input$stroke_width))
-#     } else {
-#       do_curve <- do_curve + geom_line(aes(x=drop_out_idx,
-#                                            y=(pct_remain)*100,
-#                                            col = factor(condition)),
-#                                        size = as.numeric(input$stroke_width))  
-#     }
-#     do_curve <- do_curve + 
-#       theme_bw() +
-#       theme(panel.grid.major.x = element_blank(),
-#             panel.grid.minor.x = element_blank(),
-#             panel.border = element_blank(),
-#             axis.line = element_line(colour = "black")) + 
-#       xlab("Question Index") + #Dropout Index is very misleading imho
-#       ylab("Percent Remaining")
-#       
-# =======
+
     plot_do_curve(d, linetypes = input$linetypes,
                   stroke_width = input$stroke_width,
                   show_points = input$show_points,
                   full_scale = input$full_scale,
                   color_palette = input$color_palette)
-# >>>>>>> main
-
   })
 
 
@@ -251,53 +227,7 @@ server <- function(input, output) {
                 kpm_ci = input$kpm_ci,
                 color_palette_kp = input$color_palette_kp,
                 full_scale_kpm = input$full_scale_kpm)
-    
-# <<<<<<< HEAD
-#     k <- k + 
-#       geom_line() +
-#       theme_bw() +
-#       theme(panel.grid.major.x = element_blank(),
-#             panel.grid.minor.x = element_blank(),
-#             panel.border = element_blank(),
-#             axis.line = element_line(colour = "black"))
-#     if(input$kpm_ci){
-#       k <- k + geom_ribbon(aes(ymin = lwr, ymax = uppr,
-#                                linetype=NA), alpha=.3)
-#     }
-# 
-#     if(input$color_palette_kp == "color_blind"){
-#       k <- k + scale_fill_manual(values=c("#000000", "#E69F00",
-#                                           "#56B4E9", "#009E73",
-#                                           "#F0E442", "#0072B2",
-#                                           "#D55E00", "#CC79A7")) +
-#         scale_color_manual(values=c("#000000", "#E69F00",
-#                                     "#56B4E9", "#009E73",
-#                                     "#F0E442", "#0072B2",
-#                                     "#D55E00", "#CC79A7"))
-#     }
-# 
-#     if(input$color_palette_kp == "gray"){
-#       k <- k +
-#         scale_color_manual(values = gray(seq(from=0,1,
-#                                              by=1/8)[c(1,8,3,7,4,5,2,6)]
-#         )) +
-#         scale_fill_manual(values = gray(seq(from=0,1,
-#                                             by=1/8)[c(1,8,3,7,4,5,2,6)])
-#         )
-#     }
-#     
-#     if(input$full_scale_kpm){
-#       k <- k + 
-#         scale_y_continuous(limits = c(0,100))
-#     }
-#     
-#     k <- k + guides(color = guide_legend(title = NULL),
-#                     fill = guide_legend(title = NULL)) +
-#       xlab("Question Index") + 
-#       ylab("Percent Remaining")
-# =======
-# >>>>>>> main
-    
+
     ggsave(paste0("kpm_plot.",input$kpm_export_format),
            plot = k, device = input$kpm_export_format,
            dpi = input$kpm_dpi,
@@ -403,10 +333,6 @@ server <- function(input, output) {
 
 
 
-
-
-
-# TEST ##########
 output$debug_txt <- renderText({
   input$cond_col
 })
