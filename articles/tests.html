@@ -104,14 +104,14 @@ and dropout overview table at the selected question.</p>
 <span><span class="co">#&gt;  replicates)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  test_table</span></span>
-<span><span class="co">#&gt; X-squared = 1.9315, df = NA, p-value = 0.2214</span></span>
+<span><span class="co">#&gt; X-squared = 1.1979, df = NA, p-value = 0.3338</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`Dropout at question 15`</span></span>
 <span><span class="co">#&gt;           participants</span></span>
 <span><span class="co">#&gt; conditions dropout remaining</span></span>
 <span><span class="co">#&gt;         11      14        58</span></span>
-<span><span class="co">#&gt;         12       6        51</span></span></code></pre></div>
+<span><span class="co">#&gt;         12       7        50</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="kaplan-meier-estimation">Kaplan-Meier Estimation<a class="anchor" aria-label="anchor" href="#kaplan-meier-estimation"></a>
@@ -126,10 +126,10 @@ and dropout overview table at the selected question.</p>
 <span><span class="co">#&gt;   x         y      uppr       lwr condition</span></span>
 <span><span class="co">#&gt; 1 1 0.9593496 0.9843472 0.9349868     total</span></span>
 <span><span class="co">#&gt; 2 2 0.9593496 0.9843472 0.9349868     total</span></span>
-<span><span class="co">#&gt; 3 2 0.9471545 0.9755285 0.9196058     total</span></span>
-<span><span class="co">#&gt; 4 3 0.9471545 0.9755285 0.9196058     total</span></span>
-<span><span class="co">#&gt; 5 3 0.9105691 0.9469365 0.8755984     total</span></span>
-<span><span class="co">#&gt; 6 4 0.9105691 0.9469365 0.8755984     total</span></span></code></pre></div>
+<span><span class="co">#&gt; 3 2 0.9308943 0.9631348 0.8997330     total</span></span>
+<span><span class="co">#&gt; 4 3 0.9308943 0.9631348 0.8997330     total</span></span>
+<span><span class="co">#&gt; 5 3 0.9024390 0.9402903 0.8661115     total</span></span>
+<span><span class="co">#&gt; 6 4 0.9024390 0.9402903 0.8661115     total</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">kpm</span><span class="op">$</span><span class="va">d</span><span class="op">)</span></span>
@@ -163,11 +163,11 @@ and dropout overview table at the selected question.</p>
 <span><span class="co">#&gt; 6    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA  &lt;NA&gt;    NA</span></span>
 <span><span class="co">#&gt;   vi_47 vi_48 vi_49 vi_50 vi_51 vi_52 experimental_condition do_idx surv</span></span>
 <span><span class="co">#&gt; 1     1     1     1     1     1     1                     11     52  52+</span></span>
-<span><span class="co">#&gt; 2    NA    NA    NA    NA    NA  &lt;NA&gt;                     22      6    6</span></span>
-<span><span class="co">#&gt; 3     1     1     1     1     1     1                     22     52  52+</span></span>
+<span><span class="co">#&gt; 2    NA    NA    NA    NA    NA  &lt;NA&gt;                     22      5    5</span></span>
+<span><span class="co">#&gt; 3     1     1     1     1     1     1                     22     51   51</span></span>
 <span><span class="co">#&gt; 4     1     1     1     1     1     1                     11     52  52+</span></span>
-<span><span class="co">#&gt; 5     1     1     1     1     1     1                     12     52  52+</span></span>
-<span><span class="co">#&gt; 6    NA    NA    NA    NA    NA  &lt;NA&gt;                     22     27   27</span></span></code></pre></div>
+<span><span class="co">#&gt; 5     1     1     1     1     1     1                     12     51   51</span></span>
+<span><span class="co">#&gt; 6    NA    NA    NA    NA    NA  &lt;NA&gt;                     22     26   26</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">kpm</span><span class="op">$</span><span class="va">model_fit</span></span>
