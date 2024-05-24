@@ -7,32 +7,22 @@
 #' @param q_pos numeric columns that contain questions
 #' @export
 add_dropout_idx <- function(df, q_pos){
-  # nms <- names(df[,q_pos])
-  # tf <- is.na(df[,q_pos])
-  # tpos <- apply(tf, 1, which)
-  # tpos[lapply(tpos, length) == 0] <- NA
-  # # cover unit NR
-  # tpos[lapply(tpos, length) == length(q_pos)] <- 1
-  # 
-  # # out vector contains drop out position
-  # # dpos <-
-  # df$do_idx <- sapply(tpos, find_drop_out, clnms = nms)
-  df$do_idx <- length(q_pos) - rowSums(sapply(df[, q_pos], is.na)) # length(q_pos) - 
+  df$do_idx <- rowSums(sapply(df[, q_pos], is.na))
   
-  # identify single missing by using block entropy
-  ent <- NA
+  # identify single missing by checking whether the NAs are in sequence (one missing is NOT a sequence)
+  is.sequential <- function(x){
+    ifelse(length(x) == 1, F, all(diff(x) == 1)) # all(abs(diff(x)) == 1)
+  } # Not sequential - not dropout.
+  
   for(i in 1:nrow(df)){
-    x <- q_pos - which(is.na(df[i, ]))
+    x <- which(is.na(df[i, ]))
     
-    p_xi <- table(x) / length(x)
-    result <- sum(p_xi * log2(p_xi)) * (-1)
-    
-    ent[i] <- result
+    if(!is.sequential(x)){
+      df$do_idx[i] <- 0 # not sequential - not dropouot
+    } else if(!df$do_idx[i] %in% c(0, length(q_pos))){
+      df$do_idx[i] <- length(q_pos) - df$do_idx[i] # if dropout, it should give us the correct dropout position, not the number of NAs
+    }
   }
-  
-  # df$do_idx[which(ent > 1)] <- 0 # length(q_pos)
-  # df$do_idx[df$do_idx == length(q_pos)] <- 0
-  df$do_idx[which(df$do_idx == length(q_pos) | ent > 1)] <- 0
   
   df
 }
