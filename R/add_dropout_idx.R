@@ -9,18 +9,18 @@
 add_dropout_idx <- function(df, q_pos){
   foo <- df[rev(q_pos)]
   do <- NA
-  for(line in 1:nrow(foo)){
-    if(is.na(foo[line, 1])){ # if there is an NA at col 1 (last question col of original data), probably dropout
-      do[line] <- 1
-      for(col in 2:ncol(foo)){
-        if(is.na(foo[line, col])){
-          do[line] <- do[line] + 1
+  for(li in 1:nrow(foo)){
+    if(is.na(foo[li, 1])){ # if there is an NA at col 1 (last question col of original data), probably dropout
+      do[li] <- 1
+      for(co in 2:ncol(foo)){
+        if(is.na(foo[li, co])){
+          do[li] <- do[li] + 1
         } else {
           next
         }
       }
     } else{
-      do[line] <- 0
+      do[li] <- 0
       next
     }
     # browser()
