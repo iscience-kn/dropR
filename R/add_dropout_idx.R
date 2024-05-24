@@ -7,23 +7,27 @@
 #' @param q_pos numeric columns that contain questions
 #' @export
 add_dropout_idx <- function(df, q_pos){
-  df$do_idx <- rowSums(sapply(df[, q_pos], is.na))
-  
-  # identify single missing by checking whether the NAs are in sequence (one missing is NOT a sequence)
-  is.sequential <- function(x){
-    ifelse(length(x) == 1, F, all(diff(x) == 1)) # all(abs(diff(x)) == 1)
-  } # Not sequential - not dropout.
-  
-  for(i in 1:nrow(df)){
-    x <- which(is.na(df[i, ]))
-    
-    if(!is.sequential(x)){
-      df$do_idx[i] <- 0 # not sequential - not dropouot
-    } else if(!df$do_idx[i] %in% c(0, length(q_pos))){
-      df$do_idx[i] <- length(q_pos) - df$do_idx[i] # if dropout, it should give us the correct dropout position, not the number of NAs
+  foo <- df[rev(q_pos)]
+  do <- NA
+  for(line in 1:nrow(foo)){
+    if(is.na(foo[line, 1])){ # if there is an NA at col 1 (last question col of original data), probably dropout
+      do[line] <- 1
+      for(col in 2:ncol(foo)){
+        if(is.na(foo[line, col])){
+          do[line] <- do[line] + 1
+        } else {
+          next
+        }
+      }
+    } else{
+      do[line] <- 0
+      next
     }
+    # browser()
   }
-  
+  df$do_idx <- ifelse(do == 0, 0, 
+                      ifelse(do == length(q_pos), length(q_pos),
+                             length(q_pos) - do)) # 0 stays 0, if all are empty that stays as well
   df
 }
 

@@ -7,16 +7,13 @@
 #'
 #' @import data.table
 #' @export
-compute_stats <- function(df,
-                          by_cond = "None",
-                          no_of_vars
+compute_stats2 <- function(df,
+                           by_cond = "None",
+                           no_of_vars
 ){
-  out <- list()
   dtable <- data.table(df)
   
-  if(by_cond == "None"){
-    out$cond <- NULL
-  } else {
+  if(by_cond %in% names(df)){ # if experimental condition is actually in the data
     # drop out count by conditions
     do_by_cond <- dtable[,list(drop_out_count = .N),
                          keyby = c("do_idx",by_cond)]
@@ -45,9 +42,12 @@ compute_stats <- function(df,
     name_pos <- match(by_cond,names(full_grid))
     names(full_grid)[name_pos] <- "condition"
     full_grid$condition <- factor(full_grid$condition)
-    out$cond <- full_grid[,c("do_idx","condition","cs","N","remain",
+    
+    cond_grid <- full_grid[,c("do_idx","condition","cs","N","remain",
                               "pct_remain"),with = FALSE]
-  } 
+  } else{
+    cond_grid <- NULL
+  }
   
   do_by_total <- dtable[,list(drop_out_count = .N),
                         keyby = c("do_idx")]
@@ -65,9 +65,8 @@ compute_stats <- function(df,
   total_grid[, pct_remain := (N-cs)/N]  
   total_grid[, condition := "total"]
   total_grid$condition <- factor(total_grid$condition)
-  out$total <- total_grid[,c("do_idx","condition","cs","N","remain",
-                             "pct_remain"),with = FALSE]
-  
-  rbind(out$total, out$cond)
-  
+
+  rbind(total_grid[,c("do_idx","condition","cs","N","remain",
+                      "pct_remain"),with = FALSE],
+        cond_grid)
 }
