@@ -7,7 +7,7 @@
 #'
 #' @import data.table
 #' @export
-compute_stats2 <- function(df,
+compute_stats <- function(df,
                            by_cond = "None",
                            no_of_vars
 ){
