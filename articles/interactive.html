@@ -100,20 +100,13 @@ questions are easily identified by their prefix <code>vi_</code></p>
 <span><span class="co"># add numeric drop out position to original dataset</span></span>
 <span><span class="va">dropRdemo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_dropout_idx.html">add_dropout_idx</a></span><span class="op">(</span><span class="va">dropRdemo</span>, q_pos <span class="op">=</span> <span class="va">qs</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dropRdemo</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="fl">53</span>,<span class="fl">54</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                     obs_id vi_1 vi_2 vi_52</span></span>
-<span><span class="co">#&gt; 1 7a9f33c4f660d535556925bf706835fb083ead1f    1    1     1</span></span>
-<span><span class="co">#&gt; 2 e11f946fd40193aea67e8979bfc69f6b176c9ceb    1   NA  &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3 e72a502a213c8be51dbb2c67f3310f08f9be0a67    1   NA     1</span></span>
-<span><span class="co">#&gt; 4 f90f5f127796583cd8b4297ade58c0ded4cfc982    1    1     1</span></span>
-<span><span class="co">#&gt; 5 20bc72c82581e0c76d3c846b9c1fdc3357febc2f    1   NA     1</span></span>
-<span><span class="co">#&gt; 6 76b97a45273d6dcd734896d08e31a0833823e99d    1   NA  &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   experimental_condition</span></span>
-<span><span class="co">#&gt; 1                     11</span></span>
-<span><span class="co">#&gt; 2                     22</span></span>
-<span><span class="co">#&gt; 3                     22</span></span>
-<span><span class="co">#&gt; 4                     11</span></span>
-<span><span class="co">#&gt; 5                     12</span></span>
-<span><span class="co">#&gt; 6                     22</span></span></code></pre></div>
+<span><span class="co">#&gt;   obs_id vi_1 vi_2 vi_52 experimental_condition</span></span>
+<span><span class="co">#&gt; 1 7a9f33    1    1     1                     11</span></span>
+<span><span class="co">#&gt; 2 e11f94    1   NA    NA                     22</span></span>
+<span><span class="co">#&gt; 3 e72a50    1   NA     1                     22</span></span>
+<span><span class="co">#&gt; 4 f90f5f    1    1     1                     11</span></span>
+<span><span class="co">#&gt; 5 20bc72    1   NA     1                     12</span></span>
+<span><span class="co">#&gt; 6 76b97a    1   NA    NA                     22</span></span></code></pre></div>
 <p>The <code>experimental_condition</code> column indicates belonging to
 a sub sample group each of which was treated differently. For example,
 groups receive a different sequence of questions or different wording.
@@ -138,26 +131,26 @@ item.</p>
 <tr class="odd">
 <td align="right">1</td>
 <td align="left">total</td>
-<td align="right">10</td>
+<td align="right">11</td>
 <td align="right">246</td>
-<td align="right">236</td>
-<td align="right">0.9593496</td>
+<td align="right">235</td>
+<td align="right">0.9552846</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
 <td align="left">total</td>
-<td align="right">17</td>
+<td align="right">14</td>
 <td align="right">246</td>
-<td align="right">229</td>
-<td align="right">0.9308943</td>
+<td align="right">232</td>
+<td align="right">0.9430894</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
 <td align="left">total</td>
-<td align="right">24</td>
+<td align="right">23</td>
 <td align="right">246</td>
-<td align="right">222</td>
-<td align="right">0.9024390</td>
+<td align="right">223</td>
+<td align="right">0.9065041</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
@@ -170,23 +163,23 @@ item.</p>
 <tr class="odd">
 <td align="right">5</td>
 <td align="left">total</td>
-<td align="right">28</td>
+<td align="right">27</td>
 <td align="right">246</td>
-<td align="right">218</td>
-<td align="right">0.8861789</td>
+<td align="right">219</td>
+<td align="right">0.8902439</td>
 </tr>
 <tr class="even">
 <td align="right">6</td>
 <td align="left">total</td>
-<td align="right">34</td>
+<td align="right">31</td>
 <td align="right">246</td>
-<td align="right">212</td>
-<td align="right">0.8617886</td>
+<td align="right">215</td>
+<td align="right">0.8739837</td>
 </tr>
 </tbody>
 </table>
-<p>Out of 246 participants in the demo sample, 236 participants remain
-in the survey, accounting for 95.93 percent of the sample. The
+<p>Out of 246 participants in the demo sample, 235 participants remain
+in the survey, accounting for 95.53 percent of the sample. The
 <code>cs</code> column shows the cummulative dropout count.</p>
 </div>
 <div class="section level3">
