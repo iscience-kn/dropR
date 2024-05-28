@@ -43,4 +43,4 @@ article](articles/interactive.html).
     #> to start the interactive Graphical User Interface locally in your R session,
     #> run start_app()
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" />
