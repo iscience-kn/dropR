@@ -100,13 +100,13 @@ questions are easily identified by their prefix <code>vi_</code></p>
 <span><span class="co"># add numeric drop out position to original dataset</span></span>
 <span><span class="va">dropRdemo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_dropout_idx.html">add_dropout_idx</a></span><span class="op">(</span><span class="va">dropRdemo</span>, q_pos <span class="op">=</span> <span class="va">qs</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dropRdemo</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="fl">53</span>,<span class="fl">54</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   obs_id vi_1 vi_2 vi_52 experimental_condition</span></span>
-<span><span class="co">#&gt; 1 7a9f33    1    1     1                     11</span></span>
-<span><span class="co">#&gt; 2 e11f94    1   NA    NA                     22</span></span>
-<span><span class="co">#&gt; 3 e72a50    1   NA     1                     22</span></span>
-<span><span class="co">#&gt; 4 f90f5f    1    1     1                     11</span></span>
-<span><span class="co">#&gt; 5 20bc72    1   NA     1                     12</span></span>
-<span><span class="co">#&gt; 6 76b97a    1   NA    NA                     22</span></span></code></pre></div>
+<span><span class="co">#&gt;   obs_id experimental_condition vi_1 vi_51 vi_52</span></span>
+<span><span class="co">#&gt; 1 7a9f33                     11    1     1     1</span></span>
+<span><span class="co">#&gt; 2 e11f94                     22    1    NA    NA</span></span>
+<span><span class="co">#&gt; 3 e72a50                     22    1     1     1</span></span>
+<span><span class="co">#&gt; 4 f90f5f                     11    1     1     1</span></span>
+<span><span class="co">#&gt; 5 20bc72                     12    1     1     1</span></span>
+<span><span class="co">#&gt; 6 76b97a                     22    1    NA    NA</span></span></code></pre></div>
 <p>The <code>experimental_condition</code> column indicates belonging to
 a sub sample group each of which was treated differently. For example,
 groups receive a different sequence of questions or different wording.
