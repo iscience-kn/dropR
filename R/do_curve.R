@@ -39,7 +39,9 @@ plot_do_curve <- function(d,
     theme(panel.grid.major.x = element_blank(),
           panel.grid.minor.x = element_blank(),
           panel.border = element_blank(),
-          axis.line = element_line(colour = "black")) + 
+          axis.line = element_line(colour = "black"),
+          axis.text = element_text(size = 12),
+          axis.title = element_text(size = 16)) + 
     xlab("Question Index") +
     ylab("Percent Remaining")
   
