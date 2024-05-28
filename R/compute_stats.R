@@ -1,11 +1,28 @@
-#' Compute Statistics
+#' Compute Dropout Statistics
 #' 
-#' @param df data.frame
-#' @param by_cond character group by condition, defaults to None.
+#' This is the _second step_ in conducting dropout analysis with `dropR`. 
+#' Outputs all necessary statistics to analyze and visualize dropout, such as 
+#' the sample size N of the data (and in each condition if selected), cumulative 
+#' dropout and remaining participants in absolute numbers and percent.
+#' If no experimental condition is added, the stats are only calculated for the 
+#' whole data in total.
+#' 
+#' @param df data.frame containing variable "do_idx" from [add_dropout_idx()]
+#' @param by_cond character group by condition, defaults to 'None'.
 #' @param no_of_vars numeric number of variables
 #'
 #' @import data.table
 #' @export
+#' 
+#' @returns A data frame with 6 columns (do_idx, condition, cs, N, remain, pct_remain)
+#' and as many rows as questions in original data (for overall data and if conditions selected
+#' again for each condition).
+#' 
+#' @examples
+#' stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
+#' by_cond = "experimental_condition",
+#' no_of_vars = 52)
+#'   
 compute_stats <- function(df,
                            by_cond = "None",
                            no_of_vars

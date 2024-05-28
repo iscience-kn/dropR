@@ -1,6 +1,8 @@
 # Caution: AI Generated Documentation here... 
 #' Calculate Steps for Uneven Data Points
 #'
+#'`r lifecycle::badge("deprecated")`
+#'
 #' The `do_steps` function calculates steps for uneven data points represented by vectors `x` and `y`.
 #'
 #' @param x Numeric vector representing the x-coordinates.
