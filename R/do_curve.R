@@ -40,6 +40,7 @@ plot_do_curve <- function(d,
           panel.grid.minor.x = element_blank(),
           panel.border = element_blank(),
           axis.line = element_line(colour = "black"),
+          legend.text = element_text(size = 12),
           axis.text = element_text(size = 12),
           axis.title = element_text(size = 16)) + 
     xlab("Question Index") +

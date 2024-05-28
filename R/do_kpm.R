@@ -66,7 +66,10 @@ do_kpm_plot <- function(
     theme(panel.grid.major.x = element_blank(),
           panel.grid.minor.x = element_blank(),
           panel.border = element_blank(),
-          axis.line = element_line(colour = "black"))
+          axis.line = element_line(colour = "black"),
+          legend.text = element_text(size = 12),
+          axis.text = element_text(size = 12),
+          axis.title = element_text(size = 16))
   if(kpm_ci){
     k <- k + geom_ribbon(aes(ymin = lwr*100,
                              ymax = uppr*100),
