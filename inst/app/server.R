@@ -90,7 +90,7 @@ server <- function(input, output) {
   output$choose_questions <- renderUI({
     if(is.null(dataset())) return(NULL)
     selectInput('quest_cols', 'Select questions',
-                selected = names(dataset())[-c(1,length(names(dataset())))],
+                selected = names(dataset())[c(3:length(names(dataset())))], # previously: -c(1,length(names(dataset())))
                 multiple=TRUE,
                 choices = names(dataset()),
                 selectize = FALSE,
