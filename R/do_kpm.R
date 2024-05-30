@@ -1,10 +1,14 @@
-#' Kaplan-Meier 
+#' Kaplan-Meier Survival Estimation
+#' 
+#' This function works on an original data set - the dropout index is automatically added inside the function.
 #' 
 #' 
-#' @param d dataset
-#' @param qs character vector of questions column indicator.
-#' @param condition_col character column denoting the experimental condition
-#' @param model_fit ?
+#' 
+#' @param d dataset Original data
+#' @param qs character or numeric position vector of questions column indicator.
+#' @param condition_col character denoting the experimental conditions to model
+#' @param model_fit character Should be either "total" for a total model or "conditions" 
+#' for a model fit of only the selected experimental conditions
 #' @importFrom survival Surv survfit
 #' @export
 do_kpm <- function(d,
@@ -116,7 +120,7 @@ do_kpm_plot <- function(
 #' @importFrom survival survdiff
 #' @param d description
 #' @param cond description
-#' @param test_type ?
+#' @param test_type a scalar parameter that controls the type of test
 #' @export
 get_survdiff <- function(d, cond, test_type){
   f <- as.formula(paste("surv", cond, sep="~"))

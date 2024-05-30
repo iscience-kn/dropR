@@ -10,7 +10,7 @@
 #' @importFrom dplyr %>% filter pull
 #' @importFrom stats ks.test
 #' 
-#' @returns reulst of Kolmogorov-Smirnoff test
+#' @returns result of Kolmogorov-Smirnoff test
 #' @export
 do_ks <- function(data, questions){
   

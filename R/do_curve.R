@@ -68,7 +68,7 @@ plot_do_curve <- function(d,
     do_curve <- do_curve + geom_point(aes(x=drop_out_idx,
                                           y=(pct_remain)*100,
                                           col=condition),
-                                      size = as.numeric(input$stroke_width)*1.5)
+                                      size = as.numeric(stroke_width)*1.5)
   }
   
   if(color_palette == "color_blind" & length(levels(d$condition) < 9)){

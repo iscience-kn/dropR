@@ -1,12 +1,23 @@
 #' Compute Chisq-Test Given a Question Position
 #' 
+#' This function performs a chi-squared contingency table test on dropout for
+#' a given question in the data. Note that the input data should be ih the format as 
+#' computed by [compute_stats()]. 
+#' The test can be performed on either all conditions (excluding total) or on select conditions.
 #' 
-#' 
-#' @param d data.frame stats table computed by compute_stats.
-#' @param chisq_question question.
-#' @param sel_cond_chisq selected condition.
-#' @param fisher simulate p value parameter.
+#' @param d data.frame stats table computed by [compute_stats()].
+#' @param chisq_question numeric question.
+#' @param sel_cond_chisq vector (same class as in conditions variable in original dataset) selected conditions.
+#' @param fisher boolean simulate p value parameter by Monte Carlo simulation.
 #' @export
+#' 
+#' @examples
+#' stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
+#' by_cond = "experimental_condition",
+#' no_of_vars = 52)
+#' 
+#' do_chisq(stats, 47, c(12, 22), T)
+#' 
 do_chisq <- function(d,
                      chisq_question,
                      sel_cond_chisq,
