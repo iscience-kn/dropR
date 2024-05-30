@@ -14,7 +14,7 @@
 #' FALSE cuts off at max percent remaining.
 #' @param show_points boolean should lines show points? Defaults to FALSE.
 #' @param color_palette character indicating which color palette to use. Defaults to 'color_blind',
-#' alternatively choose 'gray'. 
+#' alternatively choose 'gray' or 'default' for the ggplot2 default colors. 
 #' @import ggplot2
 #' @export
 #' 
@@ -30,21 +30,29 @@ plot_do_curve <- function(d,
                           stroke_width = 1,
                           full_scale = TRUE,
                           show_points = FALSE,
-                          color_palette = "color_blind"
-                          ){
+                          color_palette = "color_blind",
+                          show_confbands = FALSE
+){
   do_curve <- ggplot(d)
+  
+  palette <- if(color_palette == "color_blind"){c("#000000", "#E69F00",
+                                                  "#56B4E9", "#009E73",
+                                                  "#F0E442", "#0072B2",
+                                                  "#D55E00", "#CC79A7")
+  } else {gray(seq(from = 0,1,
+                   by = 1/8)[c(1,8,3,7,4,5,2,6)])}
   
   if(linetypes){
     do_curve <- do_curve + geom_line(aes(x = do_idx,
                                          y = (pct_remain)*100,
                                          col = factor(condition),
                                          linetype = factor(condition)),
-                                     size = as.numeric(stroke_width))
+                                     linewidth = as.numeric(stroke_width))
   } else {
-    do_curve <- do_curve + geom_line(aes(x=drop_out_idx,
+    do_curve <- do_curve + geom_line(aes(x=do_idx,
                                          y=(pct_remain)*100,
                                          col = factor(condition)),
-                                     size = as.numeric(stroke_width))  
+                                     linewidth = as.numeric(stroke_width))  
   }
   do_curve <- do_curve + 
     theme_bw() +
@@ -65,29 +73,31 @@ plot_do_curve <- function(d,
   
   
   if(show_points){
-    do_curve <- do_curve + geom_point(aes(x=drop_out_idx,
+    do_curve <- do_curve + geom_point(aes(x=do_idx,
                                           y=(pct_remain)*100,
                                           col=condition),
                                       size = as.numeric(stroke_width)*1.5)
   }
   
-  if(color_palette == "color_blind" & length(levels(d$condition) < 9)){
-    do_curve <- do_curve + scale_color_manual(values=c("#000000", "#E69F00",
-                                                       "#56B4E9", "#009E73",
-                                                       "#F0E442", "#0072B2",
-                                                       "#D55E00", "#CC79A7"))
+  if(show_confbands){
+    do_curve <- do_curve + geom_ribbon(aes(x = do_idx, 
+                                           ymin = pct_remain*100 - .5*sd(pct_remain*100),
+                                           ymax = pct_remain*100 + .5*sd(pct_remain*100),
+                                           fill = condition),
+                                       alpha=.2)
+    if(color_palette != "default"){
+      do_curve <- do_curve + scale_fill_manual(values=palette)
+    }
   }
   
-  if(color_palette == "gray" & length(levels(d$condition) < 9)){
-    do_curve <- do_curve + 
-      scale_color_manual(values = gray(seq(from = 0,1,
-                                           by = 1/8)[c(1,8,3,7,4,5,2,6)]
-      )
-      )
+  if(color_palette != "default" & length(levels(d$condition) < 9)){
+    do_curve <- do_curve + scale_color_manual(values=palette)
   }
+  
   
   do_curve <- do_curve + guides(color = guide_legend(title = NULL),
-                                linetype = guide_legend(NULL))
+                                linetype = guide_legend(NULL),
+                                fill=guide_legend(title = NULL, position = NULL)) #relevant for confbands
   
   do_curve
 }

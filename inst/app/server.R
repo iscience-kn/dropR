@@ -195,7 +195,8 @@ server <- function(input, output) {
                   stroke_width = input$stroke_width,
                   show_points = input$show_points,
                   full_scale = input$full_scale,
-                  color_palette = input$color_palette)
+                  color_palette = input$color_palette,
+                  show_confbands = input$show_confbands)
   })
 
 
