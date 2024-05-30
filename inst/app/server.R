@@ -109,7 +109,7 @@ server <- function(input, output) {
     if(input$cond_col == "None"){
       NULL
     } else{
-      checkboxGroupInput('sel_cond', 'Show conditions',
+      checkboxGroupInput('sel_cond', 'Selected conditions',
                          levels(stats()[,get("condition")]),
                          selected = levels(stats()[,get("condition")]))  
     }
