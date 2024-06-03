@@ -230,7 +230,7 @@ server <- function(input, output) {
     #             color_palette_kp = input$color_palette_kp,
     #             full_scale_kpm = input$full_scale_kpm)
     do_kpm_plot(kds = kaplan_meier(),
-                sel_cond_kpm = input$sel_cond_kpm,
+                sel_conds = input$sel_cond_kpm,
                 kpm_ci = input$kpm_ci,
                 color_palette_kp = input$color_palette_kp,
                 full_scale_kpm = input$full_scale_kpm)
@@ -272,7 +272,7 @@ server <- function(input, output) {
     content = function(file) {
       
       k <- do_kpm_plot(kds = kaplan_meier(),
-                       sel_cond_kpm = input$sel_cond_kpm,
+                       sel_conds = input$sel_cond_kpm,
                        kpm_ci = input$kpm_ci,
                        color_palette_kp = input$color_palette_kp,
                        full_scale_kpm = input$full_scale_kpm)
