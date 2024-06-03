@@ -40,7 +40,7 @@ Let's compute a Chisq test at question 15 for experimentatl conditions `11` and 
 do_chisq(stats_table,
          chisq_question = 15,
          sel_cond_chisq = c('11','12'),
-         fisher = TRUE)
+         p_sim = TRUE)
 ```
 
 ### Kaplan-Meier Estimation
