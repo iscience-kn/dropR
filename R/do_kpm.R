@@ -6,8 +6,7 @@
 #' 
 #' @param d dataset with do_idx added by [add_dropout_idx()]
 #' @param condition_col character denoting the experimental conditions to model
-#' @param model_fit character Should be either "total" for a total model or denote only select
-#' experimental conditions
+#' @param model_fit character Should be either "total" for a total model or "conditions"
 #' @importFrom survival Surv survfit
 #' @export
 #' 
@@ -36,6 +35,19 @@ do_kpm <- function(d,
     by_cond_fit <- lapply(by_cond,
                           function(x) survfit(surv~1, data = x))
     
+    by_cond_fit <- lapply(names(by_cond_fit), function(x) {
+      # Copy the current list element
+      fit <- by_cond_fit[[x]]
+      
+      # Modify 'upper' and 'lower' variables as they throw errors for NAs (which can be substituted with 0)
+      fit$upper <- ifelse(is.na(fit$upper), 0, fit$upper)
+      fit$lower <- ifelse(is.na(fit$lower), 0, fit$lower)
+      
+      # Return the modified list element
+      return(fit)
+    })
+    names(by_cond_fit) <- names(by_cond)
+    
     by_cond_steps <- lapply(names(by_cond_fit), function(x){
       get_steps_by_cond(by_cond_fit[[x]], x)
     })
@@ -53,7 +65,7 @@ do_kpm <- function(d,
 #' Draw a Kaplan Meier Plot
 #' 
 #' @param kds object as modelled by [do_kpm()]
-#' @param sel_cond_kpm select experimental conditions. 
+#' @param sel_conds character selected experimental conditions to plot. 
 #' @param kpm_ci boolean Should there be confidence bands in the plot?
 #' @param color_palette_kp character indicating which color palette to use. Defaults to 'color_blind',
 #' alternatively choose 'gray' or 'default' for the ggplot2 default colors. 
@@ -66,9 +78,13 @@ do_kpm <- function(d,
 #' condition_col = "experimental_condition",
 #' model_fit = "total"))
 #' 
+#' do_kpm_plot(do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+#' condition_col = "experimental_condition",
+#' model_fit = "conditions"), sel_conds = c("11", "12", "21", "22"))
+#' 
 do_kpm_plot <- function(
     kds,
-    sel_cond_kpm = "experimental_condition",
+    sel_conds = c("11", "12", "21", "22"),
     kpm_ci = T,
     color_palette_kp = "color_blind",
     full_scale_kpm = F
@@ -81,7 +97,7 @@ do_kpm_plot <- function(
                    by = 1/8)[c(1,8,3,7,4,5,2,6)])}
   
   if(kds$model_fit == "conditions"){
-    k <- ggplot(subset(kds$steps, condition %in% sel_cond_kpm),
+    k <- ggplot(subset(kds$steps, condition %in% sel_conds),
                 aes(x,y*100, col = condition, fill = condition))
   } else {
     k <- ggplot(subset(kds$steps, condition %in% "total"),
