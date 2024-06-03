@@ -46,10 +46,9 @@ do_chisq(stats_table,
 ### Kaplan-Meier Estimation
 
 ```{r}
-kpm <- do_kpm(d = dropRdemo,
-           qs = qs,
-           condition_col = "experimental_condition",
-           model_fit = "total")
+kpm <- do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+              condition_col = "experimental_condition",
+              model_fit = "total")
 
 head(kpm$steps)
 
