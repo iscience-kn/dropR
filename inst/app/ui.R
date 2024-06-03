@@ -199,7 +199,7 @@ tabXsq <- tabItem(tabName = "xsq",
                         HTML("<h3>χ<sup>2</sup>-test options</h3>"),  
                         uiOutput("chisq_conditions"),
                         uiOutput("xsq_slider"),
-                        checkboxInput("fisher","Simulate p-values",T)
+                        checkboxInput("p_sim","Simulate p-values",T)
                     ),
                     box(width=7,
                         h3("Test outcomes"),

@@ -65,8 +65,8 @@ server <- function(input, output) {
 
   kaplan_meier <- reactive({
     dta <- dataset()
-    do_kpm(d = dta,
-           qs = input$quest_cols,
+    do_kpm(d = add_dropout_idx(dta, input$quest_cols),
+           # q_pos = input$quest_cols,
            condition_col = input$cond_col,
            model_fit = input$kaplan_fit)
 
@@ -322,7 +322,7 @@ server <- function(input, output) {
     do_chisq(d,
              chisq_question = input$chisq_question,
              sel_cond_chisq = input$sel_cond_chisq,
-             fisher = input$fisher)
+             p_sim = input$p_sim)
   })
   
   output$odds_ratio <- renderTable({

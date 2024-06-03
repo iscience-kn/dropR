@@ -37,7 +37,7 @@ all_values <- function(x) {
 #'
 #' The `get_steps_by_cond` function calculates steps data based on survival model results.
 #'
-#' @param sfit An object representing survival model results (e.g., from a Cox proportional hazards model).
+#' @param sfit An object representing survival model results (e.g., from a Kaplan-Meier model).
 #' @param condition Optional. A condition or group label to include in the output data frame.
 #'
 #' @return A data frame containing the steps data, including time, survival estimates, upper confidence bounds, and lower confidence bounds.

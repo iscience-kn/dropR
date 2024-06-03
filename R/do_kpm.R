@@ -1,21 +1,31 @@
 #' Kaplan-Meier Survival Estimation
 #' 
-#' This function works on an original data set - the dropout index is automatically added inside the function.
+#' This function needs a data set with a dropout index added by [add_dropout_idx()].
 #' 
 #' 
 #' 
-#' @param d dataset Original data
-#' @param qs character or numeric position vector of questions column indicator.
+#' @param d dataset with do_idx added by [add_dropout_idx()]
 #' @param condition_col character denoting the experimental conditions to model
-#' @param model_fit character Should be either "total" for a total model or "conditions" 
-#' for a model fit of only the selected experimental conditions
+#' @param model_fit character Should be either "total" for a total model or denote only select
+#' experimental conditions
 #' @importFrom survival Surv survfit
 #' @export
+#' 
+#' @examples
+#' demo_kpm <- do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+#' condition_col = "experimental_condition",
+#' model_fit = "total")
+#' 
 do_kpm <- function(d,
-                   qs,
-                   condition_col,
-                   model_fit){
-  d <- add_dropout_idx(d, qs)
+                   # q_pos,
+                   condition_col = "experimental_condition",
+                   model_fit = "total"){
+  
+  # d <- add_dropout_idx(d, q_pos)
+  
+  # q_pos character or numeric position vector of questions column indicator.
+  
+  
   d$surv <- with(d, Surv(do_idx, do_idx != max(d$do_idx)))
   if(model_fit == "total"){
     fit1 <- survfit(surv~1, data = d)
@@ -42,20 +52,34 @@ do_kpm <- function(d,
 
 #' Draw a Kaplan Meier Plot
 #' 
-#' @param kds description
-#' @param sel_cond_kpm selected experimental conditions. 
-#' @param kpm_ci confidence bands
-#' @param color_palette_kp different color palettes
-#' @param full_scale_kpm ?
+#' @param kds object as modelled by [do_kpm()]
+#' @param sel_cond_kpm select experimental conditions. 
+#' @param kpm_ci boolean Should there be confidence bands in the plot?
+#' @param color_palette_kp character indicating which color palette to use. Defaults to 'color_blind',
+#' alternatively choose 'gray' or 'default' for the ggplot2 default colors. 
+#' @param full_scale_kpm boolean Should the Y axis show the full range from 0 to 100?
 #' @import ggplot2
 #' @export
+#' 
+#' @examples
+#' do_kpm_plot(do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+#' condition_col = "experimental_condition",
+#' model_fit = "total"))
+#' 
 do_kpm_plot <- function(
     kds,
-    sel_cond_kpm,
-    kpm_ci,
-    color_palette_kp,
-    full_scale_kpm
+    sel_cond_kpm = "experimental_condition",
+    kpm_ci = T,
+    color_palette_kp = "color_blind",
+    full_scale_kpm = F
 ){
+  palette <- if(color_palette_kp == "color_blind"){c("#000000", "#E69F00",
+                                                  "#56B4E9", "#009E73",
+                                                  "#F0E442", "#0072B2",
+                                                  "#D55E00", "#CC79A7")
+  } else {gray(seq(from = 0,1,
+                   by = 1/8)[c(1,8,3,7,4,5,2,6)])}
+  
   if(kds$model_fit == "conditions"){
     k <- ggplot(subset(kds$steps, condition %in% sel_cond_kpm),
                 aes(x,y*100, col = condition, fill = condition))
@@ -80,26 +104,31 @@ do_kpm_plot <- function(
                          alpha=.3)
   }
   
-  if(color_palette_kp == "color_blind"){
-    k <- k + scale_fill_manual(values=c("#000000", "#E69F00",
-                                        "#56B4E9", "#009E73",
-                                        "#F0E442", "#0072B2",
-                                        "#D55E00", "#CC79A7")) +
-      scale_color_manual(values=c("#000000", "#E69F00",
-                                  "#56B4E9", "#009E73",
-                                  "#F0E442", "#0072B2",
-                                  "#D55E00", "#CC79A7"))
+  if(color_palette_kp != "default"){
+    k <- k + scale_fill_manual(values=palette) +
+      scale_color_manual(values=palette)
   }
   
-  if(color_palette_kp == "gray"){
-    k <- k +
-      scale_color_manual(values = gray(seq(from=0,1,
-                                           by=1/8)[c(1,8,3,7,4,5,2,6)]
-      )) +
-      scale_fill_manual(values = gray(seq(from=0,1,
-                                          by=1/8)[c(1,8,3,7,4,5,2,6)])
-      )
-  }
+  # if(color_palette_kp == "color_blind"){
+  #   k <- k + scale_fill_manual(values=c("#000000", "#E69F00",
+  #                                       "#56B4E9", "#009E73",
+  #                                       "#F0E442", "#0072B2",
+  #                                       "#D55E00", "#CC79A7")) +
+  #     scale_color_manual(values=c("#000000", "#E69F00",
+  #                                 "#56B4E9", "#009E73",
+  #                                 "#F0E442", "#0072B2",
+  #                                 "#D55E00", "#CC79A7"))
+  # }
+  # 
+  # if(color_palette_kp == "gray"){
+  #   k <- k +
+  #     scale_color_manual(values = gray(seq(from=0,1,
+  #                                          by=1/8)[c(1,8,3,7,4,5,2,6)]
+  #     )) +
+  #     scale_fill_manual(values = gray(seq(from=0,1,
+  #                                         by=1/8)[c(1,8,3,7,4,5,2,6)])
+  #     )
+  # }
   
   if(full_scale_kpm){
     k <- k + 
