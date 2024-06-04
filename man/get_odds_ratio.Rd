@@ -12,5 +12,9 @@ get_odds_ratio(a, b)
 \item{b}{numeric probability value between 0 and 1.}
 }
 \description{
-Computes and odds ratio given two probabilites.
+Computes and odds ratio given two probabilities.
+}
+\examples{
+get_odds_ratio(0.7, 0.6)
+
 }

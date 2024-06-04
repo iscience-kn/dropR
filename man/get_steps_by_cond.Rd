@@ -7,7 +7,7 @@
 get_steps_by_cond(sfit, condition = NULL)
 }
 \arguments{
-\item{sfit}{An object representing survival model results (e.g., from a Cox proportional hazards model).}
+\item{sfit}{An object representing survival model results (e.g., from a Kaplan-Meier model).}
 
 \item{condition}{Optional. A condition or group label to include in the output data frame.}
 }

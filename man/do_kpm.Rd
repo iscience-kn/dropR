@@ -2,19 +2,23 @@
 % Please edit documentation in R/do_kpm.R
 \name{do_kpm}
 \alias{do_kpm}
-\title{Kaplan-Meier}
+\title{Kaplan-Meier Survival Estimation}
 \usage{
-do_kpm(d, qs, condition_col, model_fit)
+do_kpm(d, condition_col = "experimental_condition", model_fit = "total")
 }
 \arguments{
-\item{d}{dataset}
+\item{d}{dataset with do_idx added by [add_dropout_idx()]}
 
-\item{qs}{character vector of questions column indicator.}
+\item{condition_col}{character denoting the experimental conditions to model}
 
-\item{condition_col}{character column denoting the experimental condition}
-
-\item{model_fit}{?}
+\item{model_fit}{character Should be either "total" for a total model or "conditions"}
 }
 \description{
-Kaplan-Meier
+This function needs a data set with a dropout index added by [add_dropout_idx()].
+}
+\examples{
+demo_kpm <- do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+condition_col = "experimental_condition",
+model_fit = "total")
+
 }

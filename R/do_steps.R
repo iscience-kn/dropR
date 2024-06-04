@@ -1,4 +1,3 @@
-# Caution: AI Generated Documentation here... 
 #' Calculate Steps for Uneven Data Points
 #'
 #' The `do_steps` function calculates steps for uneven data points represented by vectors `x` and `y`.
@@ -15,7 +14,7 @@
 #' do_steps(x, y)
 #'
 #' @export
-do_steps <- function(x, y,return_df = T, na.rm = T) {
+do_steps <- function(x, y, return_df = T) {
   keep <- is.finite(x) & is.finite(y)
   if (!any(keep)) 
     return()
@@ -23,11 +22,6 @@ do_steps <- function(x, y,return_df = T, na.rm = T) {
     x <- x[keep]
     y <- y[keep]
   }
-  # 
-  # if (!na.rm){ # if there are missings in the data and we don't want to just drop them, we imputate the last known value
-  #   x[is.na(x)] <- x[max(rle(is.na(x))$lengths)]
-  #   y[is.na(y)] <- y[max(rle(is.na(y))$lengths)]
-  # }
   
   n <- length(x)
   if (n == 1) 

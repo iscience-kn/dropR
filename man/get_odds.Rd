@@ -13,3 +13,9 @@ get_odds(p)
 Compute odds from probabilities. The function is vectorized and
 can handle a vector of probabilities.
 }
+\examples{
+get_odds(0.7)
+get_odds(c(0.7, 0.2))
+
+
+}

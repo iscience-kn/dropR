@@ -6,22 +6,24 @@
 #' The test can be performed on either all conditions (excluding total) or on select conditions.
 #' 
 #' @param d data.frame stats table computed by [compute_stats()].
-#' @param chisq_question numeric question.
+#' @param chisq_question numeric Which question to compare dropout at.
 #' @param sel_cond_chisq vector (same class as in conditions variable in original dataset) selected conditions.
-#' @param p_sim boolean simulate p value parameter by Monte Carlo simulation.
+#' @param p_sim boolean Simulate p value parameter (by Monte Carlo simulation)? Defaults to `TRUE`.
 #' @export
+#' 
+#' @seealso [add_dropout_idx()] and [compute_stats()] which are necessary for the proper data structure
 #' 
 #' @examples
 #' stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
 #' by_cond = "experimental_condition",
 #' no_of_vars = 52)
 #' 
-#' do_chisq(stats, 47, c(12, 22), T)
+#' do_chisq(stats, 47, c(12, 22), TRUE)
 #' 
 do_chisq <- function(d,
                      chisq_question,
                      sel_cond_chisq,
-                     p_sim){
+                     p_sim = TRUE){
   d <- subset(d, condition %in% sel_cond_chisq)
   d$condition <- factor(d$condition)
   

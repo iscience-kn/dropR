@@ -2,16 +2,41 @@
 % Please edit documentation in R/add_dropout_idx.R
 \name{add_dropout_idx}
 \alias{add_dropout_idx}
-\title{Extract Drop Out from a Data.Frame}
+\title{Add Dropout Index to a Data.Frame}
 \usage{
 add_dropout_idx(df, q_pos)
 }
 \arguments{
-\item{df}{a data.frame}
+\item{df}{data.frame containing `NA`s}
 
 \item{q_pos}{numeric columns that contain questions}
 }
+\value{
+Original data frame with column `do_idx` added.
+}
 \description{
-Find drop out posititions in a data.frame that contains multiple 
+Find drop out positions in a data.frame that contains multiple 
 questions that had been asked sequentially.
+This function adds the Dropout Index variable "do_idx" to the data.frame which is necessary
+for further analyses of dropout.
+
+Use this function _first_ to prepare your dropout analysis. Then, keep going by creating
+the dropout statistics using [compute_stats()].
+}
+\details{
+Importantly, this function will start counting missing data starting
+at the end of the data frame. Any missing data which is somewhere in between, i.e.
+a single question that was skipped or forgotten will not be counted as dropout.
+The function will search for sequences of missing data that go until the end of the 
+data frame and count those.
+
+Therefore, the variables must be in the order that they were asked, otherwise analyses
+will not be reliable.
+}
+\examples{
+dropout <- add_dropout_idx(dropRdemo, 3:54)
+
+}
+\seealso{
+[compute_stats()] which is usually the next step for dropout analysis.
 }

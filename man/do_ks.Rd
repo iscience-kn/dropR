@@ -7,10 +7,15 @@
 do_ks(data, questions)
 }
 \arguments{
-\item{data}{A dataset made from dropR::compute_stats(), containing information on the percent remaining per question per condition}
+\item{data}{A data frame made from [compute_stats()], containing information on the percent remaining per question per condition}
 
 \item{questions}{Number of questions to be included in analysis}
 }
+\value{
+result of Kolmogorov-Smirnoff test
+}
 \description{
-Compute Kolmogorov-Smirnov Test for most extreme conditions
+This test is used for survival analysis between the most extreme conditions,
+so the ones with the most different rates of dropout.
+This function automatically prepares your data to run `stats::ks.test()` on it.
 }

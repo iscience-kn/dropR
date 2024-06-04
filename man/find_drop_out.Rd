@@ -12,5 +12,10 @@ find_drop_out(v, clnms)
 \item{clnms}{specify the parts that actually hold questions by character names.}
 }
 \description{
-Check consecutive NAs from backend of a vector.
+Check consecutive NAs from backend of a vector. 
+`r lifecycle::badge("deprecated")`
+}
+\details{
+`find_drop_out()` is deprecated in favor of [add_dropout_idx()], which is the 
+basis for dropout analysis using `dropR`.
 }

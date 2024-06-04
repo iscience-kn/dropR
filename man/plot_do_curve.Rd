@@ -10,24 +10,42 @@ plot_do_curve(
   stroke_width = 1,
   full_scale = TRUE,
   show_points = FALSE,
-  color_palette = "color_blind"
+  color_palette = "color_blind",
+  show_confbands = FALSE
 )
 }
 \arguments{
-\item{d}{data.frame containing dropout statistics table computed by compute_stats.
+\item{d}{data.frame containing dropout statistics table computed by [compute_stats()].
 Make sure your stats table contains a do_idx column indexing all items sequentially.}
 
-\item{linetypes}{boolean show we use different linetypes, defaults to TRUE.}
+\item{linetypes}{boolean Should different line types be used? Defaults to TRUE.}
 
 \item{stroke_width}{numeric stroke width, defaults to 1.}
 
-\item{full_scale}{boolean should scale range from 0,100? Defaults to TRUE, FALSE cuts off at max.}
+\item{full_scale}{boolean Should y axis range from 0 to 100? Defaults to TRUE, 
+FALSE cuts off at max percent remaining.}
 
-\item{show_points}{boolean should lines show points? Defaults to FALSE.}
+\item{show_points}{boolean Should lines show points? Defaults to FALSE.}
 
 \item{color_palette}{character indicating which color palette to use. Defaults to 'color_blind',
-alternatively choose 'gray'.}
+alternatively choose 'gray' or 'default' for the ggplot2 default colors.}
+
+\item{show_confbands}{boolean Should there be confidence bands added to the plot?Defaults to FALSE.}
 }
 \description{
-This functions uses ggplot to create drop out curves.
+This functions uses `ggplot`to create drop out curves. 
+Please note that you should use [add_dropout_idx()] and [compute_stats()] on your 
+data before trying to run this function as it needs a certain data structure to 
+work properly.
+}
+\examples{
+stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
+by_cond = "experimental_condition",
+no_of_vars = 52)
+
+plot_do_curve(stats)
+
+}
+\seealso{
+[add_dropout_idx()] and [compute_stats()] which are necessary for the proper data structure
 }

@@ -4,17 +4,31 @@
 \alias{do_chisq}
 \title{Compute Chisq-Test Given a Question Position}
 \usage{
-do_chisq(d, chisq_question, sel_cond_chisq, fisher)
+do_chisq(d, chisq_question, sel_cond_chisq, p_sim = TRUE)
 }
 \arguments{
-\item{d}{data.frame stats table computed by compute_stats.}
+\item{d}{data.frame stats table computed by [compute_stats()].}
 
-\item{chisq_question}{question.}
+\item{chisq_question}{numeric Which question to compare dropout at.}
 
-\item{sel_cond_chisq}{selected condition.}
+\item{sel_cond_chisq}{vector (same class as in conditions variable in original dataset) selected conditions.}
 
-\item{fisher}{simulate p value parameter.}
+\item{p_sim}{boolean Simulate p value parameter (by Monte Carlo simulation)? Defaults to `TRUE`.}
 }
 \description{
-Compute Chisq-Test Given a Question Position
+This function performs a chi-squared contingency table test on dropout for
+a given question in the data. Note that the input data should be in the format as 
+computed by [compute_stats()]. 
+The test can be performed on either all conditions (excluding total) or on select conditions.
+}
+\examples{
+stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
+by_cond = "experimental_condition",
+no_of_vars = 52)
+
+do_chisq(stats, 47, c(12, 22), TRUE)
+
+}
+\seealso{
+[add_dropout_idx()] and [compute_stats()] which are necessary for the proper data structure
 }

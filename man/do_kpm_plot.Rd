@@ -4,19 +4,36 @@
 \alias{do_kpm_plot}
 \title{Draw a Kaplan Meier Plot}
 \usage{
-do_kpm_plot(kds, sel_cond_kpm, kpm_ci, color_palette_kp, full_scale_kpm)
+do_kpm_plot(
+  kds,
+  sel_conds = c("11", "12", "21", "22"),
+  kpm_ci = T,
+  color_palette_kp = "color_blind",
+  full_scale_kpm = F
+)
 }
 \arguments{
-\item{kds}{description}
+\item{kds}{object as modelled by [do_kpm()]}
 
-\item{sel_cond_kpm}{selected experimental conditions.}
+\item{sel_conds}{character selected experimental conditions to plot.}
 
-\item{kpm_ci}{confidence bands}
+\item{kpm_ci}{boolean Should there be confidence bands in the plot?}
 
-\item{color_palette_kp}{different color palettes}
+\item{color_palette_kp}{character indicating which color palette to use. Defaults to 'color_blind',
+alternatively choose 'gray' or 'default' for the ggplot2 default colors.}
 
-\item{full_scale_kpm}{?}
+\item{full_scale_kpm}{boolean Should the Y axis show the full range from 0 to 100?}
 }
 \description{
 Draw a Kaplan Meier Plot
+}
+\examples{
+do_kpm_plot(do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+condition_col = "experimental_condition",
+model_fit = "total"))
+
+do_kpm_plot(do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+condition_col = "experimental_condition",
+model_fit = "conditions"), sel_conds = c("11", "12", "21", "22"))
+
 }

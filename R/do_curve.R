@@ -1,6 +1,6 @@
 #' Plot Dropout Curves
 #' 
-#' This functions uses ggplot to create drop out curves. 
+#' This functions uses `ggplot`to create drop out curves. 
 #' Please note that you should use [add_dropout_idx()] and [compute_stats()] on your 
 #' data before trying to run this function as it needs a certain data structure to 
 #' work properly.
@@ -8,15 +8,19 @@
 #' 
 #' @param d data.frame containing dropout statistics table computed by [compute_stats()].
 #' Make sure your stats table contains a do_idx column indexing all items sequentially.
-#' @param linetypes boolean for use of different linetypes, defaults to TRUE.
+#' @param linetypes boolean Should different line types be used? Defaults to TRUE.
 #' @param stroke_width numeric stroke width, defaults to 1.
-#' @param full_scale boolean should y axis range from 0 to 100? Defaults to TRUE, 
+#' @param full_scale boolean Should y axis range from 0 to 100? Defaults to TRUE, 
 #' FALSE cuts off at max percent remaining.
-#' @param show_points boolean should lines show points? Defaults to FALSE.
+#' @param show_points boolean Should lines show points? Defaults to FALSE.
 #' @param color_palette character indicating which color palette to use. Defaults to 'color_blind',
 #' alternatively choose 'gray' or 'default' for the ggplot2 default colors. 
+#' @param show_confbands boolean Should there be confidence bands added to the plot?Defaults to FALSE.
+#' 
 #' @import ggplot2
 #' @export
+#' 
+#' @seealso [add_dropout_idx()] and [compute_stats()] which are necessary for the proper data structure
 #' 
 #' @examples
 #' stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
