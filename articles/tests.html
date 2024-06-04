@@ -97,7 +97,7 @@ and dropout overview table at the selected question.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/do_chisq.html">do_chisq</a></span><span class="op">(</span><span class="va">stats_table</span>,</span>
 <span>         chisq_question <span class="op">=</span> <span class="fl">15</span>,</span>
 <span>         sel_cond_chisq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'11'</span>,<span class="st">'12'</span><span class="op">)</span>,</span>
-<span>         fisher <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>         p_sim <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`Test result`</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Pearson's Chi-squared test with simulated p-value (based on 2000</span></span>
@@ -117,10 +117,9 @@ and dropout overview table at the selected question.</p>
 <h3 id="kaplan-meier-estimation">Kaplan-Meier Estimation<a class="anchor" aria-label="anchor" href="#kaplan-meier-estimation"></a>
 </h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kpm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/do_kpm.html">do_kpm</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">dropRdemo</span>,</span>
-<span>           qs <span class="op">=</span> <span class="va">qs</span>,</span>
-<span>           condition_col <span class="op">=</span> <span class="st">"experimental_condition"</span>,</span>
-<span>           model_fit <span class="op">=</span> <span class="st">"total"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">kpm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/do_kpm.html">do_kpm</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fu"><a href="../reference/add_dropout_idx.html">add_dropout_idx</a></span><span class="op">(</span><span class="va">dropRdemo</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">54</span><span class="op">)</span>,</span>
+<span>              condition_col <span class="op">=</span> <span class="st">"experimental_condition"</span>,</span>
+<span>              model_fit <span class="op">=</span> <span class="st">"total"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">kpm</span><span class="op">$</span><span class="va">steps</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   x         y      uppr       lwr condition</span></span>
