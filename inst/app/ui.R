@@ -141,7 +141,7 @@ tabViz <- tabItem(tabName = "viz",
                                checkboxInput("linetypes","Use line type to distinguish conditions",
                                              value = T),
                                checkboxInput("cutoff","Cut off last question",value = T),
-                               checkboxInput("full_scale","Show full Y-axis from 0 to 100",value = T)
+                               checkboxInput("full_scale","Show full Y-axis from 0 to 100",value = F)
                                ),
                         
                         column(width = 4,
@@ -196,20 +196,24 @@ tabViz <- tabItem(tabName = "viz",
 tabXsq <- tabItem(tabName = "xsq",
                   fluidRow(
                     box(width=5,
-                        HTML("<h3>χ<sup>2</sup>-test options</h3>"),  
+                        HTML("<h3>Chi<sup>2</sup>-test options</h3>"),
                         uiOutput("chisq_conditions"),
                         uiOutput("xsq_slider"),
-                        checkboxInput("p_sim","Simulate p-values",T)
+                        checkboxInput("p_sim","Simulate p-values",T),
+                        h3("Dropout by question"),
+                        plotOutput("do_curve_plot_2"),
+                        HTML('<em>This plot shows the same overview that was created in Visual Inspection.</em>')
                     ),
+                    
                     box(width=7,
-                        h3("Test outcomes"),
+                        h3("Contingency Test Outcomes"),
                         verbatimTextOutput("chisq_tests"),
                         h3("Odds ratio by item"),
                         tableOutput("odds_ratio"),
-                        div(plotOutput("do_curve_plot_2"),
-                            style = 'overflow:auto')
+                        # div(plotOutput("do_curve_plot_2"),
+                        #     style = 'overflow:auto')
                         )
-                  )
+                    )
                   )
 
 

@@ -253,7 +253,7 @@ server <- function(input, output) {
       
       dc <- do_curve_plot()
       
-      file.copy(ggsave(paste0("curve_plot.",input$export_format),
+      file.copy(ggplot2::ggsave(paste0("curve_plot.",input$export_format),
              plot = dc, device = input$export_format,
              dpi = input$dpi,
              width = input$w,
@@ -277,7 +277,7 @@ server <- function(input, output) {
                        color_palette_kp = input$color_palette_kp,
                        full_scale_kpm = input$full_scale_kpm)
       
-      file.copy(ggsave(paste0("kpm_plot.",input$kpm_export_format),
+      file.copy(ggplot2::ggsave(paste0("kpm_plot.",input$kpm_export_format),
                        plot = k, device = input$kpm_export_format,
                        dpi = input$kpm_dpi,
                        width = input$kpm_w,
