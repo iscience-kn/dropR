@@ -49,32 +49,53 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">do_kpm_plot</span><span class="op">(</span><span class="va">kds</span>, <span class="va">sel_cond_kpm</span>, <span class="va">kpm_ci</span>, <span class="va">color_palette_kp</span>, <span class="va">full_scale_kpm</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">do_kpm_plot</span><span class="op">(</span></span>
+<span>  <span class="va">kds</span>,</span>
+<span>  sel_conds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"11"</span>, <span class="st">"12"</span>, <span class="st">"21"</span>, <span class="st">"22"</span><span class="op">)</span>,</span>
+<span>  kpm_ci <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  color_palette_kp <span class="op">=</span> <span class="st">"color_blind"</span>,</span>
+<span>  full_scale_kpm <span class="op">=</span> <span class="cn">F</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>kds</dt>
-<dd><p>description</p></dd>
+<dd><p>object as modelled by [do_kpm()]</p></dd>
 
 
-<dt>sel_cond_kpm</dt>
-<dd><p>selected experimental conditions.</p></dd>
+<dt>sel_conds</dt>
+<dd><p>character selected experimental conditions to plot.</p></dd>
 
 
 <dt>kpm_ci</dt>
-<dd><p>confidence bands</p></dd>
+<dd><p>boolean Should there be confidence bands in the plot?</p></dd>
 
 
 <dt>color_palette_kp</dt>
-<dd><p>different color palettes</p></dd>
+<dd><p>character indicating which color palette to use. Defaults to 'color_blind',
+alternatively choose 'gray' or 'default' for the ggplot2 default colors.</p></dd>
 
 
 <dt>full_scale_kpm</dt>
-<dd><p>?</p></dd>
+<dd><p>boolean Should the Y axis show the full range from 0 to 100?</p></dd>
 
 </dl></div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">do_kpm_plot</span><span class="op">(</span><span class="fu"><a href="do_kpm.html">do_kpm</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fu"><a href="add_dropout_idx.html">add_dropout_idx</a></span><span class="op">(</span><span class="va">dropRdemo</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">54</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>condition_col <span class="op">=</span> <span class="st">"experimental_condition"</span>,</span></span>
+<span class="r-in"><span>model_fit <span class="op">=</span> <span class="st">"total"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="do_kpm_plot-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">do_kpm_plot</span><span class="op">(</span><span class="fu"><a href="do_kpm.html">do_kpm</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fu"><a href="add_dropout_idx.html">add_dropout_idx</a></span><span class="op">(</span><span class="va">dropRdemo</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">54</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>condition_col <span class="op">=</span> <span class="st">"experimental_condition"</span>,</span></span>
+<span class="r-in"><span>model_fit <span class="op">=</span> <span class="st">"conditions"</span><span class="op">)</span>, sel_conds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"11"</span>, <span class="st">"12"</span>, <span class="st">"21"</span>, <span class="st">"22"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="do_kpm_plot-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
