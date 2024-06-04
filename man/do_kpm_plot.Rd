@@ -13,7 +13,7 @@ do_kpm_plot(
 )
 }
 \arguments{
-\item{kds}{object as modelled by [do_kpm()]}
+\item{kds}{object as modelled by \code{\link[=do_kpm]{do_kpm()}}}
 
 \item{sel_conds}{character selected experimental conditions to plot.}
 

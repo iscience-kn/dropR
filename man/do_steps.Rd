@@ -11,13 +11,13 @@ do_steps(x, y, return_df = T)
 
 \item{y}{Numeric vector representing the y-coordinates.}
 
-\item{return_df}{Logical. If `TRUE`, the function returns a data frame; otherwise, it returns a list.}
+\item{return_df}{Logical. If \code{TRUE}, the function returns a data frame; otherwise, it returns a list.}
 }
 \value{
-A data frame or a list containing the modified `x` and `y` coordinates.
+A data frame or a list containing the modified \code{x} and \code{y} coordinates.
 }
 \description{
-The `do_steps` function calculates steps for uneven data points represented by vectors `x` and `y`.
+The \code{do_steps} function calculates steps for uneven data points represented by vectors \code{x} and \code{y}.
 }
 \examples{
 x <- c(1, 2, 3, 4, 5)

@@ -7,7 +7,7 @@
 compute_stats(df, by_cond = "None", no_of_vars)
 }
 \arguments{
-\item{df}{data.frame containing variable "do_idx" from [add_dropout_idx()]}
+\item{df}{data.frame containing variable "do_idx" from \code{\link[=add_dropout_idx]{add_dropout_idx()}}}
 
 \item{by_cond}{character group by condition, defaults to 'None'.}
 
@@ -19,11 +19,11 @@ and as many rows as questions in original data (for overall data and if conditio
 again for each condition).
 }
 \description{
-This is the _second step_ in conducting dropout analysis with `dropR`. 
-Outputs all necessary statistics to analyze and visualize dropout, such as 
-the sample size N of the data (and in each condition if selected), cumulative 
+This is the \emph{second step} in conducting dropout analysis with \code{dropR}.
+Outputs all necessary statistics to analyze and visualize dropout, such as
+the sample size N of the data (and in each condition if selected), cumulative
 dropout and remaining participants in absolute numbers and percent.
-If no experimental condition is added, the stats are only calculated for the 
+If no experimental condition is added, the stats are only calculated for the
 whole data in total.
 }
 \examples{

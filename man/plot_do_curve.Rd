@@ -15,14 +15,14 @@ plot_do_curve(
 )
 }
 \arguments{
-\item{d}{data.frame containing dropout statistics table computed by [compute_stats()].
+\item{d}{data.frame containing dropout statistics table computed by \code{\link[=compute_stats]{compute_stats()}}.
 Make sure your stats table contains a do_idx column indexing all items sequentially.}
 
 \item{linetypes}{boolean Should different line types be used? Defaults to TRUE.}
 
 \item{stroke_width}{numeric stroke width, defaults to 1.}
 
-\item{full_scale}{boolean Should y axis range from 0 to 100? Defaults to TRUE, 
+\item{full_scale}{boolean Should y axis range from 0 to 100? Defaults to TRUE,
 FALSE cuts off at max percent remaining.}
 
 \item{show_points}{boolean Should lines show points? Defaults to FALSE.}
@@ -33,9 +33,9 @@ alternatively choose 'gray' or 'default' for the ggplot2 default colors.}
 \item{show_confbands}{boolean Should there be confidence bands added to the plot?Defaults to FALSE.}
 }
 \description{
-This functions uses `ggplot`to create drop out curves. 
-Please note that you should use [add_dropout_idx()] and [compute_stats()] on your 
-data before trying to run this function as it needs a certain data structure to 
+This functions uses \code{ggplot}to create drop out curves.
+Please note that you should use \code{\link[=add_dropout_idx]{add_dropout_idx()}} and \code{\link[=compute_stats]{compute_stats()}} on your
+data before trying to run this function as it needs a certain data structure to
 work properly.
 }
 \examples{
@@ -47,5 +47,5 @@ plot_do_curve(stats)
 
 }
 \seealso{
-[add_dropout_idx()] and [compute_stats()] which are necessary for the proper data structure
+\code{\link[=add_dropout_idx]{add_dropout_idx()}} and \code{\link[=compute_stats]{compute_stats()}} which are necessary for the proper data structure
 }

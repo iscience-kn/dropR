@@ -15,5 +15,5 @@ get_steps_by_cond(sfit, condition = NULL)
 A data frame containing the steps data, including time, survival estimates, upper confidence bounds, and lower confidence bounds.
 }
 \description{
-The `get_steps_by_cond` function calculates steps data based on survival model results.
+The \code{get_steps_by_cond} function calculates steps data based on survival model results.
 }

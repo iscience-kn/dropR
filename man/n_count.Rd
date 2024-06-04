@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{n_count}
 \alias{n_count}
-\title{The `n_count` function calculates the number of occurrences of a specific value `n` in a numeric vector `x`.}
+\title{The \code{n_count} function calculates the number of occurrences of a specific value \code{n} in a numeric vector \code{x}.}
 \usage{
 n_count(x, n)
 }
@@ -12,10 +12,10 @@ n_count(x, n)
 \item{n}{Numeric value to count occurrences of.}
 }
 \value{
-An integer representing the count of occurrences of `n` in `x`.
+An integer representing the count of occurrences of \code{n} in \code{x}.
 }
 \description{
-The `n_count` function calculates the number of occurrences of a specific value `n` in a numeric vector `x`.
+The \code{n_count} function calculates the number of occurrences of a specific value \code{n} in a numeric vector \code{x}.
 }
 \examples{
 x <- c(1, 2, 3, 2, 4, 2)

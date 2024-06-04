@@ -7,14 +7,14 @@
 do_kpm(d, condition_col = "experimental_condition", model_fit = "total")
 }
 \arguments{
-\item{d}{dataset with do_idx added by [add_dropout_idx()]}
+\item{d}{dataset with do_idx added by \code{\link[=add_dropout_idx]{add_dropout_idx()}}}
 
 \item{condition_col}{character denoting the experimental conditions to model}
 
 \item{model_fit}{character Should be either "total" for a total model or "conditions"}
 }
 \description{
-This function needs a data set with a dropout index added by [add_dropout_idx()].
+This function needs a data set with a dropout index added by \code{\link[=add_dropout_idx]{add_dropout_idx()}}.
 }
 \examples{
 demo_kpm <- do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
