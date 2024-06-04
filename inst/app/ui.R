@@ -1,6 +1,7 @@
 ## app.R ##
 library(shiny)
 library(shinydashboard)
+library(shinyWidgets)
 
 # Tab items 
 # Home ####
@@ -182,13 +183,13 @@ tabViz <- tabItem(tabName = "viz",
                                     "pdf",width=240),
                         sliderInput("dpi","Resolution (dpi, .png only)",
                                     min = 75, max = 600,value = 300,
-                                    width = 240),
+                                    width = 240, ticks = F),
                         sliderInput("h","Height (in inches)",
                                     min = 3, max = 50,value = 4,
-                                    width = 240),
+                                    width = 240, ticks = F),
                         sliderInput("w","Width (in inches)",
                                     min = 3, max = 50,value = 10,
-                                    width = 240),
+                                    width = 240, ticks = F),
                         downloadButton('downloadCurvePlot', 'Download plot')
                         )
                     )
@@ -263,14 +264,14 @@ tabKaplan <- tabItem(tabName = "kaplan",
                                          "png" = "png"),
                                        "pdf",width=240),
                            sliderInput("kpm_dpi","Resolution (dpi, .png only)",
-                                       min = 75, max = 600,value = 300,
-                                       width = 240),
+                                       min = 75, max = 600, value = 300,
+                                       width = 240, ticks = F),
                            sliderInput("kpm_h","Height (in inches)",
-                                       min = 3, max = 50,value = 4,
-                                       width = 240),
+                                       min = 3, max = 50, value = 4,
+                                       width = 240, ticks = F),
                            sliderInput("kpm_w","Width (in inches)",
-                                       min = 3, max = 50,value = 10,
-                                       width = 240),
+                                       min = 3, max = 50, value = 10,
+                                       width = 240, ticks = F),
                            downloadButton('downloadKpmPlot', 'Download plot')
                            )
                      ),
@@ -301,6 +302,7 @@ tabAbout <- tabItem(tabName = "about",
 
 # Main Page structure ####
 ui <- dashboardPage(
+  
   dashboardHeader(title = "dropR"),
   dashboardSidebar(
     sidebarMenu(
@@ -318,8 +320,10 @@ ui <- dashboardPage(
   ),
   # Body of the App #############
   dashboardBody(
+    chooseSliderSkin("Modern"),
     tags$head(tags$link(rel = "shortcut icon", 
                 href = "decrease.svg")),
+
     tabItems(tabHome,
              tabViz,
              tabUpload,
