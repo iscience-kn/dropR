@@ -65,8 +65,8 @@ server <- function(input, output) {
 
   kaplan_meier <- reactive({
     dta <- dataset()
-    do_kpm(d = dta,
-           qs = input$quest_cols,
+    do_kpm(d = add_dropout_idx(dta, input$quest_cols),
+           # q_pos = input$quest_cols,
            condition_col = input$cond_col,
            model_fit = input$kaplan_fit)
 
@@ -109,7 +109,7 @@ server <- function(input, output) {
     if(input$cond_col == "None"){
       NULL
     } else{
-      checkboxGroupInput('sel_cond', 'Show conditions',
+      checkboxGroupInput('sel_cond', 'Selected conditions',
                          levels(stats()[,get("condition")]),
                          selected = levels(stats()[,get("condition")]))  
     }
@@ -195,7 +195,8 @@ server <- function(input, output) {
                   stroke_width = input$stroke_width,
                   show_points = input$show_points,
                   full_scale = input$full_scale,
-                  color_palette = input$color_palette)
+                  color_palette = input$color_palette,
+                  show_confbands = input$show_confbands)
   })
 
 
@@ -229,7 +230,7 @@ server <- function(input, output) {
     #             color_palette_kp = input$color_palette_kp,
     #             full_scale_kpm = input$full_scale_kpm)
     do_kpm_plot(kds = kaplan_meier(),
-                sel_cond_kpm = input$sel_cond_kpm,
+                sel_conds = input$sel_cond_kpm,
                 kpm_ci = input$kpm_ci,
                 color_palette_kp = input$color_palette_kp,
                 full_scale_kpm = input$full_scale_kpm)
@@ -271,7 +272,7 @@ server <- function(input, output) {
     content = function(file) {
       
       k <- do_kpm_plot(kds = kaplan_meier(),
-                       sel_cond_kpm = input$sel_cond_kpm,
+                       sel_conds = input$sel_cond_kpm,
                        kpm_ci = input$kpm_ci,
                        color_palette_kp = input$color_palette_kp,
                        full_scale_kpm = input$full_scale_kpm)
@@ -321,7 +322,7 @@ server <- function(input, output) {
     do_chisq(d,
              chisq_question = input$chisq_question,
              sel_cond_chisq = input$sel_cond_chisq,
-             fisher = input$fisher)
+             p_sim = input$p_sim)
   })
   
   output$odds_ratio <- renderTable({

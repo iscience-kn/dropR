@@ -6,6 +6,7 @@
 #' @format A data frame with 246 rows and 54 variables:
 #' \describe{
 #'   \item{obs_id}{Observation ID}
+#'   \item{experimental_condition}{experimental condition}
 #'   \item{vi_1}{columns containing variables}
 #'   \item{vi_2}{columns containing variables}
 #'   \item{vi_3}{columns containing variables}
@@ -58,8 +59,7 @@
 #'   \item{vi_50}{columns containing variables}
 #'   \item{vi_51}{columns containing variables}
 #'   \item{vi_52}{columns containing variables}
-#'   \item{experimental_condition}{experimental condition}
 #' }
 #' 
-#' @source {dropRdemo} dropRdemo R package.
+#' @source {dropRdemo} Demo data for dropout.
 NULL

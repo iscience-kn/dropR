@@ -5,6 +5,13 @@
 #' 
 #' @param p vector of probabilities. May not be larger than 1 or smaller than zero.
 #' @export
+#' 
+#' @examples
+#' get_odds(0.7)
+#' @examples
+#' get_odds(c(0.7, 0.2))
+#' 
+#' 
 get_odds <- function(p){
   if(!all(p <= 1 & p >= 0)) stop('Input is not a probability!')
   p / (1-p)
@@ -13,12 +20,16 @@ get_odds <- function(p){
 
 #' Compute Odds Ratio 
 #' 
-#' Computes and odds ratio given two probabilites.
+#' Computes and odds ratio given two probabilities.
 #' 
 #' 
 #' @param a numeric probability value between 0 and 1.
 #' @param b numeric probability value between 0 and 1.
 #' @export
+#' 
+#' @examples
+#' get_odds_ratio(0.7, 0.6)
+#' 
 get_odds_ratio <- function(a,b){
   get_odds(a)/get_odds(b)
 }

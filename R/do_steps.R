@@ -15,7 +15,7 @@
 #' do_steps(x, y)
 #'
 #' @export
-do_steps <- function(x, y,return_df = T) {
+do_steps <- function(x, y,return_df = T, na.rm = T) {
   keep <- is.finite(x) & is.finite(y)
   if (!any(keep)) 
     return()
@@ -23,6 +23,12 @@ do_steps <- function(x, y,return_df = T) {
     x <- x[keep]
     y <- y[keep]
   }
+  # 
+  # if (!na.rm){ # if there are missings in the data and we don't want to just drop them, we imputate the last known value
+  #   x[is.na(x)] <- x[max(rle(is.na(x))$lengths)]
+  #   y[is.na(y)] <- y[max(rle(is.na(y))$lengths)]
+  # }
+  
   n <- length(x)
   if (n == 1) 
     list(x = x, y = y)

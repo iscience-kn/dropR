@@ -1,17 +1,30 @@
-#' Kaplan-Meier 
+#' Kaplan-Meier Survival Estimation
+#' 
+#' This function needs a data set with a dropout index added by [add_dropout_idx()].
 #' 
 #' 
-#' @param d dataset
-#' @param qs character vector of questions column indicator.
-#' @param condition_col character column denoting the experimental condition
-#' @param model_fit ?
+#' 
+#' @param d dataset with do_idx added by [add_dropout_idx()]
+#' @param condition_col character denoting the experimental conditions to model
+#' @param model_fit character Should be either "total" for a total model or "conditions"
 #' @importFrom survival Surv survfit
 #' @export
+#' 
+#' @examples
+#' demo_kpm <- do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+#' condition_col = "experimental_condition",
+#' model_fit = "total")
+#' 
 do_kpm <- function(d,
-                   qs,
-                   condition_col,
-                   model_fit){
-  d <- add_dropout_idx(d, qs)
+                   # q_pos,
+                   condition_col = "experimental_condition",
+                   model_fit = "total"){
+  
+  # d <- add_dropout_idx(d, q_pos)
+  
+  # q_pos character or numeric position vector of questions column indicator.
+  
+  
   d$surv <- with(d, Surv(do_idx, do_idx != max(d$do_idx)))
   if(model_fit == "total"){
     fit1 <- survfit(surv~1, data = d)
@@ -21,6 +34,19 @@ do_kpm <- function(d,
     by_cond <- split(d, factor(d[ ,condition_col]))
     by_cond_fit <- lapply(by_cond,
                           function(x) survfit(surv~1, data = x))
+    
+    by_cond_fit <- lapply(names(by_cond_fit), function(x) {
+      # Copy the current list element
+      fit <- by_cond_fit[[x]]
+      
+      # Modify 'upper' and 'lower' variables as they throw errors for NAs (which can be substituted with 0)
+      fit$upper <- ifelse(is.na(fit$upper), 0, fit$upper)
+      fit$lower <- ifelse(is.na(fit$lower), 0, fit$lower)
+      
+      # Return the modified list element
+      return(fit)
+    })
+    names(by_cond_fit) <- names(by_cond)
     
     by_cond_steps <- lapply(names(by_cond_fit), function(x){
       get_steps_by_cond(by_cond_fit[[x]], x)
@@ -38,22 +64,40 @@ do_kpm <- function(d,
 
 #' Draw a Kaplan Meier Plot
 #' 
-#' @param kds description
-#' @param sel_cond_kpm selected experimental conditions. 
-#' @param kpm_ci confidence bands
-#' @param color_palette_kp different color palettes
-#' @param full_scale_kpm ?
+#' @param kds object as modelled by [do_kpm()]
+#' @param sel_conds character selected experimental conditions to plot. 
+#' @param kpm_ci boolean Should there be confidence bands in the plot?
+#' @param color_palette_kp character indicating which color palette to use. Defaults to 'color_blind',
+#' alternatively choose 'gray' or 'default' for the ggplot2 default colors. 
+#' @param full_scale_kpm boolean Should the Y axis show the full range from 0 to 100?
 #' @import ggplot2
 #' @export
+#' 
+#' @examples
+#' do_kpm_plot(do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+#' condition_col = "experimental_condition",
+#' model_fit = "total"))
+#' 
+#' do_kpm_plot(do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+#' condition_col = "experimental_condition",
+#' model_fit = "conditions"), sel_conds = c("11", "12", "21", "22"))
+#' 
 do_kpm_plot <- function(
     kds,
-    sel_cond_kpm,
-    kpm_ci,
-    color_palette_kp,
-    full_scale_kpm
+    sel_conds = c("11", "12", "21", "22"),
+    kpm_ci = T,
+    color_palette_kp = "color_blind",
+    full_scale_kpm = F
 ){
+  palette <- if(color_palette_kp == "color_blind"){c("#000000", "#E69F00",
+                                                  "#56B4E9", "#009E73",
+                                                  "#F0E442", "#0072B2",
+                                                  "#D55E00", "#CC79A7")
+  } else {gray(seq(from = 0,1,
+                   by = 1/8)[c(1,8,3,7,4,5,2,6)])}
+  
   if(kds$model_fit == "conditions"){
-    k <- ggplot(subset(kds$steps, condition %in% sel_cond_kpm),
+    k <- ggplot(subset(kds$steps, condition %in% sel_conds),
                 aes(x,y*100, col = condition, fill = condition))
   } else {
     k <- ggplot(subset(kds$steps, condition %in% "total"),
@@ -76,26 +120,31 @@ do_kpm_plot <- function(
                          alpha=.3)
   }
   
-  if(color_palette_kp == "color_blind"){
-    k <- k + scale_fill_manual(values=c("#000000", "#E69F00",
-                                        "#56B4E9", "#009E73",
-                                        "#F0E442", "#0072B2",
-                                        "#D55E00", "#CC79A7")) +
-      scale_color_manual(values=c("#000000", "#E69F00",
-                                  "#56B4E9", "#009E73",
-                                  "#F0E442", "#0072B2",
-                                  "#D55E00", "#CC79A7"))
+  if(color_palette_kp != "default"){
+    k <- k + scale_fill_manual(values=palette) +
+      scale_color_manual(values=palette)
   }
   
-  if(color_palette_kp == "gray"){
-    k <- k +
-      scale_color_manual(values = gray(seq(from=0,1,
-                                           by=1/8)[c(1,8,3,7,4,5,2,6)]
-      )) +
-      scale_fill_manual(values = gray(seq(from=0,1,
-                                          by=1/8)[c(1,8,3,7,4,5,2,6)])
-      )
-  }
+  # if(color_palette_kp == "color_blind"){
+  #   k <- k + scale_fill_manual(values=c("#000000", "#E69F00",
+  #                                       "#56B4E9", "#009E73",
+  #                                       "#F0E442", "#0072B2",
+  #                                       "#D55E00", "#CC79A7")) +
+  #     scale_color_manual(values=c("#000000", "#E69F00",
+  #                                 "#56B4E9", "#009E73",
+  #                                 "#F0E442", "#0072B2",
+  #                                 "#D55E00", "#CC79A7"))
+  # }
+  # 
+  # if(color_palette_kp == "gray"){
+  #   k <- k +
+  #     scale_color_manual(values = gray(seq(from=0,1,
+  #                                          by=1/8)[c(1,8,3,7,4,5,2,6)]
+  #     )) +
+  #     scale_fill_manual(values = gray(seq(from=0,1,
+  #                                         by=1/8)[c(1,8,3,7,4,5,2,6)])
+  #     )
+  # }
   
   if(full_scale_kpm){
     k <- k + 
@@ -116,7 +165,7 @@ do_kpm_plot <- function(
 #' @importFrom survival survdiff
 #' @param d description
 #' @param cond description
-#' @param test_type ?
+#' @param test_type a scalar parameter that controls the type of test
 #' @export
 get_survdiff <- function(d, cond, test_type){
   f <- as.formula(paste("surv", cond, sep="~"))

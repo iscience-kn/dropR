@@ -96,8 +96,9 @@ tabUpload <- tabItem(tabName = "upload",
                            h3("2.1 Missings"),
                            checkboxGroupInput('nas','Interpret as missing:',
                                               c('NA', '#N/A','.', '-99','-999',
-                                                '-1',''),c("NA")),
-                           textInput('nas_custom1', label = 'Add your own NA coding:',
+                                                '-1',''),c("NA", "")),
+                           p(strong('Add your own NA coding (automatically applied):')),
+                           textInput('nas_custom1', label = NULL,
                                      value = "-66", width = '30%'),
                            textInput('nas_custom2', label = NULL,
                                      value = "-77", width = '30%'),
@@ -128,24 +129,37 @@ tabUpload <- tabItem(tabName = "upload",
 tabViz <- tabItem(tabName = "viz",
                   fluidRow(
                     box(width=4,
-                        h3("Plot options"),
-                        uiOutput("show_conditions"),
-                        textInput("rename_conditions","Rename selected conditions"),
+                        h3("Data Visualization"),
+                        column(width = 3,
+                               uiOutput("show_conditions")
+                               ),
+                        
+                        column(width = 5,
+                               p(strong("Options")),
+                               checkboxInput("show_points","Show points"),
+                               checkboxInput("show_confbands","Show confidence bands"),
+                               checkboxInput("linetypes","Use line type to distinguish conditions",
+                                             value = T),
+                               checkboxInput("cutoff","Cut off last question",value = T),
+                               checkboxInput("full_scale","Show full Y-axis from 0 to 100",value = T)
+                               ),
+                        
+                        column(width = 4,
+                               radioButtons("color_palette","Color palettes",
+                                            c("color blind-friendly" = "color_blind",
+                                              "ggplot default" = "default",
+                                              "gray scale" = "gray"),
+                                            "color_blind")
+                               ),
+                        
+                        textInput("rename_conditions","Rename selected conditions (comma delimited)*"),
                         selectInput("stroke_width","Stroke width",c(1,2,3,4,5),1),
-                        checkboxInput("show_points","Show points"),
-                        checkboxInput("linetypes","Use line type to distinguish conditions",
-                                      value = T),
-                        checkboxInput("cutoff","cut off last question",value = T),
-                        checkboxInput("full_scale","Show full Y-axis from 0 to 100",value = T),
-                        radioButtons("color_palette","Color palettes",
-                                     c("color blind-friendly" = "color_blind",
-                                       "ggplot default" = "default",
-                                       "gray scale" = "gray"),
-                                     "color_blind"),
+                       
+                        
                         h3("Hints"),
                         tags$ul(
                           tags$li("Color-blind friendly palettes support up to 8 different conditions (colors)."),
-                          tags$li("When renaming conditions, use a comma (,) as a seperator. Make sure to list 
+                          tags$li("* When renaming conditions, use a comma (,) as a seperator. Make sure to list 
                                   as many names as conditions you have selected."),
                           tags$li("With dropR you can produce graphs for publication in various formats. You may 
                                   choose vector formats such as .svg and .pdf or the .png format for rendered pixels.")
@@ -185,7 +199,7 @@ tabXsq <- tabItem(tabName = "xsq",
                         HTML("<h3>χ<sup>2</sup>-test options</h3>"),  
                         uiOutput("chisq_conditions"),
                         uiOutput("xsq_slider"),
-                        checkboxInput("fisher","Simulate p-values",T)
+                        checkboxInput("p_sim","Simulate p-values",T)
                     ),
                     box(width=7,
                         h3("Test outcomes"),
@@ -258,12 +272,12 @@ tabAbout <- tabItem(tabName = "about",
                     h2("About"),
                     p("DropR is a joint project by Ulf-Dietrich Reips, Matthias Bannert and Annika Tave Overlander that 
                       followed naturally from the long-standing need in",
-                      a("Internet science", href = "http://iscience.eu"), 
+                      a("Internet science", href = "https://iscience.uni-konstanz.de/"), 
                       "and online research for methods and tools to address the fact that dropout (aka attrition, mortality, 
                       break-off) occurs much more frequently when research is conducted via the Internet than traditionally
                       in the lab.", class="slimtext"),
                     p("You can find the full documentation of the dropR package on",
-                      a("GitHub.", href = "https://mbannert.github.io/dropR/articles/r_console_usage.html"), class="slimtext")
+                      a("GitHub.", href = "https://iscience-kn.github.io/dropR/index.html"), class="slimtext")
                     )
 
 # Main Page structure ####
@@ -275,9 +289,9 @@ ui <- dashboardPage(
       menuItem("Start: Upload", tabName = "upload", icon = icon("upload")),
       menuItem("Visual inspection", tabName = "viz",
                icon = icon("area-chart",lib="font-awesome")),
-      menuItem("Chi-square", tabName = "xsq",
+      menuItem("Contingency Analyses", tabName = "xsq",
                icon = icon("percent",lib="font-awesome")),
-      menuItem("Kaplan-Meier est.", tabName = "kaplan",
+      menuItem("Survival Analyses", tabName = "kaplan",
                icon = icon("percent",lib="font-awesome")),
       menuItem("About", tabName = "about",
                icon = icon("circle-info",lib="font-awesome"))
