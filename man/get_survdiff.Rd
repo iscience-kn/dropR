@@ -11,7 +11,7 @@ get_survdiff(d, cond, test_type)
 
 \item{cond}{description}
 
-\item{test_type}{?}
+\item{test_type}{a scalar parameter that controls the type of test}
 }
 \description{
 Test Survival Curve Difference
