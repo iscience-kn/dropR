@@ -251,13 +251,25 @@ server <- function(input, output) {
     },
     content = function(file) {
       
-      dc <- do_curve_plot()
+      # New Try
+      ggplot2::ggsave(file, 
+                      plot = do_curve_plot(),
+                      device = input$export_format,
+                      dpi = input$dpi,
+                      width = input$w,
+                      height = input$h)
+      #
       
-      file.copy(ggplot2::ggsave(paste0("curve_plot.",input$export_format),
-             plot = dc, device = input$export_format,
-             dpi = input$dpi,
-             width = input$w,
-             height = input$h), file)
+      # Original Version
+      # dc <- do_curve_plot()
+      # 
+      # file.copy(ggplot2::ggsave(paste0("curve_plot.",input$export_format),
+      #        plot = dc, 
+      #        device = input$export_format,
+      #        dpi = input$dpi,
+      #        width = input$w,
+      #        height = input$h), file)
+      #
       
       # file.copy(paste("curve_plot",input$export_format,sep="."),
       #           file, overwrite=TRUE)
@@ -270,19 +282,34 @@ server <- function(input, output) {
       paste(input$kpm_plot_fname,input$kpm_export_format,sep=".")
     },
     content = function(file) {
+      # New Version
+      ggplot2::ggsave(file,
+                      plot = do_kpm_plot(kds = kaplan_meier(),
+                                         sel_conds = input$sel_cond_kpm,
+                                         kpm_ci = input$kpm_ci,
+                                         color_palette_kp = input$color_palette_kp,
+                                         full_scale_kpm = input$full_scale_kpm), 
+                      device = input$kpm_export_format,
+                      dpi = input$kpm_dpi,
+                      width = input$kpm_w,
+                      height = input$kpm_h)
+      #
       
-      k <- do_kpm_plot(kds = kaplan_meier(),
-                       sel_conds = input$sel_cond_kpm,
-                       kpm_ci = input$kpm_ci,
-                       color_palette_kp = input$color_palette_kp,
-                       full_scale_kpm = input$full_scale_kpm)
       
-      file.copy(ggplot2::ggsave(paste0("kpm_plot.",input$kpm_export_format),
-                       plot = k, device = input$kpm_export_format,
-                       dpi = input$kpm_dpi,
-                       width = input$kpm_w,
-                       height = input$kpm_h),
-                file)
+      # Original Version
+      # k <- do_kpm_plot(kds = kaplan_meier(),
+      #                  sel_conds = input$sel_cond_kpm,
+      #                  kpm_ci = input$kpm_ci,
+      #                  color_palette_kp = input$color_palette_kp,
+      #                  full_scale_kpm = input$full_scale_kpm)
+      # 
+      # file.copy(ggplot2::ggsave(paste0("kpm_plot.",input$kpm_export_format),
+      #                  plot = k, device = input$kpm_export_format,
+      #                  dpi = input$kpm_dpi,
+      #                  width = input$kpm_w,
+      #                  height = input$kpm_h),
+      #           file)
+      #
       
       # file.copy(paste("kpm_plot",input$kpm_export_format,sep="."),
       #           file, overwrite=TRUE)

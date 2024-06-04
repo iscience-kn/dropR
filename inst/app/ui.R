@@ -47,13 +47,16 @@ tabHome <- tabItem(tabName = "home",
                    )
 # Upload ####
 tabUpload <- tabItem(tabName = "upload",
-                     h2("Upload your data"),
+                     # h2("Upload your data"),
                      fluidRow(
                        box(width=5,
-                           h3("1. Choose"),
-                           h4("a .csv file from your disk"),
-                           strong('How To dropR'),
+                           title = "1. Choose",
+                           # h3("1. Choose"),
+                           # h5("a .csv file from your disk"),
+                           # strong('How To dropR'),
                            tags$ul(
+                             tags$li(strong("... a .csv file from your disk or our demo dataset."), 
+                                     "(52 variables, 4 experimental conditions)"),
                              tags$li("Indicate whether the first line of your
                                    data is a header."),
                              tags$li("Choose the proper column delimiter,
@@ -64,8 +67,8 @@ tabUpload <- tabItem(tabName = "upload",
                                    missing values in your data. Add custom missing values
                                    if necessary."),
                              tags$li("Check the data preview below. If your
-                                   data is displayed as expected you are good to 
-                                   start with your analysis.")
+                                   data is displayed as expected you are ready to 
+                                   start with your analyses.")
                            ),
                            p("DON'T forget to hit 'update data' in the box on the right when 
                              you're ready!"),
@@ -73,12 +76,13 @@ tabUpload <- tabItem(tabName = "upload",
                                      accept=c('text/csv', 
                                               'text/comma-separated-values,text/plain', 
                                               '.csv')),
-                           h4("or use the default demo dataset (52 variables, 4 experimental conditions) instead"),
-                           checkboxInput("demo_ds","use demo data", value = TRUE)
+                           # h4("or use the default demo dataset (52 variables, 4 experimental conditions) instead"),
+                           checkboxInput("demo_ds",strong("Use demo data"), value = TRUE)
                        ),
                        box(width=2,
-                           h3("2. Specify"),
-                           h4(".csv properties"),
+                           title = "2. Specify",
+                           # h3("2. Specify"),
+                           h4("CSV properties:"),
                            checkboxInput('header', 'Header', TRUE),
                            radioButtons('sep', 'Separator',
                                                c(Semicolon=';',
@@ -93,7 +97,8 @@ tabUpload <- tabItem(tabName = "upload",
                           
                        ),
                        box(width=2,
-                           h3("2.1 Missings"),
+                           title = "2.1 Missings",
+                           # h3("2.1 Missings"),
                            checkboxGroupInput('nas','Interpret as missing:',
                                               c('NA', '#N/A','.', '-99','-999',
                                                 '-1',''),c("NA", "")),
@@ -106,8 +111,9 @@ tabUpload <- tabItem(tabName = "upload",
                                      value = "-9999", width = '30%')
                        ),
                        box(width=3,
-                           h3("3. Identify"),
-                           h4("conditions and questions to analyze"),
+                           title = "3. Identify",
+                           # h3("3. Identify"),
+                           # h5("conditions and questions to analyze"),
                            uiOutput('choose_condition'),
                            uiOutput("choose_questions"),
                            actionButton("goButton", "Update data!")
@@ -115,21 +121,18 @@ tabUpload <- tabItem(tabName = "upload",
                      ),
                      fluidRow(
                        box(width = 12,
-                           h3("Data Preview"),
+                           title = "Data Preview",
+                           # h3("Data Preview"),
                            div(DT::dataTableOutput("table"),style = 'overflow:auto')
                        )
                      )
-                     # fluidRow(
-                     #   box(width = 12),
-                     #   textOutput("debug_txt")
-                     # )
                   )
 
 # Visual Analysis ####
 tabViz <- tabItem(tabName = "viz",
                   fluidRow(
                     box(width=4,
-                        h3("Data Visualization"),
+                        title = "Data Visualization",
                         column(width = 3,
                                uiOutput("show_conditions")
                                ),
@@ -141,7 +144,7 @@ tabViz <- tabItem(tabName = "viz",
                                checkboxInput("linetypes","Use line type to distinguish conditions",
                                              value = T),
                                checkboxInput("cutoff","Cut off last question",value = T),
-                               checkboxInput("full_scale","Show full Y-axis from 0 to 100",value = F)
+                               checkboxInput("full_scale","Show full Y-axis (0 to 100)",value = F)
                                ),
                         
                         column(width = 4,
@@ -156,7 +159,7 @@ tabViz <- tabItem(tabName = "viz",
                         selectInput("stroke_width","Stroke width",c(1,2,3,4,5),1),
                        
                         
-                        h3("Hints"),
+                        h4("Hints"),
                         tags$ul(
                           tags$li("Color-blind friendly palettes support up to 8 different conditions (colors)."),
                           tags$li("* When renaming conditions, use a comma (,) as a seperator. Make sure to list 
@@ -165,28 +168,28 @@ tabViz <- tabItem(tabName = "viz",
                                   choose vector formats such as .svg and .pdf or the .png format for rendered pixels.")
                         )),
                     box(width = 8,
-                        h3("Dropout by question"),
+                        title = "Dropout by question",
                         div(plotOutput("do_curve_plot"),
                             style = 'overflow:auto'),
-                        textInput("plot_fname","file name (without file extension)",
+                        textInput("plot_fname","File name (without file extension)",
                                   width=240,
                                   value = paste0("dropR_", round(as.numeric(Sys.time())))
                                   ),
-                        selectInput("export_format","export graph as:",
+                        selectInput("export_format","Export plot as:",
                                     c("pdf" = "pdf",
                                       "svg" = "svg",
                                       "png" = "png"),
                                     "pdf",width=240),
-                        sliderInput("dpi","resolution (dpi, .png only)",
+                        sliderInput("dpi","Resolution (dpi, .png only)",
                                     min = 75, max = 600,value = 300,
                                     width = 240),
-                        sliderInput("h","height (in inches)",
+                        sliderInput("h","Height (in inches)",
                                     min = 3, max = 50,value = 4,
                                     width = 240),
-                        sliderInput("w","width (in inches)",
+                        sliderInput("w","Width (in inches)",
                                     min = 3, max = 50,value = 10,
                                     width = 240),
-                        downloadButton('downloadCurvePlot', 'download plot')
+                        downloadButton('downloadCurvePlot', 'Download plot')
                         )
                     )
                   )
@@ -196,19 +199,21 @@ tabViz <- tabItem(tabName = "viz",
 tabXsq <- tabItem(tabName = "xsq",
                   fluidRow(
                     box(width=5,
-                        HTML("<h3>Chi<sup>2</sup>-test options</h3>"),
+                        title = HTML("Chi<sup>2</sup>-test options"),
+                        # HTML("<h3>Chi<sup>2</sup>-test options</h3>"),
                         uiOutput("chisq_conditions"),
                         uiOutput("xsq_slider"),
                         checkboxInput("p_sim","Simulate p-values",T),
-                        h3("Dropout by question"),
+                        h4("Dropout by question"),
                         plotOutput("do_curve_plot_2"),
                         HTML('<em>This plot shows the same overview that was created in Visual Inspection.</em>')
                     ),
                     
                     box(width=7,
-                        h3("Contingency Test Outcomes"),
+                        title = "Contingency Test Outcomes",
+                        # h3("Contingency Test Outcomes"),
                         verbatimTextOutput("chisq_tests"),
-                        h3("Odds ratio by item"),
+                        h4("Odds ratio by item"),
                         tableOutput("odds_ratio"),
                         # div(plotOutput("do_curve_plot_2"),
                         #     style = 'overflow:auto')
@@ -219,58 +224,68 @@ tabXsq <- tabItem(tabName = "xsq",
 
 # Tab Kaplan-Meier ####
 tabKaplan <- tabItem(tabName = "kaplan",
-                     h2("Kaplan-Meier Estimation"),
                      fluidRow(
                        box(width = 3,
-                           h3("Model specifications"),
+                           title = "Kaplan-Meier Model Specifications",
                            selectInput("kaplan_fit","Choose model fit",
                                        c("total" = "total",
                                          "by condition" = "conditions"),
                                        "total"),
                            uiOutput("kpm_conditions"),
-                           h3("Plot options"),
-                           checkboxInput("kpm_ci","confidence bands",T),
-                           checkboxInput("full_scale_kpm","Show full Y-axis from 0 to 100",value = T),
-                           radioButtons("color_palette_kp","Color palettes",
-                                        c("color blind-friendly" = "color_blind",
-                                          "ggplot default" = "default",
-                                          "gray scale" = "gray"),
-                                        "color_blind"),
-                           h3("Rho family tests"),
-                           uiOutput("rho_tests"),
-                           h3("Export plot"),
-                           textInput("kpm_plot_fname","file name (w/o file extension)",
-                                     width=240,
-                                     value = paste0("dropR_",round(as.numeric(Sys.time())))
+                           
+                           column(width = 6,
+                                  p(strong("Plot options")),
+                                  checkboxInput("kpm_ci","Show confidence bands",T),
+                                  checkboxInput("full_scale_kpm","Show full Y-axis from 0 to 100",value = T)
+                                  ),
+                           column(width = 4,
+                                  radioButtons("color_palette_kp","Color palettes",
+                                               c("color blind-friendly" = "color_blind",
+                                                 "ggplot default" = "default",
+                                                 "gray scale" = "gray"),
+                                               "color_blind")
+                                  )
                            ),
-                           selectInput("kpm_export_format","export graph as:",
+                       
+                       box(width = 7,
+                           title = "Kaplan-Meier survival curve",
+                           plotOutput("kpm_plot")
+                           ),
+                       box(width = 2,
+                           title = "Export Plot",
+                           textInput("kpm_plot_fname","Name (without file extension)",
+                                     width=240,
+                                     value = paste0("dropR-kpm_",round(as.numeric(Sys.time())))
+                           ),
+                           selectInput("kpm_export_format","Export plot as:",
                                        c("pdf" = "pdf",
                                          "svg" = "svg",
                                          "png" = "png"),
                                        "pdf",width=240),
-                           sliderInput("kpm_dpi","resolution (dpi, .png only)",
+                           sliderInput("kpm_dpi","Resolution (dpi, .png only)",
                                        min = 75, max = 600,value = 300,
                                        width = 240),
-                           sliderInput("kpm_h","height (in inches)",
+                           sliderInput("kpm_h","Height (in inches)",
                                        min = 3, max = 50,value = 4,
                                        width = 240),
-                           sliderInput("kpm_w","width (in inches)",
+                           sliderInput("kpm_w","Width (in inches)",
                                        min = 3, max = 50,value = 10,
                                        width = 240),
-                           downloadButton('downloadKpmPlot', 'download plot')
-                           # Exports
-                           ),
-                       box(width = 9,
-                           h3("Kaplan-Meier survival curve"),
-                           #tableOutput("test_table"),
-                           plotOutput("kpm_plot"),
-                           h3("Test Survival Curve Differences"),
-                           verbatimTextOutput("surv_tests")
-                           #textOutput("test_text")
-                           
+                           downloadButton('downloadKpmPlot', 'Download plot')
                            )
+                     ),
+                     fluidRow(
+                       box(width = 3,
+                           title = "Rho-family Survival Difference Tests",
+                           uiOutput("rho_tests")
+                           ),
+                       box(width = 7,
+                           title = "Test Survival Curve Differences",
+                           verbatimTextOutput("surv_tests")
                        )
                      )
+                  ) 
+                      
 
 tabAbout <- tabItem(tabName = "about",
                     h2("About"),
@@ -303,6 +318,8 @@ ui <- dashboardPage(
   ),
   # Body of the App #############
   dashboardBody(
+    tags$head(tags$link(rel = "shortcut icon", 
+                href = "decrease.svg")),
     tabItems(tabHome,
              tabViz,
              tabUpload,
