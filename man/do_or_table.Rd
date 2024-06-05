@@ -9,10 +9,23 @@ do_or_table(df, chisq_question, sel_cond_chisq)
 \arguments{
 \item{df}{data.frame stats table as computed by compute_stats.}
 
-\item{chisq_question}{description}
+\item{chisq_question}{numeric Which question to calculate the OR table for}
 
-\item{sel_cond_chisq}{description}
+\item{sel_cond_chisq}{character vector naming the experimental conditions to compare}
 }
 \description{
-Dropout Odds Ratio Table
+This function calculates an Odds Ratio table at a given question for selected experimental
+conditions. It needs data in the format as created by \code{\link[=compute_stats]{compute_stats()}} as input.
+}
+\examples{
+stats <- compute_stats(df = add_dropout_idx(dropRdemo, 3:54),
+by_cond = "experimental_condition",
+no_of_vars = 52)
+
+do_or_table(stats, chisq_question = 51, sel_cond_chisq = c("11", "12", "21", "22"))
+
+
+}
+\seealso{
+\code{\link[=compute_stats]{compute_stats()}}
 }

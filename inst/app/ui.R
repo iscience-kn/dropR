@@ -268,7 +268,7 @@ tabKaplan <- tabItem(tabName = "kaplan",
                            column(width = 6,
                                   p(strong("Plot options")),
                                   checkboxInput("kpm_ci","Show confidence bands",T),
-                                  checkboxInput("full_scale_kpm","Show full Y-axis from 0 to 100",value = T)
+                                  checkboxInput("full_scale_kpm","Show full Y-axis (0 to 100)",value = T)
                                   ),
                            column(width = 4,
                                   radioButtons("color_palette_kp","Color palettes",
