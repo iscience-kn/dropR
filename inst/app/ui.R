@@ -16,6 +16,8 @@ tabHome <- tabItem(tabName = "home",
                                   width: 35%;
                                   word-break: break-word;
                                 }
+                                
+                                .btn {height: auto; width: 85%; vertical-align: center;}
                                 ")
                    ),
                    
@@ -172,25 +174,53 @@ tabViz <- tabItem(tabName = "viz",
                         title = "Dropout by question",
                         div(plotOutput("do_curve_plot"),
                             style = 'overflow:auto'),
-                        textInput("plot_fname","File name (without file extension)",
-                                  width=240,
-                                  value = paste0("dropR_", round(as.numeric(Sys.time())))
-                                  ),
-                        selectInput("export_format","Export plot as:",
-                                    c("pdf" = "pdf",
-                                      "svg" = "svg",
-                                      "png" = "png"),
-                                    "pdf",width=240),
-                        sliderInput("dpi","Resolution (dpi, .png only)",
-                                    min = 75, max = 600,value = 300,
-                                    width = 240, ticks = F),
-                        sliderInput("h","Height (in inches)",
-                                    min = 3, max = 50,value = 4,
-                                    width = 240, ticks = F),
-                        sliderInput("w","Width (in inches)",
-                                    min = 3, max = 50,value = 10,
-                                    width = 240, ticks = F),
-                        downloadButton('downloadCurvePlot', 'Download plot')
+                        
+                        h4("Easily export your visualization by choosing a name, file format and optionally the size:"),
+                        
+                        column(width = 5,
+                               textInput("plot_fname","Name (without file extension)",
+                                         width=240,
+                                         value = paste0("dropR_", round(as.numeric(Sys.time())))
+                               ),
+                               selectInput("export_format","Export plot as:",
+                                           c("pdf" = "pdf",
+                                             "svg" = "svg",
+                                             "png" = "png"),
+                                           "pdf",width=240)
+                               ),
+                        
+                        
+                        column(width = 5,
+                               tags$br(),
+                               dropdownButton(
+                                 
+                                 label ="Export options",
+                                 
+                                 
+                                 sliderInput("dpi","Resolution (dpi, .png only)",
+                                             min = 75, max = 600,value = 300,
+                                             width = 240, ticks = F),
+                                 sliderInput("h","Height (in inches)",
+                                             min = 3, max = 50,value = 4,
+                                             width = 240, ticks = F),
+                                 sliderInput("w","Width (in inches)",
+                                             min = 3, max = 50,value = 10,
+                                             width = 240, ticks = F),
+                                 
+                                 circle = F, 
+                                 status = "default",
+                                 icon = icon("gear"), 
+                                 width = "180px",
+                                 
+                                 tooltip = tooltipOptions(title = "Resolution, height & width can be adjusted",
+                                                          placement = "left")
+                               ),
+                               
+                               tags$br(),
+                               
+                               downloadButton('downloadCurvePlot', 'Download plot')
+                               )
+                        
                         )
                     )
                   )
@@ -263,16 +293,33 @@ tabKaplan <- tabItem(tabName = "kaplan",
                                          "svg" = "svg",
                                          "png" = "png"),
                                        "pdf",width=240),
-                           sliderInput("kpm_dpi","Resolution (dpi, .png only)",
-                                       min = 75, max = 600, value = 300,
-                                       width = 240, ticks = F),
-                           sliderInput("kpm_h","Height (in inches)",
-                                       min = 3, max = 50, value = 4,
-                                       width = 240, ticks = F),
-                           sliderInput("kpm_w","Width (in inches)",
-                                       min = 3, max = 50, value = 10,
-                                       width = 240, ticks = F),
-                           downloadButton('downloadKpmPlot', 'Download plot')
+                           
+                           dropdownButton(
+                             
+                             label ="Export options",
+                             
+                            
+                             sliderInput("kpm_dpi","Resolution (dpi, .png only)",
+                                         min = 75, max = 600, value = 300,
+                                         width = 240, ticks = F),
+                             sliderInput("kpm_h","Height (in inches)",
+                                         min = 3, max = 50, value = 4,
+                                         width = 240, ticks = F),
+                             sliderInput("kpm_w","Width (in inches)",
+                                         min = 3, max = 50, value = 10,
+                                         width = 240, ticks = F),
+                             
+                             circle = F, 
+                             status = "default",
+                             icon = icon("gear"), 
+                             width = "180px",
+                             
+                             tooltip = tooltipOptions(title = "Resolution, height & width can be adjusted",
+                                                      placement = "left")
+                           ),
+                           tags$br(),
+                           
+                           downloadButton('downloadKpmPlot', 'Download plot', class = ".btn {width: '300px'}")
                            )
                      ),
                      fluidRow(
@@ -320,7 +367,7 @@ ui <- dashboardPage(
   ),
   # Body of the App #############
   dashboardBody(
-    chooseSliderSkin("Modern"),
+    chooseSliderSkin("Shiny", color = "gray"),
     tags$head(tags$link(rel = "shortcut icon", 
                 href = "decrease.svg")),
 
