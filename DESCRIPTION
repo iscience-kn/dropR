@@ -23,6 +23,6 @@ License: GPL-2
 LazyData: true
 RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
-URL: https://iscience-kn.github.io/dropR/
+URL: https://iscience-kn.github.io/dropR/, https://github.com/iscience-kn/dropR
 VignetteBuilder: knitr
 Encoding: UTF-8
