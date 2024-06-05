@@ -73,10 +73,10 @@ do_kpm <- function(df,
 #' 
 #' @param kds list object as modeled by [do_kpm()]
 #' @param sel_conds character Which experimental conditions to plot. 
-#' @param kpm_ci boolean Should there be confidence bands in the plot?
+#' @param kpm_ci boolean Should there be confidence bands in the plot? Defaults to TRUE.
 #' @param color_palette_kp character indicating which color palette to use. Defaults to 'color_blind',
 #' alternatively choose 'gray' for gray scale values or 'default' for the ggplot2 default colors. 
-#' @param full_scale_kpm boolean Should the Y axis show the full range from 0 to 100?
+#' @param full_scale_kpm boolean Should the Y axis show the full range from 0 to 100? Defaults to FALSE.
 #' @import ggplot2
 #' @export
 #' 
@@ -157,7 +157,7 @@ do_kpm_plot <- function(
 #' @importFrom survival survdiff
 #' @param df data set of a survival model such as [do_kpm()]
 #' @param cond character of experimental condition variable in the data
-#' @param test_type a scalar parameter that controls the type of test (0 means rho = 0; log-rank,
+#' @param test_type numeric (0 or 1) parameter that controls the type of test (0 means rho = 0; log-rank,
 #' 1 means rho = 1; Peto & Peto Wilcox)
 #' @export
 #' 

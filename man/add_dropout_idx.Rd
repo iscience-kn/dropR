@@ -3,6 +3,9 @@
 \name{add_dropout_idx}
 \alias{add_dropout_idx}
 \title{Add Dropout Index to a Data.Frame}
+\source{
+R/add_dropout_idx.R
+}
 \usage{
 add_dropout_idx(df, q_pos)
 }

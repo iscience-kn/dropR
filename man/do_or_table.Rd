@@ -2,17 +2,17 @@
 % Please edit documentation in R/do_or_table.R
 \name{do_or_table}
 \alias{do_or_table}
-\title{Dropout Odds Ration Table}
+\title{Dropout Odds Ratio Table}
 \usage{
-do_or_table(d, chisq_question, sel_cond_chisq)
+do_or_table(df, chisq_question, sel_cond_chisq)
 }
 \arguments{
-\item{d}{data.frame stats table as computed by compute_stats.}
+\item{df}{data.frame stats table as computed by compute_stats.}
 
 \item{chisq_question}{description}
 
 \item{sel_cond_chisq}{description}
 }
 \description{
-Dropout Odds Ration Table
+Dropout Odds Ratio Table
 }

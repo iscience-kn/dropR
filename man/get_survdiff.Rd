@@ -11,7 +11,7 @@ get_survdiff(df, cond, test_type)
 
 \item{cond}{character of experimental condition variable in the data}
 
-\item{test_type}{a scalar parameter that controls the type of test (0 means rho = 0; log-rank,
+\item{test_type}{numeric (0 or 1) parameter that controls the type of test (0 means rho = 0; log-rank,
 1 means rho = 1; Peto & Peto Wilcox)}
 }
 \description{

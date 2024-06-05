@@ -17,12 +17,12 @@ do_kpm_plot(
 
 \item{sel_conds}{character Which experimental conditions to plot.}
 
-\item{kpm_ci}{boolean Should there be confidence bands in the plot?}
+\item{kpm_ci}{boolean Should there be confidence bands in the plot? Defaults to TRUE.}
 
 \item{color_palette_kp}{character indicating which color palette to use. Defaults to 'color_blind',
 alternatively choose 'gray' for gray scale values or 'default' for the ggplot2 default colors.}
 
-\item{full_scale_kpm}{boolean Should the Y axis show the full range from 0 to 100?}
+\item{full_scale_kpm}{boolean Should the Y axis show the full range from 0 to 100? Defaults to FALSE.}
 }
 \value{
 The function returns a \code{ggplot} object containing the Kaplan-Meier survival plot. Using the Shiny App version of

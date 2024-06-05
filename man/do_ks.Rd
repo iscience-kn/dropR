@@ -4,18 +4,27 @@
 \alias{do_ks}
 \title{Compute Kolmogorov-Smirnov Test for most extreme conditions}
 \usage{
-do_ks(data, questions)
+do_ks(data, question)
 }
 \arguments{
 \item{data}{A data frame made from \code{\link[=compute_stats]{compute_stats()}}, containing information on the percent remaining per question per condition}
 
-\item{questions}{Number of questions to be included in analysis}
+\item{question}{Index of question to be included in analysis, commonly the last question of the survey.}
 }
 \value{
-result of Kolmogorov-Smirnoff test
+result of Kolmogorov-Smirnoff test including which conditions have the most different dropout rates.
 }
 \description{
 This test is used for survival analysis between the most extreme conditions,
 so the ones with the most different rates of dropout.
-This function automatically prepares your data to run \code{stats::ks.test()} on it.
+This function automatically prepares your data and runs \code{stats::ks.test()} on it.
+}
+\examples{
+stats <- compute_stats(df = add_dropout_idx(dropRdemo, 3:54),
+by_cond = "experimental_condition",
+no_of_vars = 52)
+
+do_ks(stats, 52)
+
+
 }

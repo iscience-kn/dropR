@@ -2,23 +2,39 @@
 % Please edit documentation in R/utils.R
 \name{n_count}
 \alias{n_count}
-\title{The \code{n_count} function calculates the number of occurrences of a specific value \code{n} in a numeric vector \code{x}.}
+\title{Occurrence Count}
+\source{
+R/utils.R
+
+The \code{n_count} function calculates the number of occurrences of a specific
+value \code{n} in a numeric vector \code{x}.
+}
 \usage{
 n_count(x, n)
 }
 \arguments{
-\item{x}{Numeric vector in which to count occurrences.}
+\item{x}{Vector in which to count occurrences.}
 
-\item{n}{Numeric value to count occurrences of.}
+\item{n}{Value to count occurrences of.}
 }
 \value{
 An integer representing the count of occurrences of \code{n} in \code{x}.
 }
 \description{
-The \code{n_count} function calculates the number of occurrences of a specific value \code{n} in a numeric vector \code{x}.
+Occurrence Count
 }
 \examples{
 x <- c(1, 2, 3, 2, 4, 2)
-n_count(x, 2)  # Returns 3
+n_count(x, 2)  
+# Should return 3
+
+n_count(c("A", "B", "B"), "B")
+# Should return 2
+
+n_count(c(TRUE, TRUE, FALSE), F)
+# Should return 1
+
+n_count(c("A", "B", "B"), "b")
+# Should return 0 as it is not an exact match (case sensitive)
 
 }

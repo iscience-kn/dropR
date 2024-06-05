@@ -3,17 +3,26 @@
 \name{get_steps_by_cond}
 \alias{get_steps_by_cond}
 \title{Get Steps Data by Condition}
+\source{
+R/utils.R
+
+The \code{get_steps_by_cond} function calculates steps data based on survival model results.
+This utility function is used inside the \code{\link[=do_kpm]{do_kpm()}} function of \code{dropR}.
+}
 \usage{
 get_steps_by_cond(sfit, condition = NULL)
 }
 \arguments{
 \item{sfit}{An object representing survival model results (e.g., from a Kaplan-Meier model).}
 
-\item{condition}{Optional. A condition or group label to include in the output data frame.}
+\item{condition}{Optional. An experiemtnal condition to include in the output data frame, defaults to \code{NULL}.}
 }
 \value{
 A data frame containing the steps data, including time, survival estimates, upper confidence bounds, and lower confidence bounds.
 }
 \description{
-The \code{get_steps_by_cond} function calculates steps data based on survival model results.
+Get Steps Data by Condition
+}
+\seealso{
+\code{\link[=do_kpm]{do_kpm()}}
 }

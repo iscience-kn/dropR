@@ -27,6 +27,8 @@
 #' @returns Original data frame with column `do_idx` added.
 #' @seealso [compute_stats()] which is usually the next step for dropout analysis.
 #' 
+#' @source R/add_dropout_idx.R
+#' 
 #' @examples
 #' dropout <- add_dropout_idx(dropRdemo, 3:54)
 #' 

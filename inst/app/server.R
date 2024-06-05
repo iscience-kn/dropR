@@ -133,7 +133,7 @@ server <- function(input, output) {
   })
   
   output$chisq_conditions <- renderUI({
-      # remove total from the list cause that's a seperate thing
+      # remove total from the list cause that's a separate thing
       # from the dropdown box... 
       cs <- levels(stats()[,get("condition")])
       cs <- cs[-match("total",cs)]
