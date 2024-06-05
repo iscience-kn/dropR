@@ -3,24 +3,24 @@
 #' @description
 #' Find drop out positions in a data.frame that contains multiple 
 #' questions that had been asked sequentially.
-#' This function adds the Dropout Index variable "do_idx" to the data.frame which is necessary
+#' This function adds the Dropout Index variable `do_idx` to the data.frame which is necessary
 #' for further analyses of dropout.
 #' 
 #' Use this function _first_ to prepare your dropout analysis. Then, keep going by creating
 #' the dropout statistics using [compute_stats()].
 #' 
 #' @details
-#' Importantly, this function will start counting missing data starting
-#' at the end of the data frame. Any missing data which is somewhere in between, i.e.
-#' a single question that was skipped or forgotten will not be counted as dropout.
-#' The function will search for sequences of missing data that go until the end of the 
-#' data frame and count those.
+#' Importantly, this function will start counting missing data at the end of the 
+#' data frame. Any missing data which is somewhere in between, i.e.
+#' a single item that was skipped or forgotten will not be counted as dropout.
+#' The function will identify sequences of missing data that go until the end of the 
+#' data frame and add the number of the last answered question in `do_idx`.
 #' 
 #' Therefore, the variables must be in the order that they were asked, otherwise analyses
-#' will not be reliable.
+#' will not be valid.
 #' 
 #' @param df data.frame containing `NA`s
-#' @param q_pos numeric columns that contain questions
+#' @param q_pos numeric range of columns that contain question items
 #'
 #' @export
 #' 

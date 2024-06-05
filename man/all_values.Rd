@@ -13,7 +13,8 @@ all_values(x)
 A character vector containing the names and formatted values of the input vector, separated by line breaks.
 }
 \description{
-The \code{all_values} function takes a named vector \code{x} and concatenates the names and formatted values into a single string.
+The \code{all_values} function takes a named vector \code{x} and concatenates the names
+and formatted values into a single string which is separated by HTML \if{html}{\out{<br>}} tags.
 }
 \examples{
 my_vector <- c(apples = 5, bananas = 3, oranges = 2)

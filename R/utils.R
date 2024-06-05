@@ -17,7 +17,8 @@ n_count <- function(x, n){ length((which(x == n)))}
 
 #' Concatenate Names and Values of a Named Vector
 #'
-#' The `all_values` function takes a named vector `x` and concatenates the names and formatted values into a single string.
+#' The `all_values` function takes a named vector `x` and concatenates the names 
+#' and formatted values into a single string which is separated by HTML <br> tags.
 #'
 #' @param x Named vector for which to concatenate names and values.
 #'

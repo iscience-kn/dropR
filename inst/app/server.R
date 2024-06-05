@@ -374,7 +374,7 @@ server <- function(input, output) {
     if(input$kaplan_fit == "conditions"){
       kp_ds <- kaplan_meier()$d
       
-      get_survdiff(d = kp_ds, cond = input$cond_col,
+      get_survdiff(df = kp_ds, cond = input$cond_col,
                    test_type =  input$test_type)
       
     } else {

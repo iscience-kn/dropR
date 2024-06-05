@@ -13,19 +13,25 @@ do_kpm_plot(
 )
 }
 \arguments{
-\item{kds}{object as modelled by \code{\link[=do_kpm]{do_kpm()}}}
+\item{kds}{list object as modeled by \code{\link[=do_kpm]{do_kpm()}}}
 
-\item{sel_conds}{character selected experimental conditions to plot.}
+\item{sel_conds}{character Which experimental conditions to plot.}
 
 \item{kpm_ci}{boolean Should there be confidence bands in the plot?}
 
 \item{color_palette_kp}{character indicating which color palette to use. Defaults to 'color_blind',
-alternatively choose 'gray' or 'default' for the ggplot2 default colors.}
+alternatively choose 'gray' for gray scale values or 'default' for the ggplot2 default colors.}
 
 \item{full_scale_kpm}{boolean Should the Y axis show the full range from 0 to 100?}
 }
+\value{
+The function returns a \code{ggplot} object containing the Kaplan-Meier survival plot. Using the Shiny App version of
+dropR, this plot can easily be downloaded in different formats.
+}
 \description{
-Draw a Kaplan Meier Plot
+The \code{do_kpm_plot} function generates a Kaplan-Meier survival plot based on the
+output from the \code{\link[=do_kpm]{do_kpm()}} function. It allows for customization of conditions
+to display, confidence intervals, color palettes, and y-axis scaling.
 }
 \examples{
 do_kpm_plot(do_kpm(d = add_dropout_idx(dropRdemo, 3:54),

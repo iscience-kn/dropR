@@ -2,17 +2,26 @@
 % Please edit documentation in R/do_kpm.R
 \name{get_survdiff}
 \alias{get_survdiff}
-\title{Test Survival Curve Difference}
+\title{Test Survival Curve Differences}
 \usage{
-get_survdiff(d, cond, test_type)
+get_survdiff(df, cond, test_type)
 }
 \arguments{
-\item{d}{description}
+\item{df}{data set of a survival model such as \code{\link[=do_kpm]{do_kpm()}}}
 
-\item{cond}{description}
+\item{cond}{character of experimental condition variable in the data}
 
-\item{test_type}{a scalar parameter that controls the type of test}
+\item{test_type}{a scalar parameter that controls the type of test (0 means rho = 0; log-rank,
+1 means rho = 1; Peto & Peto Wilcox)}
 }
 \description{
-Test Survival Curve Difference
+This function compares survival curves as modeled with \code{\link[=do_kpm]{do_kpm()}}.
+It outputs a contingency table and a Chisq measure of difference.
+}
+\examples{
+kpm_est <- do_kpm(add_dropout_idx(dropRdemo, 3:54))
+get_survdiff(kpm_est$d, "experimental_condition", 0)
+get_survdiff(kpm_est$d, "experimental_condition", 1)
+
+
 }

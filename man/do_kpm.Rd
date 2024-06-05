@@ -4,21 +4,33 @@
 \alias{do_kpm}
 \title{Kaplan-Meier Survival Estimation}
 \usage{
-do_kpm(d, condition_col = "experimental_condition", model_fit = "total")
+do_kpm(df, condition_col = "experimental_condition", model_fit = "total")
 }
 \arguments{
-\item{d}{dataset with do_idx added by \code{\link[=add_dropout_idx]{add_dropout_idx()}}}
+\item{df}{data set with `do_idx``added by \code{\link[=add_dropout_idx]{add_dropout_idx()}}}
 
 \item{condition_col}{character denoting the experimental conditions to model}
 
 \item{model_fit}{character Should be either "total" for a total model or "conditions"}
 }
+\value{
+a list containing \code{steps} (survival steps extracted from the fitted models),
+\code{d} (the original data frame), and \code{model_fit} (the model fit type).
+}
 \description{
 This function needs a data set with a dropout index added by \code{\link[=add_dropout_idx]{add_dropout_idx()}}.
+The `do_kpm``function performs survival analysis with Kaplan-Meier Estimation
+and returns a list containing survival steps, the original data frame, and the model fit type.
+The function can fit the survival model either for the entire data set or separately by a specified condition column.
 }
 \examples{
-demo_kpm <- do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+demo_kpm <- do_kpm(df = add_dropout_idx(dropRdemo, 3:54),
 condition_col = "experimental_condition",
 model_fit = "total")
 
+head(demo_kpm$steps)
+
+}
+\seealso{
+\code{\link[survival:Surv]{survival::Surv()}} used to fit survival object.
 }

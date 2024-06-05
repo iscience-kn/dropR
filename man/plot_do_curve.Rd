@@ -5,7 +5,7 @@
 \title{Plot Dropout Curves}
 \usage{
 plot_do_curve(
-  d,
+  df,
   linetypes = TRUE,
   stroke_width = 1,
   full_scale = TRUE,
@@ -15,27 +15,31 @@ plot_do_curve(
 )
 }
 \arguments{
-\item{d}{data.frame containing dropout statistics table computed by \code{\link[=compute_stats]{compute_stats()}}.
-Make sure your stats table contains a do_idx column indexing all items sequentially.}
+\item{df}{data.frame containing dropout statistics table computed by \code{\link[=compute_stats]{compute_stats()}}.
+Make sure your stats table contains a q_idx column indexing all question-items sequentially.}
 
 \item{linetypes}{boolean Should different line types be used? Defaults to TRUE.}
 
 \item{stroke_width}{numeric stroke width, defaults to 1.}
 
 \item{full_scale}{boolean Should y axis range from 0 to 100? Defaults to TRUE,
-FALSE cuts off at max percent remaining.}
+FALSE cuts off at min percent remaining (>0).}
 
-\item{show_points}{boolean Should lines show points? Defaults to FALSE.}
+\item{show_points}{boolean Should dropout curves show individual data points? Defaults to FALSE.}
 
 \item{color_palette}{character indicating which color palette to use. Defaults to 'color_blind',
 alternatively choose 'gray' or 'default' for the ggplot2 default colors.}
 
 \item{show_confbands}{boolean Should there be confidence bands added to the plot?Defaults to FALSE.}
 }
+\value{
+The function returns a \code{ggplot} object containing the dropout curve plot. Using the Shiny App version of
+dropR, this plot can easily be downloaded in different formats.
+}
 \description{
-This functions uses \code{ggplot}to create drop out curves.
+This functions uses \code{ggplot2}to create drop out curves.
 Please note that you should use \code{\link[=add_dropout_idx]{add_dropout_idx()}} and \code{\link[=compute_stats]{compute_stats()}} on your
-data before trying to run this function as it needs a certain data structure to
+data before running this function as it needs a certain data structure and variables to
 work properly.
 }
 \examples{
@@ -47,5 +51,5 @@ plot_do_curve(stats)
 
 }
 \seealso{
-\code{\link[=add_dropout_idx]{add_dropout_idx()}} and \code{\link[=compute_stats]{compute_stats()}} which are necessary for the proper data structure
+\code{\link[=add_dropout_idx]{add_dropout_idx()}} and \code{\link[=compute_stats]{compute_stats()}} which are necessary for the proper data structure.
 }

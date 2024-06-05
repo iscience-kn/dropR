@@ -7,14 +7,14 @@
 compute_stats(df, by_cond = "None", no_of_vars)
 }
 \arguments{
-\item{df}{data.frame containing variable "do_idx" from \code{\link[=add_dropout_idx]{add_dropout_idx()}}}
+\item{df}{data.frame containing variable \code{do_idx} from \code{\link[=add_dropout_idx]{add_dropout_idx()}}}
 
-\item{by_cond}{character group by condition, defaults to 'None'.}
+\item{by_cond}{character name of condition variable in the data, defaults to 'None' to output total statistics.}
 
-\item{no_of_vars}{numeric number of variables}
+\item{no_of_vars}{numeric number of variables that contain questions}
 }
 \value{
-A data frame with 6 columns (do_idx, condition, cs, N, remain, pct_remain)
+A data frame with 6 columns (q_idx, condition, cs, N, remain, pct_remain)
 and as many rows as questions in original data (for overall data and if conditions selected
 again for each condition).
 }
@@ -27,7 +27,7 @@ If no experimental condition is added, the stats are only calculated for the
 whole data in total.
 }
 \examples{
-stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
+stats <- compute_stats(df = add_dropout_idx(dropRdemo, 3:54),
 by_cond = "experimental_condition",
 no_of_vars = 52)
   

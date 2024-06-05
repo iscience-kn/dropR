@@ -1,18 +1,18 @@
 #' Plot Dropout Curves
 #' 
-#' This functions uses `ggplot`to create drop out curves. 
+#' This functions uses `ggplot2`to create drop out curves. 
 #' Please note that you should use [add_dropout_idx()] and [compute_stats()] on your 
-#' data before trying to run this function as it needs a certain data structure to 
+#' data before running this function as it needs a certain data structure and variables to 
 #' work properly.
 #' 
 #' 
-#' @param d data.frame containing dropout statistics table computed by [compute_stats()].
-#' Make sure your stats table contains a do_idx column indexing all items sequentially.
+#' @param df data.frame containing dropout statistics table computed by [compute_stats()].
+#' Make sure your stats table contains a q_idx column indexing all question-items sequentially.
 #' @param linetypes boolean Should different line types be used? Defaults to TRUE.
 #' @param stroke_width numeric stroke width, defaults to 1.
 #' @param full_scale boolean Should y axis range from 0 to 100? Defaults to TRUE, 
-#' FALSE cuts off at max percent remaining.
-#' @param show_points boolean Should lines show points? Defaults to FALSE.
+#' FALSE cuts off at min percent remaining (>0).
+#' @param show_points boolean Should dropout curves show individual data points? Defaults to FALSE.
 #' @param color_palette character indicating which color palette to use. Defaults to 'color_blind',
 #' alternatively choose 'gray' or 'default' for the ggplot2 default colors. 
 #' @param show_confbands boolean Should there be confidence bands added to the plot?Defaults to FALSE.
@@ -20,7 +20,10 @@
 #' @import ggplot2
 #' @export
 #' 
-#' @seealso [add_dropout_idx()] and [compute_stats()] which are necessary for the proper data structure
+#' @returns The function returns a `ggplot` object containing the dropout curve plot. Using the Shiny App version of
+#' dropR, this plot can easily be downloaded in different formats. 
+#' 
+#' @seealso [add_dropout_idx()] and [compute_stats()] which are necessary for the proper data structure.
 #' 
 #' @examples
 #' stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
@@ -29,7 +32,7 @@
 #' 
 #' plot_do_curve(stats)
 #' 
-plot_do_curve <- function(d,
+plot_do_curve <- function(df,
                           linetypes = TRUE,
                           stroke_width = 1,
                           full_scale = TRUE,
@@ -37,7 +40,7 @@ plot_do_curve <- function(d,
                           color_palette = "color_blind",
                           show_confbands = FALSE
 ){
-  do_curve <- ggplot(d)
+  do_curve <- ggplot(df)
   
   palette <- if(color_palette == "color_blind"){c("#000000", "#E69F00",
                                                   "#56B4E9", "#009E73",
@@ -47,13 +50,13 @@ plot_do_curve <- function(d,
                    by = 1/8)[c(1,8,3,7,4,5,2,6)])}
   
   if(linetypes){
-    do_curve <- do_curve + geom_line(aes(x = do_idx,
+    do_curve <- do_curve + geom_line(aes(x = q_idx,
                                          y = (pct_remain)*100,
                                          col = factor(condition),
                                          linetype = factor(condition)),
                                      linewidth = as.numeric(stroke_width))
   } else {
-    do_curve <- do_curve + geom_line(aes(x=do_idx,
+    do_curve <- do_curve + geom_line(aes(x=q_idx,
                                          y=(pct_remain)*100,
                                          col = factor(condition)),
                                      linewidth = as.numeric(stroke_width))  
@@ -77,14 +80,14 @@ plot_do_curve <- function(d,
   
   
   if(show_points){
-    do_curve <- do_curve + geom_point(aes(x=do_idx,
+    do_curve <- do_curve + geom_point(aes(x=q_idx,
                                           y=(pct_remain)*100,
                                           col=condition),
                                       size = as.numeric(stroke_width)*1.5)
   }
   
   if(show_confbands){
-    do_curve <- do_curve + geom_ribbon(aes(x = do_idx, 
+    do_curve <- do_curve + geom_ribbon(aes(x = q_idx, 
                                            ymin = pct_remain*100 - .5*sd(pct_remain*100),
                                            ymax = pct_remain*100 + .5*sd(pct_remain*100),
                                            fill = condition),
@@ -94,7 +97,7 @@ plot_do_curve <- function(d,
     }
   }
   
-  if(color_palette != "default" & length(levels(d$condition) < 9)){
+  if(color_palette != "default" & length(levels(df$condition) < 9)){
     do_curve <- do_curve + scale_color_manual(values=palette)
   }
   

@@ -4,14 +4,14 @@
 \alias{do_chisq}
 \title{Compute Chisq-Test Given a Question Position}
 \usage{
-do_chisq(d, chisq_question, sel_cond_chisq, p_sim = TRUE)
+do_chisq(df, chisq_question, sel_cond_chisq, p_sim = TRUE)
 }
 \arguments{
-\item{d}{data.frame stats table computed by \code{\link[=compute_stats]{compute_stats()}}.}
+\item{df}{data.frame of stats as computed by \code{\link[=compute_stats]{compute_stats()}}.}
 
 \item{chisq_question}{numeric Which question to compare dropout at.}
 
-\item{sel_cond_chisq}{vector (same class as in conditions variable in original dataset) selected conditions.}
+\item{sel_cond_chisq}{vector (same class as in conditions variable in original data set) selected conditions.}
 
 \item{p_sim}{boolean Simulate p value parameter (by Monte Carlo simulation)? Defaults to \code{TRUE}.}
 }
@@ -30,5 +30,5 @@ do_chisq(stats, 47, c(12, 22), TRUE)
 
 }
 \seealso{
-\code{\link[=add_dropout_idx]{add_dropout_idx()}} and \code{\link[=compute_stats]{compute_stats()}} which are necessary for the proper data structure
+\code{\link[=add_dropout_idx]{add_dropout_idx()}} and \code{\link[=compute_stats]{compute_stats()}} which are necessary for the proper data structure.
 }
