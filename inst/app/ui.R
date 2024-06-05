@@ -2,6 +2,7 @@
 library(shiny)
 library(shinydashboard)
 library(shinyWidgets)
+library(svglite)
 
 # Tab items 
 # Home ####
