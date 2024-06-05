@@ -149,8 +149,9 @@ server <- function(input, output) {
 
   ## Chisq slider ############  
   output$xsq_slider <- renderUI({
-    sliderInput('chisq_question',"Select question",
-                1,length(input$quest_cols)-1,1,1)
+    sliderInput('chisq_question', "Select question",
+                1, length(input$quest_cols)-1,
+                value = length(input$quest_cols)-1)
   })
   
   ## Log RANK ###############
