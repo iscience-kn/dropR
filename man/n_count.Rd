@@ -31,7 +31,7 @@ n_count(x, 2)
 n_count(c("A", "B", "B"), "B")
 # Should return 2
 
-n_count(c(TRUE, TRUE, FALSE), F)
+n_count(c(TRUE, TRUE, FALSE), FALSE)
 # Should return 1
 
 n_count(c("A", "B", "B"), "b")
