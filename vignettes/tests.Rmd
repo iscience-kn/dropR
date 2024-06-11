@@ -1,8 +1,8 @@
 ---
-title: "Running DropOut related Tests Within R"
+title: "Running Dropout related Tests with R"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Running DropOut related Tests Within R}
+  %\VignetteIndexEntry{Running Dropout related Tests with R}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,24 +20,20 @@ data("dropRdemo")
 qs <- which(grepl("vi_", names(dropRdemo)))
 dropRdemo <- add_dropout_idx(dropRdemo, q_pos = qs)
 
-stats_table <- compute_stats(dropRdemo,
+stats <- compute_stats(dropRdemo,
                              by_cond = "experimental_condition",
                              no_of_vars = length(qs))
-
-# add numeric drop out position to original dataset
-
-
 ```
 
 ### Running a Chi-sq. Test for a Selected Question
 
 > **_NOTE:_**  Chi-sq. tests are only available when an column denoting the experimental condition is given.
 
-Let's compute a Chisq test at question 15 for experimentatl conditions `11` and `12`, dropR's dropout Chisq-Test returns a list containing the actual *test results* and dropout overview table at the selected question. 
+Let's compute a Chisq test at question 15 for experimentatl conditions `11` and `12`. dropR's dropout Chisq-Test returns a list containing the actual *test results* and dropout overview table at the selected question. 
 
 
 ```{r}
-do_chisq(stats_table,
+do_chisq(stats,
          chisq_question = 15,
          sel_cond_chisq = c('11','12'),
          p_sim = TRUE)
@@ -46,23 +42,12 @@ do_chisq(stats_table,
 ### Kaplan-Meier Estimation
 
 ```{r}
-kpm <- do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+kpm <- do_kpm(df = add_dropout_idx(dropRdemo, qs),
               condition_col = "experimental_condition",
               model_fit = "total")
 
-head(kpm$steps)
-
-head(kpm$d)
-
 kpm$model_fit
-
-
-
-
+head(kpm$steps)
+head(kpm$d)
 ```
-
-
-
-
-
 

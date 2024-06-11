@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library(kableExtra)
 ```
 
 ```{r setup, message=FALSE}
@@ -19,45 +20,60 @@ library(dropR)
 ```
 
 Though the low-hurdle of the online version with its graphical user interface (GUI)
-is appealing for many use cases, there are good reasons to directly use dropR's backend on the R console - without the GUI: Some data.frames may need extra formatting or additional cleaning before they suit the dropR input format or you may want adapt and extend your analysis in a way the GUI does not allow to. 
-
+is appealing for many use cases, there are good reasons to directly use dropR's backend in the R console without the GUI: Some data.frames may need extra formatting or additional cleaning before they suit the dropR input format or you may want adapt and extend your analysis in a way the GUI does not allow to. 
+If you are writing a report directly in RMarkdown, you can also make use of automatically reporting your results in your document or embedding a dropout plot from dropR.
 
 ## Dropout Analysis Walkthrough
 
-This section describes how to extract information on dropout from the demo dataset without using the dropR shiny UI. First, let's make sure the dema dataset is 
-loaded and available. They dataset should look like this
+This section describes how to extract information on dropout from the demo data set without using the dropR shiny UI.
+First, let's make sure the demo data set is loaded and available. 
+The data set should look like this:
 
 ```{r}
 library(dropR)
-data("dropRdemo")
+# Use demo dataset in a new data frame to be edited
+df <- dropRdemo
+```
+
+```{r echo = FALSE}
+df_subset <- cbind(df[1:5, 1:5], c(" ", " ", " ", " ", " "), df[1:5, (ncol(df)-1):ncol(df)])
+colnames(df_subset) <- c(colnames(df)[1:5], "...", colnames(df)[(ncol(df)-1):ncol(df)])
+kable(df_subset, "html", escape = FALSE)
 ```
 
 
 ### Basic Dropout Statistics
 
-Now, let's extract dropout, i.e., information on when participant dropped out of the questionnaire and never returned. In the demo dataset questions are easily identified by their prefix `vi_`
+Now, let's extract dropout, i.e., information on when a participant dropped out of the questionnaire and never returned.
+For this, we need to identify the last question that someone filled out before only missing data is present a.k.a `NA`s.
+We will use the `add_dropout_idx` function on the demo data set and add the position of all question variables in the data.
+In the demo data, questions are easily identified by their prefix `vi_`:
 
 ```{r}
-qs <- which(grepl("vi_", names(dropRdemo)))
+qs <- which(grepl("vi_", names(df)))
 # add numeric drop out position to original dataset
-dropRdemo <- add_dropout_idx(dropRdemo, q_pos = qs)
-head(dropRdemo[,c(1:3,53,54)])
+df <- add_dropout_idx(df, q_pos = qs)
+kable(head(df[,c(1:3,(ncol(df)-1):ncol(df))]))
 ```
 
-The `experimental_condition` column indicates belonging to a sub sample group each of which was treated differently. For example, groups receive a different sequence of questions or different wording. Now, let's compute a table containing basic dropout statistics for each item.
+The `experimental_condition` column indicates belonging to a sub sample, each of which was treated differently. 
+For example, groups receive a different sequence of questions or different wording. 
 
-
+Next we'll compute a table containing basic dropout statistics for each item using the `compute_stats` function.
 
 ```{r}
-library(kableExtra)
-stats_table <- compute_stats(dropRdemo,
-                             by_cond = "experimental_condition",
-                             no_of_vars = length(qs))
-kable(head(stats_table))
+stats <- compute_stats(df,
+                       by_cond = "experimental_condition",
+                       no_of_vars = length(qs))
+kable(head(stats))
 ```
 
-Out of `r {nrow(dropRdemo)}` participants in the demo sample, `r stats_table$remain[1]` participants remain in the survey, accounting for `r round(stats_table$pct_remain[1]* 100,digits=2)` percent of the sample.
-The `cs` column shows the cummulative dropout count.
+Out of `r {nrow(df)}` participants in total in the demo sample, `r stats$remain[1]` participants remain in the survey at the first question, accounting for `r round(stats$pct_remain[1]* 100,digits=2)` percent of the sample.
+At the last question of the experiment, `r round(stats$pct_remain[52]* 100,digits=2)`% of all participants "survived". 
+The `cs` column shows the absolute cumulative dropout count.
+
+The stats table shows the dropout statistics for the total sample first and if defined in the function `by_cond`, it also shows the same statistics for each experimental condition separately.
+This table is the basis for many further analyses and can easily be reported.
 
 
 ### Plotting Dropout Curves
@@ -65,7 +81,12 @@ The `cs` column shows the cummulative dropout count.
 Based on the above statistics table, dropR plots dropout curves very conveniently.
 
 ```{r}
-plot_do_curve(stats_table)
-
+plot_do_curve(stats)
 ```
 
+By default, the function to plot dropout curves chooses a color palette which is designed to de distinguishable for color blind individuals. 
+Adhering to some journal guidelines, you may also choose a gray color palette, distinguishing the lines by line type and gray value.
+
+Next, you may want to run more statistical dropout analyses using `dropR`.
+You can find an in-depth tutorial in our [test
+article](articles/tests.html).

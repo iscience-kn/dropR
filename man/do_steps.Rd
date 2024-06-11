@@ -7,21 +7,37 @@
 do_steps(x, y, return_df = T)
 }
 \arguments{
-\item{x}{Numeric vector representing the x-coordinates.}
+\item{x}{Numeric vector representing the question numbers}
 
-\item{y}{Numeric vector representing the y-coordinates.}
+\item{y}{Numeric vector representing the remaining percent of participants}
 
 \item{return_df}{Logical. If \code{TRUE}, the function returns a data frame; otherwise, it returns a list.}
 }
 \value{
-A data frame or a list containing the modified \code{x} and \code{y} coordinates.
+A data frame or a list containing the modified \code{x} and \code{y} values
 }
 \description{
-The \code{do_steps} function calculates steps for uneven data points represented by vectors \code{x} and \code{y}.
+The \code{do_steps} function calculates steps for data points represented by numbers of questions from the original
+experimental or survey data in \code{x} and remaining percent of participants in \code{y}.
+}
+\details{
+Due to the nature of dropout/ survival data, step functions are necessary to accurately depict participants remaining.
+Dropout data includes the time until the event (a.k.a. dropout at a certain question or time), so that changes in remaining
+participants are discrete rather than continuous. This means that changes in survival probability occur at specific points
+and are better represented as steps than as a continuum.
 }
 \examples{
 x <- c(1, 2, 3, 4, 5)
-y <- c(10, 20, 30, 40, 50)
+y <- c(100, 100, 95, 90, 85)
 do_steps(x, y)
+
+# Using the example dataset dropRdemo
+
+stats <- compute_stats(df = add_dropout_idx(dropRdemo, 3:54),
+by_cond = "experimental_condition",
+no_of_vars = 52)
+
+tot_stats <- stats[stats$condition == "total", ]
+do_steps(tot_stats$q_idx, tot_stats$pct_remain)
 
 }

@@ -9,13 +9,16 @@ find_drop_out(v, clnms)
 \arguments{
 \item{v}{a vector}
 
-\item{clnms}{specify the parts that actually hold questions by character names.}
+\item{clnms}{character. Columns of question items in the vector that actually hold questions.}
 }
 \description{
 Check consecutive NAs from backend of a vector.
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 }
 \details{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{find_drop_out()} is deprecated in favor of \code{\link[=add_dropout_idx]{add_dropout_idx()}}, which is the
 basis for dropout analysis using \code{dropR}.
+
+For reliable dropout analysis, please use \code{\link[=add_dropout_idx]{add_dropout_idx()}} instead.
 }
