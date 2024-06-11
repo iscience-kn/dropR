@@ -42,7 +42,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/interactive.html">Interactive Dropout Analysis with R</a>
-    <a class="dropdown-item" href="../articles/tests.html">Running DropOut related Tests Within R</a>
+    <a class="dropdown-item" href="../articles/tests.html">Running Dropout related Tests with R</a>
   </div>
 </li>
       </ul>
@@ -82,49 +82,257 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://iscience-kn.github.io/dropR/">dropR</a></span><span class="op">)</span></span></code></pre></div>
 <p>Though the low-hurdle of the online version with its graphical user
 interface (GUI) is appealing for many use cases, there are good reasons
-to directly use dropR’s backend on the R console - without the GUI: Some
+to directly use dropR’s backend in the R console without the GUI: Some
 data.frames may need extra formatting or additional cleaning before they
 suit the dropR input format or you may want adapt and extend your
-analysis in a way the GUI does not allow to.</p>
+analysis in a way the GUI does not allow to. If you are writing a report
+directly in RMarkdown, you can also make use of automatically reporting
+your results in your document or embedding a dropout plot from
+dropR.</p>
 <div class="section level2">
 <h2 id="dropout-analysis-walkthrough">Dropout Analysis Walkthrough<a class="anchor" aria-label="anchor" href="#dropout-analysis-walkthrough"></a>
 </h2>
 <p>This section describes how to extract information on dropout from the
-demo dataset without using the dropR shiny UI. First, let’s make sure
-the dema dataset is loaded and available. They dataset should look like
-this</p>
+demo data set without using the dropR shiny UI. First, let’s make sure
+the demo data set is loaded and available. The data set should look like
+this:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://iscience-kn.github.io/dropR/">dropR</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"dropRdemo"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Use demo dataset in a new data frame to be edited</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">dropRdemo</span></span></code></pre></div>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+obs_id
+</th>
+<th style="text-align:right;">
+experimental_condition
+</th>
+<th style="text-align:right;">
+vi_1
+</th>
+<th style="text-align:right;">
+vi_2
+</th>
+<th style="text-align:right;">
+vi_3
+</th>
+<th style="text-align:left;">
+…
+</th>
+<th style="text-align:right;">
+vi_51
+</th>
+<th style="text-align:right;">
+vi_52
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+7a9f33
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+e11f94
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+e72a50
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+f90f5f
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+20bc72
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+</tbody>
+</table>
 <div class="section level3">
 <h3 id="basic-dropout-statistics">Basic Dropout Statistics<a class="anchor" aria-label="anchor" href="#basic-dropout-statistics"></a>
 </h3>
-<p>Now, let’s extract dropout, i.e., information on when participant
-dropped out of the questionnaire and never returned. In the demo dataset
-questions are easily identified by their prefix <code>vi_</code></p>
+<p>Now, let’s extract dropout, i.e., information on when a participant
+dropped out of the questionnaire and never returned. For this, we need
+to identify the last question that someone filled out before only
+missing data is present a.k.a <code>NA</code>s. We will use the
+<code>add_dropout_idx</code> function on the demo data set and add the
+position of all question variables in the data. In the demo data,
+questions are easily identified by their prefix <code>vi_</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">qs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"vi_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dropRdemo</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">qs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"vi_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># add numeric drop out position to original dataset</span></span>
-<span><span class="va">dropRdemo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_dropout_idx.html">add_dropout_idx</a></span><span class="op">(</span><span class="va">dropRdemo</span>, q_pos <span class="op">=</span> <span class="va">qs</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dropRdemo</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="fl">53</span>,<span class="fl">54</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   obs_id experimental_condition vi_1 vi_51 vi_52</span></span>
-<span><span class="co">#&gt; 1 7a9f33                     11    1     1     1</span></span>
-<span><span class="co">#&gt; 2 e11f94                     22    1    NA    NA</span></span>
-<span><span class="co">#&gt; 3 e72a50                     22    1     1     1</span></span>
-<span><span class="co">#&gt; 4 f90f5f                     11    1     1     1</span></span>
-<span><span class="co">#&gt; 5 20bc72                     12    1     1     1</span></span>
-<span><span class="co">#&gt; 6 76b97a                     22    1    NA    NA</span></span></code></pre></div>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_dropout_idx.html">add_dropout_idx</a></span><span class="op">(</span><span class="va">df</span>, q_pos <span class="op">=</span> <span class="va">qs</span><span class="op">)</span></span>
+<span><span class="fu">kable</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">obs_id</th>
+<th align="right">experimental_condition</th>
+<th align="right">vi_1</th>
+<th align="right">vi_52</th>
+<th align="right">do_idx</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">7a9f33</td>
+<td align="right">11</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">e11f94</td>
+<td align="right">22</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">e72a50</td>
+<td align="right">22</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">f90f5f</td>
+<td align="right">11</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">20bc72</td>
+<td align="right">12</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">76b97a</td>
+<td align="right">22</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">27</td>
+</tr>
+</tbody>
+</table>
 <p>The <code>experimental_condition</code> column indicates belonging to
-a sub sample group each of which was treated differently. For example,
-groups receive a different sequence of questions or different wording.
-Now, let’s compute a table containing basic dropout statistics for each
-item.</p>
+a sub sample, each of which was treated differently. For example, groups
+receive a different sequence of questions or different wording.</p>
+<p>Next we’ll compute a table containing basic dropout statistics for
+each item using the <code>compute_stats</code> function.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span></span>
-<span><span class="va">stats_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compute_stats.html">compute_stats</a></span><span class="op">(</span><span class="va">dropRdemo</span>,</span>
-<span>                             by_cond <span class="op">=</span> <span class="st">"experimental_condition"</span>,</span>
-<span>                             no_of_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">qs</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stats_table</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compute_stats.html">compute_stats</a></span><span class="op">(</span><span class="va">df</span>,</span>
+<span>                       by_cond <span class="op">=</span> <span class="st">"experimental_condition"</span>,</span>
+<span>                       no_of_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">qs</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">kable</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">q_idx</th>
@@ -185,9 +393,16 @@ item.</p>
 </tr>
 </tbody>
 </table>
-<p>Out of 246 participants in the demo sample, 235 participants remain
-in the survey, accounting for 95.53 percent of the sample. The
-<code>cs</code> column shows the cummulative dropout count.</p>
+<p>Out of 246 participants in total in the demo sample, 235 participants
+remain in the survey at the first question, accounting for 95.53 percent
+of the sample. At the last question of the experiment, 61.79% of all
+participants “survived”. The <code>cs</code> column shows the absolute
+cumulative dropout count.</p>
+<p>The stats table shows the dropout statistics for the total sample
+first and if defined in the function <code>by_cond</code>, it also shows
+the same statistics for each experimental condition separately. This
+table is the basis for many further analyses and can easily be
+reported.</p>
 </div>
 <div class="section level3">
 <h3 id="plotting-dropout-curves">Plotting Dropout Curves<a class="anchor" aria-label="anchor" href="#plotting-dropout-curves"></a>
@@ -195,8 +410,15 @@ in the survey, accounting for 95.53 percent of the sample. The
 <p>Based on the above statistics table, dropR plots dropout curves very
 conveniently.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_do_curve.html">plot_do_curve</a></span><span class="op">(</span><span class="va">stats_table</span><span class="op">)</span></span></code></pre></div>
-<p><img src="interactive_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_do_curve.html">plot_do_curve</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span></span></code></pre></div>
+<p><img src="interactive_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p>By default, the function to plot dropout curves chooses a color
+palette which is designed to de distinguishable for color blind
+individuals. Adhering to some journal guidelines, you may also choose a
+gray color palette, distinguishing the lines by line type and gray
+value.</p>
+<p>Next, you may want to run more statistical dropout analyses using
+<code>dropR</code>. You can find an in-depth tutorial in our <a href="articles/tests.html">test article</a>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
