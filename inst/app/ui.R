@@ -255,7 +255,7 @@ tabXsq <- tabItem(tabName = "xsq",
 
 
 # Tab Kaplan-Meier ####
-tabKaplan <- tabItem(tabName = "kaplan",
+tabSurv <- tabItem(tabName = "survival",
                      fluidRow(
                        box(width = 3,
                            title = "Kaplan-Meier Model Specifications",
@@ -360,8 +360,10 @@ ui <- dashboardPage(
                icon = icon("area-chart",lib="font-awesome")),
       menuItem("Contingency Analyses", tabName = "xsq",
                icon = icon("percent",lib="font-awesome")),
-      menuItem("Survival Analyses", tabName = "kaplan",
-               icon = icon("percent",lib="font-awesome")),
+      menuItem("Survival Analyses", 
+               menuSubItem("Kaplan-Meier", tabName = "survival"),
+               icon = icon("percent",lib="font-awesome")
+               ),
       menuItem("About", tabName = "about",
                icon = icon("circle-info",lib="font-awesome"))
     )
@@ -376,7 +378,7 @@ ui <- dashboardPage(
              tabViz,
              tabUpload,
              tabXsq,
-             tabKaplan,
+             tabSurv,
              tabAbout)
   )
 )

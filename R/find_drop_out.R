@@ -1,6 +1,7 @@
 #' Find the Position of Drop Out in a Vector
 #' 
-#' Check consecutive NAs from backend of a vector. 
+#' Check consecutive NAs from backend of a vector.
+#' 
 #' `r lifecycle::badge("deprecated")`
 #'
 #' `find_drop_out()` is deprecated in favor of [add_dropout_idx()], which is the 

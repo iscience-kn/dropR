@@ -370,7 +370,8 @@ server <- function(input, output) {
     # colnames(OR_matrix) <- test_input$condition
     # row.names(OR_matrix) <- test_input$condition
     # OR_matrix
-  })
+  },
+  rownames = TRUE)
   
   
   output$surv_tests <- renderPrint({
