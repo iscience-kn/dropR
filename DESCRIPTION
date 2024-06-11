@@ -11,7 +11,8 @@ Imports:
     ggplot2,
     data.table,
     survival,
-    dplyr
+    dplyr,
+    lifecycle
 Suggests:
     DT,
     shinydashboard,
