@@ -2,17 +2,17 @@ library(dropR)
 library(data.table)
 data("dropRdemo")
 n_q <- length(grep("vi_",names(dropRdemo)))
-dropRdemo$drop_out_idx <- add_dropout_idx(dropRdemo,grep("vi_",names(dropRdemo)))
+dropRdemo <- add_dropout_idx(dropRdemo, grep("vi_",names(dropRdemo)))
 
-test <- compute_stats(dropRdemo,by_cond = "experimental_condition",
+test <- compute_stats(dropRdemo, by_cond = "experimental_condition",
                           no_of_vars = 52)
 
-test <- compute_stats(dropRdemo,by_cond = "None",
+test <- compute_stats(dropRdemo, by_cond = "None",
                           no_of_vars = 52)
 
 
 
-share_remain = data.frame(intermediate()$remain)$Freq / data.frame(intermediate()$participants)$Freq
+share_remain <-  data.frame(intermediate()$remain)$Freq / data.frame(intermediate()$participants)$Freq
 
 odds <- get_odds(share_remain)
 condition <- data.frame(intermediate()$participants)$Var1
@@ -223,12 +223,12 @@ setkeyv(dt1,"experimental_condition")
 
 
 
-xx <- dt1[,.N,by=list(experimental_condition,drop_out)]
+xx <- dt1[,.N,by=list(experimental_condition,do_idx)]
 order(xx,)
 
 
 
-n_count(dt1$drop_out,10)
+n_count(dt1$do_idx,10)
 
-table(dt1$drop_out)
-subset(xx,drop_out == 52)
+table(dt1$do_idx)
+subset(xx,do_idx == 52)

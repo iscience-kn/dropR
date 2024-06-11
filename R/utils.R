@@ -1,14 +1,16 @@
 #' Occurrence Count
 #' 
-#' @source R/utils.R
-#' 
 #' The `n_count` function calculates the number of occurrences of a specific 
 #' value `n` in a numeric vector `x`.
+#' 
+#' `r lifecycle::badge("questioning")`
 #'
 #' @param x Vector in which to count occurrences.
 #' @param n Value to count occurrences of.
 #'
 #' @returns An integer representing the count of occurrences of `n` in `x`.
+#' 
+#' @source R/utils.R
 #'
 #' @examples
 #' x <- c(1, 2, 3, 2, 4, 2)
