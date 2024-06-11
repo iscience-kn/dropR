@@ -5,9 +5,6 @@
 \title{Occurrence Count}
 \source{
 R/utils.R
-
-The \code{n_count} function calculates the number of occurrences of a specific
-value \code{n} in a numeric vector \code{x}.
 }
 \usage{
 n_count(x, n)
@@ -21,7 +18,11 @@ n_count(x, n)
 An integer representing the count of occurrences of \code{n} in \code{x}.
 }
 \description{
-Occurrence Count
+The \code{n_count} function calculates the number of occurrences of a specific
+value \code{n} in a numeric vector \code{x}.
+}
+\details{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#questioning}{\figure{lifecycle-questioning.svg}{options: alt='[Questioning]'}}}{\strong{[Questioning]}}
 }
 \examples{
 x <- c(1, 2, 3, 2, 4, 2)

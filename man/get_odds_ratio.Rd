@@ -12,9 +12,14 @@ get_odds_ratio(a, b)
 \item{b}{numeric probability value between 0 and 1.}
 }
 \description{
-Computes and odds ratio given two probabilities.
+Computes odds ratio given two probabilities.
+In this package, the function can be used to compare the percentages of remaining
+participants between two conditions at a time.
 }
 \examples{
 get_odds_ratio(0.7, 0.6)
 
+}
+\seealso{
+\code{\link[=get_odds]{get_odds()}}, as this is the basis for calculation.
 }

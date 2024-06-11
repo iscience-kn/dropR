@@ -34,5 +34,10 @@ do_ks <- function(data, question){
   
   res$method <- paste0(res$method, " of conditions ", extremes[1], " & ", extremes[2])
   
+  res$extremes <- extremes
+  
+  res$data.name <- gsub("extremes\\[1\\]", res$extremes[1], res$data.name)
+  res$data.name <- gsub("extremes\\[2\\]", res$extremes[2], res$data.name)
+  
   res
 }

@@ -11,7 +11,8 @@ get_odds(p)
 }
 \description{
 Compute odds from probabilities. The function is vectorized and
-can handle a vector of probabilities.
+can handle a vector of probabilities, e.g. remaining percent of participants
+as calculated by \code{\link[=compute_stats]{compute_stats()}}.
 }
 \examples{
 get_odds(0.7)
