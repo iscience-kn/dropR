@@ -334,6 +334,75 @@ tabSurv <- tabItem(tabName = "survival",
                        )
                      )
                   ) 
+
+# Tab Kolmogorov-Smirnov ####
+tabKS <- tabItem(tabName = "kolsmir",
+                   fluidRow(
+                     box(width = 3,
+                         title = "Kolmogorov-SmirnovSurvival Analysis of Most Extreme Conditions",
+                         
+                         uiOutput("ks_slider"),
+                         column(width = 6,
+                                p(strong("Plot options")),
+                                checkboxInput("ks_ci","Show confidence bands",T),
+                                checkboxInput("ks_linetypes","Use line type to distinguish conditions",
+                                              value = T)
+                         ),
+                         column(width = 4,
+                                radioButtons("ks_color_palette","Color palettes",
+                                             c("color blind-friendly" = c("#E69F00", "#CC79A7"),
+                                               "gray scale" = "gray"),
+                                               # "use custom colors" = textInput("ks_color_manual")), # HOW DOES THIS WORK?????
+                                             selected = "gray")
+                                # textInput("ks_color_manual")
+                         )
+                     ),
+                     
+                     box(width = 7,
+                         title = "Kaplan-Meier survival curve",
+                         plotOutput("kpm_plot")
+                     ),
+                     box(width = 2,
+                         title = "Export Plot",
+                         textInput("kpm_plot_fname","Name (without file extension)",
+                                   width=240,
+                                   value = paste0("dropR-kpm_",round(as.numeric(Sys.time())))
+                         ),
+                         selectInput("kpm_export_format","Export plot as:",
+                                     c("pdf" = "pdf",
+                                       "svg" = "svg",
+                                       "png" = "png"),
+                                     "pdf",width=240),
+                         
+                         dropdownButton(
+                           
+                           label ="Export options",
+                           
+                           
+                           sliderInput("kpm_dpi","Resolution (dpi, .png only)",
+                                       min = 75, max = 600, value = 300,
+                                       width = 240, ticks = F),
+                           sliderInput("kpm_h","Height (in inches)",
+                                       min = 3, max = 50, value = 4,
+                                       width = 240, ticks = F),
+                           sliderInput("kpm_w","Width (in inches)",
+                                       min = 3, max = 50, value = 10,
+                                       width = 240, ticks = F),
+                           
+                           circle = F, 
+                           status = "default",
+                           icon = icon("gear"), 
+                           width = "180px",
+                           
+                           tooltip = tooltipOptions(title = "Resolution, height & width can be adjusted",
+                                                    placement = "left")
+                         ),
+                         tags$br(),
+                         
+                         downloadButton('downloadKpmPlot', 'Download plot', class = ".btn {width: '300px'}")
+                     )
+                   )
+) 
                       
 
 tabAbout <- tabItem(tabName = "about",
@@ -362,6 +431,7 @@ ui <- dashboardPage(
                icon = icon("percent",lib="font-awesome")),
       menuItem("Survival Analyses", 
                menuSubItem("Kaplan-Meier", tabName = "survival"),
+               menuSubItem("Kolmogorov-Smirnov", tabName = "kolsmir"),
                icon = icon("percent",lib="font-awesome")
                ),
       menuItem("About", tabName = "about",
