@@ -78,6 +78,8 @@ do_kpm <- function(df,
 #' alternatively choose 'gray' for gray scale values or 'default' for the ggplot2 default colors. 
 #' @param full_scale_kpm boolean Should the Y axis show the full range from 0 to 100? Defaults to FALSE.
 #' @import ggplot2
+#' @importFrom grDevices gray
+#'@importFrom stats sd
 #' @export
 #' 
 #' @returns The function returns a `ggplot` object containing the Kaplan-Meier survival plot. Using the Shiny App version of
@@ -99,6 +101,9 @@ plot_do_kpm <- function(
     color_palette_kp = "color_blind",
     full_scale_kpm = F
 ){
+  # Resolve global variable issue
+  condition <- x <- y <- lwr <- uppr <- NULL
+  
   palette <- if(color_palette_kp == "color_blind"){c("#000000", "#E69F00",
                                                   "#56B4E9", "#009E73",
                                                   "#F0E442", "#0072B2",
@@ -168,6 +173,6 @@ plot_do_kpm <- function(
 #' 
 #' 
 get_survdiff <- function(df, cond, test_type){
-  f <- as.formula(paste("surv", cond, sep="~"))
+  f <- stats::as.formula(paste("surv", cond, sep="~"))
   survdiff(f, data = df, rho = test_type)  
 }

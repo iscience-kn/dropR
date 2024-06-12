@@ -27,6 +27,9 @@ compute_stats <- function(df,
                            by_cond = "None",
                            no_of_vars
 ){
+  # Resolve global variable issue
+  drop_out_count <- cs <- remain <- N <- pct_remain <- condition <- NULL
+  
   dtable <- data.table(df)
   
   if(by_cond %in% names(df)){ # if experimental condition is actually in the data

@@ -9,6 +9,8 @@
 #' @param chisq_question numeric Which question to compare dropout at.
 #' @param sel_cond_chisq vector (same class as in conditions variable in original data set) selected conditions.
 #' @param p_sim boolean Simulate p value parameter (by Monte Carlo simulation)? Defaults to `TRUE`.
+#' 
+#' @importFrom stats chisq.test
 #' @export
 #' 
 #' @seealso [add_dropout_idx()] and [compute_stats()] which are necessary for the proper data structure.
@@ -24,6 +26,9 @@ do_chisq <- function(df,
                      chisq_question,
                      sel_cond_chisq,
                      p_sim = TRUE){
+  # Resolve global variable issue
+  q_idx <- condition <- NULL
+  
   d <- subset(df, condition %in% sel_cond_chisq)
   d$condition <- factor(d$condition)
   

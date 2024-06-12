@@ -21,6 +21,9 @@
 do_or_table <- function(df,
                         chisq_question,
                         sel_cond_chisq){
+  # Resolve global variable issue
+  q_idx <- condition <- NULL
+  
   df <- as.data.frame(df)
   df <- subset(df,condition %in% sel_cond_chisq)
   df$condition <- factor(df$condition)

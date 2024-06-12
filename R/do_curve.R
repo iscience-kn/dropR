@@ -18,6 +18,8 @@
 #' @param show_confbands boolean Should there be confidence bands added to the plot?Defaults to FALSE.
 #' 
 #' @import ggplot2
+#' @importFrom grDevices gray
+#' @importFrom stats sd
 #' @export
 #' 
 #' @returns The function returns a `ggplot` object containing the dropout curve plot. Using the Shiny App version of
@@ -40,6 +42,9 @@ plot_do_curve <- function(df,
                           color_palette = "color_blind",
                           show_confbands = FALSE
 ){
+  # Resolve global variable issue
+  q_idx <- pct_remain <- condition <- NULL
+  
   do_curve <- ggplot(df)
   
   palette <- if(color_palette == "color_blind"){c("#000000", "#E69F00",

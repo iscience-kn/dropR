@@ -60,6 +60,8 @@ do_ks <- function(data, question){
 #' @param show_confbands boolean Should there be confidence bands added to the plot?Defaults to FALSE.
 #'
 #' @import ggplot2
+#' @importFrom grDevices gray
+#' @importFrom stats sd
 #' @returns  The function returns a `ggplot` object containing the survival curve plot of the most extreme
 #' dropout conditions. Using the Shiny App version of dropR, this plot can easily be downloaded in different formats. 
 #' @export
