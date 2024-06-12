@@ -7,7 +7,6 @@
 #' @param data A data frame made from [compute_stats()], containing information on the percent remaining per question per condition
 #' @param question Index of question to be included in analysis, commonly the last question of the survey.
 #'
-#' @importFrom dplyr %>% filter pull
 #' @importFrom stats ks.test
 #' 
 #' @returns result of Kolmogorov-Smirnoff test including which conditions have the most different dropout rates.
@@ -22,17 +21,16 @@
 #' 
 #' 
 do_ks <- function(data, question){
-  extremes <- data %>% 
-    filter(q_idx == question,
-           condition != "total") %>% 
-    filter(pct_remain == max(pct_remain) | pct_remain == min(pct_remain))
   
-  extremes <- extremes$condition[extremes$pct_remain %in% range.default(extremes$pct_remain)]
+  extremes <- data[data$q_idx == question & data$condition != "total",]
+  extremes <- extremes$condition[extremes$pct_remain == max(extremes$pct_remain) | 
+                                 extremes$pct_remain == min(extremes$pct_remain)]
+    
   
-  res <- ks.test(x = stats$pct_remain[stats$condition == extremes[1]],
-          y = stats$pct_remain[stats$condition == extremes[2]])
+  res <- ks.test(x = data$pct_remain[data$condition == extremes[1]],
+          y = data$pct_remain[data$condition == extremes[2]])
   
-  res$method <- paste0(res$method, " of conditions ", extremes[1], " & ", extremes[2])
+  res$method <- paste0(res$method, " of conditions ", extremes[1], " & ", extremes[2], " at question ", question)
   
   res$extremes <- extremes
   
@@ -97,7 +95,7 @@ plot_do_ks <- function(stats,
   
   palette <- if(length(color_palette) > 1){color_palette} # users can supply their own colors
   else if (color_palette == "gray"){gray(seq(from = 0,1,
-                   by = 1/8)[c(2,8)])}
+                   by = 1/8)[c(3,8)])}
   else {c("#E69F00", "#CC79A7")}
   
   

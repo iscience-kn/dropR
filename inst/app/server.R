@@ -229,7 +229,8 @@ server <- function(input, output) {
   output$ks_slider <- renderUI({
     sliderInput('ks_question', "Select question",
                 1, length(input$quest_cols),
-                value = length(input$quest_cols))
+                value = length(input$quest_cols),
+                step = 1)
   })
   
   # KS plot
@@ -239,12 +240,21 @@ server <- function(input, output) {
            Make sure to hit 'update data!' in the upload tab.")
     )
     
+    ks_colorpal <- if(input$ks_color_palette == "custom"){
+      c(input$ks_color_manual1, input$ks_color_manual2)
+    } else {input$ks_color_palette}
+      
+    
     plot_do_ks(stats(),
                do_ks(stats(), input$ks_question),
                linetypes = input$ks_linetypes,
                show_confbands = input$ks_ci,
-               color_palette = input$ks_color_palette)
+               color_palette = ks_colorpal)
     
+  })
+  
+  output$ks_test <- renderPrint({
+    do_ks(stats(), input$ks_question)
   })
 
   
@@ -281,6 +291,25 @@ server <- function(input, output) {
                       dpi = input$kpm_dpi,
                       width = input$kpm_w,
                       height = input$kpm_h)
+    }
+  )
+  
+  output$downloadKSplot <- downloadHandler(
+    filename = function(){
+      paste(input$ks_plot_fname,input$ks_export_format,sep=".")
+    },
+    content = function(file) {
+      # New Version
+      ggplot2::ggsave(file,
+                      plot = plot_do_ks(stats(),
+                                        do_ks(stats(), input$ks_question),
+                                        linetypes = input$ks_linetypes,
+                                        show_confbands = input$ks_ci,
+                                        color_palette = input$ks_color_palette), 
+                      device = input$ks_export_format,
+                      dpi = input$ks_dpi,
+                      width = input$ks_w,
+                      height = input$ks_h)
     }
   )
   
@@ -354,6 +383,7 @@ server <- function(input, output) {
     
     
   })
+  
   output$test_table <- renderTable({
     kaplan_meier()$steps
   })
