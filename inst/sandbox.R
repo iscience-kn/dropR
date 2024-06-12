@@ -227,8 +227,5 @@ xx <- dt1[,.N,by=list(experimental_condition,do_idx)]
 order(xx,)
 
 
-
-n_count(dt1$do_idx,10)
-
 table(dt1$do_idx)
 subset(xx,do_idx == 52)
