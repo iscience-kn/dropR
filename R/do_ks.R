@@ -95,7 +95,7 @@ plot_do_ks <- function(stats,
   
   palette <- if(length(color_palette) > 1){color_palette} # users can supply their own colors
   else if (color_palette == "gray"){gray(seq(from = 0,1,
-                   by = 1/8)[c(3,8)])}
+                   by = 1/8)[c(2,6)])}
   else {c("#E69F00", "#CC79A7")}
   
   

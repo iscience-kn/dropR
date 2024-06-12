@@ -150,8 +150,8 @@ server <- function(input, output) {
   ## Chisq slider ############  
   output$xsq_slider <- renderUI({
     sliderInput('chisq_question', "Select question",
-                1, length(input$quest_cols)-1,
-                value = length(input$quest_cols)-1)
+                1, length(input$quest_cols),
+                value = length(input$quest_cols), step = 1)
   })
   
   ## Log RANK ###############
@@ -177,7 +177,7 @@ server <- function(input, output) {
     d <- as.data.frame(stats())
     if(input$cutoff){
       last_q <- length(input$quest_cols)
-      d <- subset(d,q_idx != last_q)
+      d <- subset(d, q_idx != last_q)
     }
     
     d$condition <- factor(d$condition)
@@ -245,11 +245,17 @@ server <- function(input, output) {
     } else {input$ks_color_palette}
       
     
-    plot_do_ks(stats(),
+    ksplot <- plot_do_ks(stats(),
                do_ks(stats(), input$ks_question),
                linetypes = input$ks_linetypes,
                show_confbands = input$ks_ci,
                color_palette = ks_colorpal)
+    
+    if(input$ks_ql){
+      ksplot <- ksplot + geom_vline(xintercept= input$ks_question, color = "lightgray")
+    }
+    
+    ksplot
     
   })
   
