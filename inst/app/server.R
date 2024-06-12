@@ -241,7 +241,7 @@ server <- function(input, output) {
     )
     
     if(input$ks_color_palette == "custom"){
-      if(input$ks_color_manual1 == "" & input$ks_color_manual2 == ""){validate("Please provide two custom colors.")}
+      if(input$ks_color_manual1 == "" | input$ks_color_manual2 == ""){validate("Please provide two custom colors.")}
       ks_colorpal <- c(input$ks_color_manual1, input$ks_color_manual2)
     } else {ks_colorpal <- input$ks_color_palette}
       
