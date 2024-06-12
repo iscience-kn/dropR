@@ -5,9 +5,6 @@
 \title{Concatenate Names and Values of a Named Vector}
 \source{
 R/utils.R
-
-The \code{all_values} function takes a named vector \code{x} and concatenates the names
-and formatted values into a single string which is separated by HTML \if{html}{\out{<br>}} tags.
 }
 \usage{
 all_values(x)
@@ -19,7 +16,9 @@ all_values(x)
 A character vector containing the names and formatted values of the input vector, separated by line breaks.
 }
 \description{
-Concatenate Names and Values of a Named Vector
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#questioning}{\figure{lifecycle-questioning.svg}{options: alt='[Questioning]'}}}{\strong{[Questioning]}}
+The \code{all_values} function takes a named vector \code{x} and concatenates the names
+and formatted values into a single string which is separated by HTML \if{html}{\out{<br>}} tags.
 }
 \examples{
 my_vector <- c(apples = 5, bananas = 3, oranges = 2)
