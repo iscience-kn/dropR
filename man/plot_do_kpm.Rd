@@ -2,7 +2,7 @@
 % Please edit documentation in R/do_kpm.R
 \name{plot_do_kpm}
 \alias{plot_do_kpm}
-\title{Draw a Kaplan Meier Plot}
+\title{Plot a Kaplan Meier Survival Estimation}
 \usage{
 plot_do_kpm(
   kds,

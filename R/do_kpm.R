@@ -65,7 +65,7 @@ do_kpm <- function(df,
 }
 
 
-#' Draw a Kaplan Meier Plot
+#' Plot a Kaplan Meier Survival Estimation
 #' 
 #' The `plot_do_kpm` function generates a Kaplan-Meier survival plot based on the 
 #' output from the [do_kpm()] function. It allows for customization of conditions 
