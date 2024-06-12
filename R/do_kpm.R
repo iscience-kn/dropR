@@ -1,12 +1,12 @@
 #' Kaplan-Meier Survival Estimation
 #' 
 #' This function needs a data set with a dropout index added by [add_dropout_idx()].
-#' The `do_kpm``function performs survival analysis with Kaplan-Meier Estimation 
+#' The `do_kpm` function performs survival analysis with Kaplan-Meier Estimation 
 #' and returns a list containing survival steps, the original data frame, and the model fit type. 
 #' The function can fit the survival model either for the entire data set or separately by a specified condition column.
 #' 
 #' 
-#' @param df data set with `do_idx``added by [add_dropout_idx()]
+#' @param df data set with `do_idx` added by [add_dropout_idx()]
 #' @param condition_col character denoting the experimental conditions to model
 #' @param model_fit character Should be either "total" for a total model or "conditions"
 #' @importFrom survival Surv survfit

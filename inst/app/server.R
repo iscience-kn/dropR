@@ -150,8 +150,8 @@ server <- function(input, output) {
   ## Chisq slider ############  
   output$xsq_slider <- renderUI({
     sliderInput('chisq_question', "Select question",
-                1, length(input$quest_cols),
-                value = length(input$quest_cols), step = 1)
+                1, length(input$quest_cols)-1,
+                value = length(input$quest_cols)-1, step = 1)
   })
   
   ## Log RANK ###############
@@ -339,7 +339,7 @@ server <- function(input, output) {
       d$condition <- factor(d$condition)
       
       d <- subset(d,condition != "total")
-      test_input <- subset(d,do_idx == input$chisq_question)
+      test_input <- subset(d,q_idx == input$chisq_question)
       # #chisq.test(as.table(as.matrix(test_input)))
       # test_input
       test_input
@@ -358,20 +358,6 @@ server <- function(input, output) {
   output$odds_ratio <- renderTable({
     
     do_or_table(stats(), chisq_question = input$chisq_question, sel_cond_chisq = input$sel_cond_chisq)
-    
-    # d <- as.data.frame(stats())
-    # d <- subset(d,condition %in% input$sel_cond_chisq)
-    # d$condition <- factor(d$condition)
-    # # d <- subset(d,condition != "total")
-    # 
-    # test_input <- subset(d, do_idx == input$chisq_question)
-    # 
-    # OR_matrix <- outer(test_input$pct_remain,
-    #                    test_input$pct_remain,
-    #                    FUN = get_odds_ratio)
-    # colnames(OR_matrix) <- test_input$condition
-    # row.names(OR_matrix) <- test_input$condition
-    # OR_matrix
   },
   rownames = TRUE)
   
