@@ -9,16 +9,22 @@ library(svglite)
 tabHome <- tabItem(tabName = "home",
                    tags$style(HTML("
                                 .slimtext {
-                                  width: 60%;
+                                  width: 70%;
                                   word-break: break-word;
+                                  font-size: 16px;
                                 }
                                 
                                 .extraslimtext {
                                   width: 35%;
                                   word-break: break-word;
+                                  font-size: 16px;
                                 }
                                 
-                                .btn {height: auto; width: 85%; vertical-align: center;}
+                                .btn {
+                                height: auto; 
+                                width: 85%; 
+                                vertical-align: center;
+                                }
                                 ")
                    ),
                    
@@ -34,10 +40,10 @@ tabHome <- tabItem(tabName = "home",
                          item (e.g. test for overall dropout difference), 
                          Kaplan-Maier survival estimation, Rho family 
                          tests.", class="slimtext"),
-                       p("dropR follows a simple step-by-step process which starts in the Upload tab.", br(),
+                       p(strong("dropR follows a simple step-by-step process which starts in the Upload tab."), br(),
                          "1. Upload your data under 'Upload your 
                          data' or choose our demo file.", br(),
-                         "2. Specify some datafile characteristics, such as csv separator or NA coding.", br(),
+                         "2. Specify some datafile characteristics, such as column delimiter or NA coding.", br(),
                          "3. Identify the experimental condition variable, i.e. 'experimental_condition' in demo data 
                          or something similar in your data and select all experimental variables for which to analyze dropout.", br(),
                          "Make sure to click 'update data!' to get started on analyses 
@@ -54,22 +60,26 @@ tabUpload <- tabItem(tabName = "upload",
                      # h2("Upload your data"),
                      fluidRow(
                        box(width=5,
-                           title = "1. Choose",
+                           title = "1. Choose...",
                            # h3("1. Choose"),
                            # h5("a .csv file from your disk"),
                            # strong('How To dropR'),
                            tags$ul(
-                             tags$li(strong("... a .csv file from your disk or our demo dataset."), 
+                             tags$li(strong("... a .csv file from your computer or our demo dataset."), 
                                      "(52 variables, 4 experimental conditions)"),
-                             tags$li("Indicate whether the first line of your
-                                   data is a header."),
-                             tags$li("Choose the proper column delimiter,
-                                   text quote and missing value coding for your file.
-                                   Note that empty cells are recognized as 
-                                   missing values by default."),
-                             tags$li("Make sure to use reasonable coding for
-                                   missing values in your data. Add custom missing values
+                             tags$li("If you are working with your own data, continue in steps 2-3:"),
+                             tags$ul(
+                               tags$li("2. Specify: Indicate whether the first line of your
+                                   data is a header and choose the proper column delimiter and
+                                   text quotes."),
+                               tags$li("2.1 Missings: Make sure to use reasonable coding for
+                                   missing values in your data. Note that empty cells are recognized as 
+                                   missing values by default. Add custom missing values
                                    if necessary."),
+                               tags$li("3. Identify: Identify the column in your data which codes the experimental condition and
+                                       select all variables that hold data for the questions in your experiment for which to analyze 
+                                       dropout.")
+                             ),
                              tags$li("Check the data preview below. If your
                                    data is displayed as expected you are ready to 
                                    start with your analyses.")
@@ -86,9 +96,9 @@ tabUpload <- tabItem(tabName = "upload",
                        box(width=2,
                            title = "2. Specify",
                            # h3("2. Specify"),
-                           h4("CSV properties:"),
+                           strong("CSV properties:"),
                            checkboxInput('header', 'Header', TRUE),
-                           radioButtons('sep', 'Separator',
+                           radioButtons('sep', 'Delimiter',
                                                c(Semicolon=';',
                                                  Comma=',',
                                                  Tab='\t'),
@@ -108,11 +118,11 @@ tabUpload <- tabItem(tabName = "upload",
                                                 '-1',''),c("NA", "")),
                            p(strong('Add your own NA coding (automatically applied):')),
                            textInput('nas_custom1', label = NULL,
-                                     value = "-66", width = '30%'),
+                                     value = "", width = '30%'),
                            textInput('nas_custom2', label = NULL,
-                                     value = "-77", width = '30%'),
+                                     value = "", width = '30%'),
                            textInput('nas_custom3', label = NULL,
-                                     value = "-9999", width = '30%')
+                                     value = "", width = '30%')
                        ),
                        box(width=3,
                            title = "3. Identify",
@@ -151,9 +161,9 @@ tabViz <- tabItem(tabName = "viz",
                                checkboxInput("full_scale","Show full Y-axis (0 to 100)",value = F)
                                ),
                         
-                        column(width = 4,
+                        column(width = 5,
                                radioButtons("color_palette","Color palettes",
-                                            c("color blind-friendly" = "color_blind",
+                                            c("color-blind friendly" = "color_blind",
                                               "ggplot default" = "default",
                                               "gray scale" = "gray"),
                                             "color_blind")
@@ -270,9 +280,9 @@ tabSurv <- tabItem(tabName = "survival",
                                   checkboxInput("kpm_ci","Show confidence bands",T),
                                   checkboxInput("full_scale_kpm","Show full Y-axis (0 to 100)",value = T)
                                   ),
-                           column(width = 4,
+                           column(width = 5,
                                   radioButtons("color_palette_kp","Color palettes",
-                                               c("color blind-friendly" = "color_blind",
+                                               c("color-blind friendly" = "color_blind",
                                                  "ggplot default" = "default",
                                                  "gray scale" = "gray"),
                                                "color_blind")
@@ -334,11 +344,152 @@ tabSurv <- tabItem(tabName = "survival",
                        )
                      )
                   ) 
+
+# Tab Kolmogorov-Smirnov ####
+tabKS <- tabItem(tabName = "kolsmir",
+                   fluidRow(
+                     box(width = 3,
+                         title = "Kolmogorov-Smirnov Survival Analysis of Most Extreme Conditions",
+                         uiOutput("ks_slider"),
+                         column(width = 6,
+                                p(strong("Plot options")),
+                                checkboxInput("ks_ci","Show confidence bands",T),
+                                checkboxInput("ks_linetypes","Use line type to distinguish conditions",
+                                              value = T)
+                         ),
+                         column(width = 5,
+                                radioButtons("ks_color_palette","Color palettes",
+                                             choiceNames = list(
+                                               "color-blind friendly", "gray scale", "Custom colors:"
+                                             ),
+                                             choiceValues = list(
+                                               NULL, "gray", "custom"
+                                             )),
+                                textInput("ks_color_manual1", label = NULL, value = ""),
+                                textInput("ks_color_manual2", label = NULL, value = "")
+                         ),
+                         p("Please note that custom colors for the plot can be R colors, e.g. 'violet' or HEX codes, e.g. '#ffa500' 
+                           and you must provide two colors.")
+                     ),
+                     
+                     box(width = 7,
+                         title = "Survival Curve of Most Extreme Conditions",
+                         plotOutput("ks_plot"),
+                         verbatimTextOutput("ks_test")
+                     ),
+                     box(width = 2,
+                         title = "Export Plot",
+                         textInput("ks_plot_fname","Name (without file extension)",
+                                   width=240,
+                                   value = paste0("dropR-ks_",round(as.numeric(Sys.time())))
+                         ),
+                         selectInput("ks_export_format","Export plot as:",
+                                     c("pdf" = "pdf",
+                                       "svg" = "svg",
+                                       "png" = "png"),
+                                     "pdf",width=240),
+                         
+                         dropdownButton(
+                           
+                           label ="Export options",
+                           
+                           
+                           sliderInput("ks_dpi","Resolution (dpi, .png only)",
+                                       min = 75, max = 600, value = 300,
+                                       width = 240, ticks = F),
+                           sliderInput("ks_h","Height (in inches)",
+                                       min = 3, max = 50, value = 4,
+                                       width = 240, ticks = F),
+                           sliderInput("ks_w","Width (in inches)",
+                                       min = 3, max = 50, value = 10,
+                                       width = 240, ticks = F),
+                           
+                           circle = F, 
+                           status = "default",
+                           icon = icon("gear"), 
+                           width = "180px",
+                           
+                           tooltip = tooltipOptions(title = "Resolution, height & width can be adjusted",
+                                                    placement = "left")
+                         ),
+                         tags$br(),
+                         downloadButton('downloadKSplot', 'Download plot', class = ".btn {width: '300px'}")
+                     )
+                   )
+)
+
+
+tabExpl <- tabItem(tabName = "expl",
+                   fluidRow(
+                            box(width=12,
+                                title = "Understanding Survival Analysis: Kaplan-Meier Estimation and Kolmogorov-Smirnov Analysis",
+                                p("Survival Analysis is a branch of statistics that deals with analyzing the expected duration of 
+                                  time until one or more events happen, such as death in biological organisms and failure in mechanical 
+                                  systems or in many fields: dropout of the study. This type of analysis is crucial for understanding
+                                  differences in dropout rates and creating clear visualizations that show dropout as discrete steps.")
+                                )),
+                   fluidRow(box(width = 6,
+                                title = "Kaplan Meier Estimation",
+                                p("Kaplan-Meier Estimation, also known as the Kaplan-Meier curve, is one of the most widely used 
+                                methods for estimating survival functions. It provides a way to visualize the survival probabilities 
+                                over time, often in the presence of censored data (i.e., incomplete data due to dropout)."),
+                                h4("How it works:"),
+                                tags$ul(
+                                  tags$li(strong("Step Functions:"), "The Kaplan-Meier estimator constructs a step function that changes at 
+                                          each observed event, i.e. dropout time. Each step represents the probability of surviving 
+                                          past a certain time point."),
+                                  tags$li(strong("Calculation:"), "At each time point where an event occurs, the survival probability is 
+                                          adjusted by the ratio of the number of individuals who experienced the event to the number 
+                                          at risk just before the event."),
+                                  tags$li(strong("Visualization:"), "The resulting step function is plotted, showing the survival probability on 
+                                          the y-axis and time on the x-axis. This curve provides a clear visual representation of the 
+                                          survival experience of a cohort over time.")
+                                ),
+                                p(strong("Applications:"), "For dropout analysis, this estimator is a great tool for comparing different 
+                                experimental conditions with regard to their dropout curves over time. 
+                                Comparing the survival times of different groups (e.g., treatment vs. control groups 
+                                in clinical trials). Estimating median survival time. Visualizing the survival distribution."),
+                                tags$br(),
+                                h4("Practical Example"),
+                                p("Imagine a clinical experiment studying the effectiveness of a new drug on patient survival. 
+                                  The Kaplan-Meier estimator would allow researchers to plot the survival probabilities over 
+                                  time for both the treatment and control groups. This visualization helps in understanding how 
+                                  the drug impacts survival compared to the standard treatment.")
+                                ),
+                            
+                            box(width = 6,
+                                title = "Kolmogorov-Smirnov Analysis",
+                                p("Kolmogorov-Smirnov (KS) Analysis is a non-parametric test that compares two cumulative distribution 
+                                functions (CDFs). It can be used with just one sample, but here it is a great tool of comparing two 
+                                samples (two-sample KS test) with regard to their dropout rates. It is used to illustrate the largest
+                                differences in dropout between experimental conditions."),
+                                h4("How it works:"),
+                                tags$ul(
+                                  tags$li(strong("Empirical Distribution Function (EDF):"), "For each sample, an empirical distribution function 
+                                  is constructed, which is a step function that decreases at each observed dropout timepoint."),
+                                  tags$li(strong("Comparison:"), "The KS test measures the largest absolute difference between the EDFs of two 
+                                  samples, here between the experimental conditions with the largest difference in dropout 
+                                          (or between the EDF of a sample and a theoretical CDF)."),
+                                  tags$li(strong("Test Statistic:"), "The KS statistic 𝐷 is defined as the maximum difference between the 
+                                  two CDFs and ranges from 0 to 1. A larger 𝐷indicates greater divergence between the distributions.")
+                                ),
+                                p(strong("Applications:"), "Comparing the distributions of two samples, here experimental conditions to see if 
+                                they differ significantly. Can also be used to test if a sample comes from a specific distribution and 
+                                to assess goodness-of-fit for models."),
+                                tags$br(),
+                                h4("Practical Example"),
+                                p("Suppose researchers want to compare the distribution of survival times between two hospitals. 
+                                  They could use the KS test to determine if there are significant differences in the survival 
+                                  distributions of patients from the two hospitals, providing insights into the effectiveness of 
+                                  their respective treatments.")
+                            )
+                   )
+)
                       
 
 tabAbout <- tabItem(tabName = "about",
                     h2("About"),
-                    p("DropR is a joint project by Ulf-Dietrich Reips, Matthias Bannert and Annika Tave Overlander that 
+                    p("dropR is a joint project by Ulf-Dietrich Reips, Matthias Bannert and Annika Tave Overlander that 
                       followed naturally from the long-standing need in",
                       a("Internet science", href = "https://iscience.uni-konstanz.de/"), 
                       "and online research for methods and tools to address the fact that dropout (aka attrition, mortality, 
@@ -362,6 +513,8 @@ ui <- dashboardPage(
                icon = icon("percent",lib="font-awesome")),
       menuItem("Survival Analyses", 
                menuSubItem("Kaplan-Meier", tabName = "survival"),
+               menuSubItem("Kolmogorov-Smirnov", tabName = "kolsmir"),
+               menuSubItem("Explanation", tabName = "expl"),
                icon = icon("percent",lib="font-awesome")
                ),
       menuItem("About", tabName = "about",
@@ -379,6 +532,8 @@ ui <- dashboardPage(
              tabUpload,
              tabXsq,
              tabSurv,
+             tabKS,
+             tabExpl,
              tabAbout)
   )
 )

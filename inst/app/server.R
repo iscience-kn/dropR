@@ -203,15 +203,7 @@ server <- function(input, output) {
 
   output$do_curve_plot <- renderPlot({
     
-    # dc <- do_curve_plot()
     do_curve_plot()
-    # ggsave(paste0("curve_plot.",input$export_format),
-    #        plot = dc, device = input$export_format,
-    #        dpi = input$dpi,
-    #        width = input$w,
-    #        height = input$h)
-    
-    # dc
     
     })
   
@@ -224,24 +216,45 @@ server <- function(input, output) {
       need(dataset(),"Please upload a dataset.
            Make sure to hit 'update data!' in the upload tab.")
     )
-    
-    # k <- do_kpm_plot(kds = kaplan_meier(),
-    #             sel_cond_kpm = input$sel_cond_kpm,
-    #             kpm_ci = input$kpm_ci,
-    #             color_palette_kp = input$color_palette_kp,
-    #             full_scale_kpm = input$full_scale_kpm)
     do_kpm_plot(kds = kaplan_meier(),
                 sel_conds = input$sel_cond_kpm,
                 kpm_ci = input$kpm_ci,
                 color_palette_kp = input$color_palette_kp,
                 full_scale_kpm = input$full_scale_kpm)
 
-    # ggsave(paste0("kpm_plot.",input$kpm_export_format),
-    #        plot = k, device = input$kpm_export_format,
-    #        dpi = input$kpm_dpi,
-    #        width = input$kpm_w,
-    #        height = input$kpm_h)
-    # k
+  })
+  
+# KS TAB #######
+  ## KS slider ############  
+  output$ks_slider <- renderUI({
+    sliderInput('ks_question', "Select question",
+                1, length(input$quest_cols),
+                value = length(input$quest_cols),
+                step = 1)
+  })
+  
+  # KS plot
+  output$ks_plot <- renderPlot({
+    validate(
+      need(dataset(),"Please upload a dataset.
+           Make sure to hit 'update data!' in the upload tab.")
+    )
+    
+    ks_colorpal <- if(input$ks_color_palette == "custom"){
+      c(input$ks_color_manual1, input$ks_color_manual2)
+    } else {input$ks_color_palette}
+      
+    
+    plot_do_ks(stats(),
+               do_ks(stats(), input$ks_question),
+               linetypes = input$ks_linetypes,
+               show_confbands = input$ks_ci,
+               color_palette = ks_colorpal)
+    
+  })
+  
+  output$ks_test <- renderPrint({
+    do_ks(stats(), input$ks_question)
   })
 
   
@@ -251,7 +264,6 @@ server <- function(input, output) {
       paste(input$plot_fname,input$export_format,sep=".")
     },
     content = function(file) {
-      
       # New Try
       ggplot2::ggsave(file, 
                       plot = do_curve_plot(),
@@ -259,21 +271,6 @@ server <- function(input, output) {
                       dpi = input$dpi,
                       width = input$w,
                       height = input$h)
-      #
-      
-      # Original Version
-      # dc <- do_curve_plot()
-      # 
-      # file.copy(ggplot2::ggsave(paste0("curve_plot.",input$export_format),
-      #        plot = dc, 
-      #        device = input$export_format,
-      #        dpi = input$dpi,
-      #        width = input$w,
-      #        height = input$h), file)
-      #
-      
-      # file.copy(paste("curve_plot",input$export_format,sep="."),
-      #           file, overwrite=TRUE)
     }
   )
   
@@ -294,26 +291,25 @@ server <- function(input, output) {
                       dpi = input$kpm_dpi,
                       width = input$kpm_w,
                       height = input$kpm_h)
-      #
-      
-      
-      # Original Version
-      # k <- do_kpm_plot(kds = kaplan_meier(),
-      #                  sel_conds = input$sel_cond_kpm,
-      #                  kpm_ci = input$kpm_ci,
-      #                  color_palette_kp = input$color_palette_kp,
-      #                  full_scale_kpm = input$full_scale_kpm)
-      # 
-      # file.copy(ggplot2::ggsave(paste0("kpm_plot.",input$kpm_export_format),
-      #                  plot = k, device = input$kpm_export_format,
-      #                  dpi = input$kpm_dpi,
-      #                  width = input$kpm_w,
-      #                  height = input$kpm_h),
-      #           file)
-      #
-      
-      # file.copy(paste("kpm_plot",input$kpm_export_format,sep="."),
-      #           file, overwrite=TRUE)
+    }
+  )
+  
+  output$downloadKSplot <- downloadHandler(
+    filename = function(){
+      paste(input$ks_plot_fname,input$ks_export_format,sep=".")
+    },
+    content = function(file) {
+      # New Version
+      ggplot2::ggsave(file,
+                      plot = plot_do_ks(stats(),
+                                        do_ks(stats(), input$ks_question),
+                                        linetypes = input$ks_linetypes,
+                                        show_confbands = input$ks_ci,
+                                        color_palette = input$ks_color_palette), 
+                      device = input$ks_export_format,
+                      dpi = input$ks_dpi,
+                      width = input$ks_w,
+                      height = input$ks_h)
     }
   )
   
@@ -387,6 +383,7 @@ server <- function(input, output) {
     
     
   })
+  
   output$test_table <- renderTable({
     kaplan_meier()$steps
   })
