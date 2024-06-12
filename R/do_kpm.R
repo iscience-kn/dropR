@@ -67,7 +67,7 @@ do_kpm <- function(df,
 
 #' Draw a Kaplan Meier Plot
 #' 
-#' The `do_kpm_plot` function generates a Kaplan-Meier survival plot based on the 
+#' The `plot_do_kpm` function generates a Kaplan-Meier survival plot based on the 
 #' output from the [do_kpm()] function. It allows for customization of conditions 
 #' to display, confidence intervals, color palettes, and y-axis scaling.
 #' 
@@ -84,15 +84,15 @@ do_kpm <- function(df,
 #' dropR, this plot can easily be downloaded in different formats. 
 #' 
 #' @examples
-#' do_kpm_plot(do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+#' plot_do_kpm(do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
 #' condition_col = "experimental_condition",
 #' model_fit = "total"))
 #' 
-#' do_kpm_plot(do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
+#' plot_do_kpm(do_kpm(d = add_dropout_idx(dropRdemo, 3:54),
 #' condition_col = "experimental_condition",
 #' model_fit = "conditions"), sel_conds = c("11", "12", "21", "22"))
 #' 
-do_kpm_plot <- function(
+plot_do_kpm <- function(
     kds,
     sel_conds = c("11", "12", "21", "22"),
     kpm_ci = T,

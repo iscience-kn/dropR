@@ -216,7 +216,7 @@ server <- function(input, output) {
       need(dataset(),"Please upload a dataset.
            Make sure to hit 'update data!' in the upload tab.")
     )
-    do_kpm_plot(kds = kaplan_meier(),
+    plot_do_kpm(kds = kaplan_meier(),
                 sel_conds = input$sel_cond_kpm,
                 kpm_ci = input$kpm_ci,
                 color_palette_kp = input$color_palette_kp,
@@ -236,13 +236,14 @@ server <- function(input, output) {
   # KS plot
   output$ks_plot <- renderPlot({
     validate(
-      need(dataset(),"Please upload a dataset.
+      need(stats(),"Please upload a dataset.
            Make sure to hit 'update data!' in the upload tab.")
     )
     
-    ks_colorpal <- if(input$ks_color_palette == "custom"){
-      c(input$ks_color_manual1, input$ks_color_manual2)
-    } else {input$ks_color_palette}
+    if(input$ks_color_palette == "custom"){
+      if(input$ks_color_manual1 == "" & input$ks_color_manual2 == ""){validate("Please provide two custom colors.")}
+      ks_colorpal <- c(input$ks_color_manual1, input$ks_color_manual2)
+    } else {ks_colorpal <- input$ks_color_palette}
       
     
     ksplot <- plot_do_ks(stats(),
@@ -252,7 +253,7 @@ server <- function(input, output) {
                color_palette = ks_colorpal)
     
     if(input$ks_ql){
-      ksplot <- ksplot + geom_vline(xintercept= input$ks_question, color = "lightgray")
+      ksplot <- ksplot + ggplot2::geom_vline(xintercept= input$ks_question, color = "lightgray")
     }
     
     ksplot
@@ -288,7 +289,7 @@ server <- function(input, output) {
     content = function(file) {
       # New Version
       ggplot2::ggsave(file,
-                      plot = do_kpm_plot(kds = kaplan_meier(),
+                      plot = plot_do_kpm(kds = kaplan_meier(),
                                          sel_conds = input$sel_cond_kpm,
                                          kpm_ci = input$kpm_ci,
                                          color_palette_kp = input$color_palette_kp,
