@@ -61,12 +61,12 @@ This function automatically prepares your data and runs <code><a href="https://r
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">do_ks</span><span class="op">(</span><span class="va">data</span>, <span class="va">question</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">do_ks</span><span class="op">(</span><span class="va">stats</span>, <span class="va">question</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>data</dt>
+    <dl><dt>stats</dt>
 <dd><p>A data frame made from <code><a href="compute_stats.html">compute_stats()</a></code>, containing information on the percent remaining per question per condition</p></dd>
 
 
@@ -92,7 +92,7 @@ This function automatically prepares your data and runs <code><a href="https://r
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Exact two-sample Kolmogorov-Smirnov test of conditions 12 &amp; 22 at</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	question 52</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  data$pct_remain[data$condition == 12] and data$pct_remain[data$condition == 22]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  stats$pct_remain[stats$condition == 12] and stats$pct_remain[stats$condition == 22]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.82692, p-value &lt; 2.2e-16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: two-sided</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
