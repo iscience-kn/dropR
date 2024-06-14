@@ -4,10 +4,10 @@
 \alias{get_survdiff}
 \title{Test Survival Curve Differences}
 \usage{
-get_survdiff(df, cond, test_type)
+get_survdiff(kds, cond, test_type)
 }
 \arguments{
-\item{df}{data set of a survival model such as \code{\link[=do_kpm]{do_kpm()}}}
+\item{kds}{data set of a survival model such as \code{\link[=do_kpm]{do_kpm()}}}
 
 \item{cond}{character of experimental condition variable in the data}
 

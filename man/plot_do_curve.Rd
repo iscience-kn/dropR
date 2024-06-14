@@ -5,7 +5,7 @@
 \title{Plot Dropout Curves}
 \usage{
 plot_do_curve(
-  df,
+  stats,
   linetypes = TRUE,
   stroke_width = 1,
   full_scale = TRUE,
@@ -15,7 +15,7 @@ plot_do_curve(
 )
 }
 \arguments{
-\item{df}{data.frame containing dropout statistics table computed by \code{\link[=compute_stats]{compute_stats()}}.
+\item{stats}{data.frame containing dropout statistics table computed by \code{\link[=compute_stats]{compute_stats()}}.
 Make sure your stats table contains a q_idx column indexing all question-items sequentially.}
 
 \item{linetypes}{boolean Should different line types be used? Defaults to TRUE.}

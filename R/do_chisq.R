@@ -5,7 +5,7 @@
 #' computed by [compute_stats()]. 
 #' The test can be performed on either all conditions (excluding total) or on select conditions.
 #' 
-#' @param df data.frame of stats as computed by [compute_stats()].
+#' @param stats data.frame of stats as computed by [compute_stats()].
 #' @param chisq_question numeric Which question to compare dropout at.
 #' @param sel_cond_chisq vector (same class as in conditions variable in original data set) selected conditions.
 #' @param p_sim boolean Simulate p value parameter (by Monte Carlo simulation)? Defaults to `TRUE`.
@@ -22,14 +22,14 @@
 #' 
 #' do_chisq(stats, 47, c(12, 22), TRUE)
 #' 
-do_chisq <- function(df,
+do_chisq <- function(stats,
                      chisq_question,
                      sel_cond_chisq,
                      p_sim = TRUE){
   # Resolve global variable issue
   q_idx <- condition <- NULL
   
-  d <- subset(df, condition %in% sel_cond_chisq)
+  d <- subset(stats, condition %in% sel_cond_chisq)
   d$condition <- factor(d$condition)
   
   # d <- subset(d,condition != "total")

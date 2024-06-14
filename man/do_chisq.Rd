@@ -4,10 +4,10 @@
 \alias{do_chisq}
 \title{Compute Chisq-Test Given a Question Position}
 \usage{
-do_chisq(df, chisq_question, sel_cond_chisq, p_sim = TRUE)
+do_chisq(stats, chisq_question, sel_cond_chisq, p_sim = TRUE)
 }
 \arguments{
-\item{df}{data.frame of stats as computed by \code{\link[=compute_stats]{compute_stats()}}.}
+\item{stats}{data.frame of stats as computed by \code{\link[=compute_stats]{compute_stats()}}.}
 
 \item{chisq_question}{numeric Which question to compare dropout at.}
 

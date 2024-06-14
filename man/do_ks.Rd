@@ -4,10 +4,10 @@
 \alias{do_ks}
 \title{Compute Kolmogorov-Smirnov Test for most extreme conditions}
 \usage{
-do_ks(data, question)
+do_ks(stats, question)
 }
 \arguments{
-\item{data}{A data frame made from \code{\link[=compute_stats]{compute_stats()}}, containing information on the percent remaining per question per condition}
+\item{stats}{A data frame made from \code{\link[=compute_stats]{compute_stats()}}, containing information on the percent remaining per question per condition}
 
 \item{question}{Index of question to be included in analysis, commonly the last question of the survey.}
 }

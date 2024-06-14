@@ -3,7 +3,7 @@
 #' This function calculates an Odds Ratio table at a given question for selected experimental
 #' conditions. It needs data in the format as created by [compute_stats()] as input.
 #' 
-#' @param df data.frame stats table as computed by compute_stats.
+#' @param stats data.frame stats table as computed by [compute_stats()].
 #' @param chisq_question numeric Which question to calculate the OR table for
 #' @param sel_cond_chisq character vector naming the experimental conditions to compare
 #' @export
@@ -18,13 +18,13 @@
 #' do_or_table(stats, chisq_question = 51, sel_cond_chisq = c("11", "12", "21", "22"))
 #' 
 #' 
-do_or_table <- function(df,
+do_or_table <- function(stats,
                         chisq_question,
                         sel_cond_chisq){
   # Resolve global variable issue
   q_idx <- condition <- NULL
   
-  df <- as.data.frame(df)
+  df <- as.data.frame(stats)
   df <- subset(df,condition %in% sel_cond_chisq)
   df$condition <- factor(df$condition)
   # d <- subset(d,condition != "total")

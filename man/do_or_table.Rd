@@ -4,10 +4,10 @@
 \alias{do_or_table}
 \title{Dropout Odds Ratio Table}
 \usage{
-do_or_table(df, chisq_question, sel_cond_chisq)
+do_or_table(stats, chisq_question, sel_cond_chisq)
 }
 \arguments{
-\item{df}{data.frame stats table as computed by compute_stats.}
+\item{stats}{data.frame stats table as computed by \code{\link[=compute_stats]{compute_stats()}}.}
 
 \item{chisq_question}{numeric Which question to calculate the OR table for}
 

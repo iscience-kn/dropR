@@ -6,7 +6,7 @@
 #' work properly.
 #' 
 #' 
-#' @param df data.frame containing dropout statistics table computed by [compute_stats()].
+#' @param stats data.frame containing dropout statistics table computed by [compute_stats()].
 #' Make sure your stats table contains a q_idx column indexing all question-items sequentially.
 #' @param linetypes boolean Should different line types be used? Defaults to TRUE.
 #' @param stroke_width numeric stroke width, defaults to 1.
@@ -34,7 +34,7 @@
 #' 
 #' plot_do_curve(stats)
 #' 
-plot_do_curve <- function(df,
+plot_do_curve <- function(stats,
                           linetypes = TRUE,
                           stroke_width = 1,
                           full_scale = TRUE,
@@ -45,7 +45,7 @@ plot_do_curve <- function(df,
   # Resolve global variable issue
   q_idx <- pct_remain <- condition <- NULL
   
-  do_curve <- ggplot(df)
+  do_curve <- ggplot(stats)
   
   palette <- if(color_palette == "color_blind"){c("#000000", "#E69F00",
                                                   "#56B4E9", "#009E73",
@@ -102,7 +102,7 @@ plot_do_curve <- function(df,
     }
   }
   
-  if(color_palette != "default" & length(levels(df$condition) < 9)){
+  if(color_palette != "default" & length(levels(stats$condition) < 9)){
     do_curve <- do_curve + scale_color_manual(values=palette)
   }
   

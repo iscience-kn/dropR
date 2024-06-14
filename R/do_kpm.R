@@ -160,7 +160,7 @@ plot_do_kpm <- function(
 #' It outputs a contingency table and a Chisq measure of difference.
 #' 
 #' @importFrom survival survdiff
-#' @param df data set of a survival model such as [do_kpm()]
+#' @param kds data set of a survival model such as [do_kpm()]
 #' @param cond character of experimental condition variable in the data
 #' @param test_type numeric (0 or 1) parameter that controls the type of test (0 means rho = 0; log-rank,
 #' 1 means rho = 1; Peto & Peto Wilcox)
@@ -172,7 +172,7 @@ plot_do_kpm <- function(
 #' get_survdiff(kpm_est$d, "experimental_condition", 1)
 #' 
 #' 
-get_survdiff <- function(df, cond, test_type){
+get_survdiff <- function(kds, cond, test_type){
   f <- stats::as.formula(paste("surv", cond, sep="~"))
-  survdiff(f, data = df, rho = test_type)  
+  survdiff(f, data = kds, rho = test_type)  
 }

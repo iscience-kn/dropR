@@ -4,7 +4,7 @@
 #' so the ones with the most different rates of dropout.
 #' This function automatically prepares your data and runs `stats::ks.test()` on it.
 #'
-#' @param data A data frame made from [compute_stats()], containing information on the percent remaining per question per condition
+#' @param stats A data frame made from [compute_stats()], containing information on the percent remaining per question per condition
 #' @param question Index of question to be included in analysis, commonly the last question of the survey.
 #'
 #' @importFrom stats ks.test
@@ -20,15 +20,15 @@
 #' do_ks(stats, 52)
 #' 
 #' 
-do_ks <- function(data, question){
+do_ks <- function(stats, question){
   
-  extremes <- data[data$q_idx == question & data$condition != "total",]
+  extremes <- stats[stats$q_idx == question & stats$condition != "total",]
   extremes <- extremes$condition[extremes$pct_remain == max(extremes$pct_remain) | 
                                  extremes$pct_remain == min(extremes$pct_remain)]
     
   
-  res <- ks.test(x = data$pct_remain[data$condition == extremes[1]],
-          y = data$pct_remain[data$condition == extremes[2]])
+  res <- ks.test(x = stats$pct_remain[stats$condition == extremes[1]],
+          y = stats$pct_remain[stats$condition == extremes[2]])
   
   res$method <- paste0(res$method, " of conditions ", extremes[1], " & ", extremes[2], " at question ", question)
   
@@ -135,10 +135,4 @@ plot_do_ks <- function(stats,
     xlab("Question Index") +
     ylab("Survival in %")
 }
-
-
-
-
-
-
 
