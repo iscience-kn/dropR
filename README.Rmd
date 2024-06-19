@@ -1,5 +1,18 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit this file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
 
 # dropR: An R Package for Dropout Analysis
 
@@ -43,14 +56,14 @@ article](articles/interactive.html).
     #> to start the interactive Graphical User Interface locally in your R session,
     #> run start_app()
 
-<img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" />
+<!-- <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" /> -->
 
-```{r}
+```{r do_plot_ex}
 library(dropR)
 df <- add_dropout_idx(dropRdemo, 3:54)
 stats <- compute_stats(df,
                        by_cond = "experimental_condition",
                        no_of_vars = 52)
-plot_do_curve(stats) + ggplot2::labs(title = "Dropout by condition")
+plot_do_curve(stats, full_scale = F) + ggplot2::labs(title = "Dropout by condition")
 ```
 

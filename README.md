@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.Rmd. Please edit this file -->
 
 # dropR: An R Package for Dropout Analysis
 
@@ -43,4 +43,19 @@ article](articles/interactive.html).
     #> to start the interactive Graphical User Interface locally in your R session,
     #> run start_app()
 
-<img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" />
+<!-- <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" /> -->
+
+``` r
+library(dropR)
+#> 
+#> Welcome to dropR,
+#> to start the interactive Graphical User Interface locally in your R session,
+#> run start_app()
+df <- add_dropout_idx(dropRdemo, 3:54)
+stats <- compute_stats(df,
+                       by_cond = "experimental_condition",
+                       no_of_vars = 52)
+plot_do_curve(stats, full_scale = F) + ggplot2::labs(title = "Dropout by condition")
+```
+
+<img src="man/figures/README-do_plot_ex-1.png" width="100%" />
