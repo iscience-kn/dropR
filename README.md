@@ -40,9 +40,18 @@ console or within your own functions and packages. Read more about
 interactive usage of dropR in our [walkthrough
 article](articles/interactive.html).
 
-    #> 
-    #> Welcome to dropR,
-    #> to start the interactive Graphical User Interface locally in your R session,
-    #> run start_app()
+<figure>
+<img src="./man/figures/dropR_1717579088.svg"
+alt="Fig. 1: dropR Example Plot from plot_do_curve()." />
+<figcaption aria-hidden="true">Fig. 1: dropR Example Plot from
+<code>plot_do_curve()</code>.</figcaption>
+</figure>
 
-<img src="man/figures/README-do_plot_ex-1.png" width="100%" />
+<!-- # ```{r do_plot_ex, echo = F} -->
+<!-- # library(dropR) -->
+<!-- # df <- add_dropout_idx(dropRdemo, 3:54) -->
+<!-- # stats <- compute_stats(df, -->
+<!-- #                        by_cond = "experimental_condition", -->
+<!-- #                        no_of_vars = 52) -->
+<!-- # plot_do_curve(stats, full_scale = F) + ggplot2::labs(title = "Dropout by condition") -->
+<!-- # ``` -->

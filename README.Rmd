@@ -52,12 +52,14 @@ You can also use dropR’s functionality within R, i.e., either in the
 console or within your own functions and packages.
 Read more about interactive usage of dropR in our [walkthrough article](articles/interactive.html).
 
+![Fig. 1: dropR Example Plot from `plot_do_curve()`.](./man/figures/dropR_1717579088.svg)
 
-```{r do_plot_ex, echo = F}
-library(dropR)
-df <- add_dropout_idx(dropRdemo, 3:54)
-stats <- compute_stats(df,
-                       by_cond = "experimental_condition",
-                       no_of_vars = 52)
-plot_do_curve(stats, full_scale = F) + ggplot2::labs(title = "Dropout by condition")
-```
+
+<!-- # ```{r do_plot_ex, echo = F} -->
+<!-- # library(dropR) -->
+<!-- # df <- add_dropout_idx(dropRdemo, 3:54) -->
+<!-- # stats <- compute_stats(df, -->
+<!-- #                        by_cond = "experimental_condition", -->
+<!-- #                        no_of_vars = 52) -->
+<!-- # plot_do_curve(stats, full_scale = F) + ggplot2::labs(title = "Dropout by condition") -->
+<!-- # ``` -->

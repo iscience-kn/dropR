@@ -19,7 +19,7 @@ Suggests:
     rmarkdown,
     kableExtra
 Date: 2024-05-23
-License: GPL-2
+License: GPL (>= 3)
 LazyData: true
 RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
