@@ -417,9 +417,36 @@ palette which is designed to de distinguishable for color blind
 individuals. Adhering to some journal guidelines, you may also choose a
 gray color palette, distinguishing the lines by line type and gray
 value.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="full-workflow-example-using-tidyverse">Full Workflow Example using <code>tidyverse</code><a class="anchor" aria-label="anchor" href="#full-workflow-example-using-tidyverse"></a>
+</h2>
+<p>To wrap up this Walkthrough, we want to show you a full analysis
+example in just six lines of code using <code>tidyverse</code> workflow
+with functions from <code>magrittr</code> and <code>ggplot2</code>.
+Specifically, it is very easy to <code>pipe</code> several dropR
+functions to create the full analysis as well as plotting all at once.
+Moreover, it is easy to customize the plot further using common
+<code>ggplot2</code> functions as shown. Assuming we want to create a
+similar analysis as before with a customized plot output, we can achieve
+this like so:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dropRdemo</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu"><a href="../reference/add_dropout_idx.html">add_dropout_idx</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">54</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu"><a href="../reference/compute_stats.html">compute_stats</a></span><span class="op">(</span>by_cond <span class="op">=</span> <span class="st">"experimental_condition"</span>, no_of_vars <span class="op">=</span> <span class="fl">52</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu"><a href="../reference/plot_do_curve.html">plot_do_curve</a></span><span class="op">(</span>linetypes <span class="op">=</span> <span class="cn">F</span>, full_scale <span class="op">=</span> <span class="cn">F</span>, show_confbands <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Dropout Plot with tidyverse Workflow"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Scale for <span style="color: #00BB00;">colour</span> is already present.</span></span>
+<span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">colour</span>, which will replace the existing scale.</span></span>
+<span><span class="co">#&gt; Scale for <span style="color: #00BB00;">fill</span> is already present.</span></span>
+<span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">fill</span>, which will replace the existing scale.</span></span></code></pre></div>
+<p><img src="interactive_files/figure-html/tidyflow-1.png" width="700"></p>
 <p>Next, you may want to run more statistical dropout analyses using
 <code>dropR</code>. You can find an in-depth tutorial in our <a href="articles/tests.html">test article</a>.</p>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
