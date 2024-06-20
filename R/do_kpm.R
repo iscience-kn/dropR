@@ -148,7 +148,7 @@ plot_do_kpm <- function(
   k <- k + guides(color = guide_legend(title = NULL),
                   fill = guide_legend(title = NULL)) +
     xlab("Question Index") + 
-    ylab("Survival in %")
+    ylab("Survival Probability in %")
   
   k
   
