@@ -4,9 +4,9 @@
 \name{dropR-package}
 \alias{dropR}
 \alias{dropR-package}
-\title{dropR: Drop out analysis in R}
+\title{dropR: Dropout Analysis in R}
 \description{
-Analysis of dropout in surveys and experimental setups.
+Analysis and visualization of dropout between conditions in surveys and (online) experiments. Features include computation of dropout statistics, comparing dropout between conditions (e.g. Chi square), analyzing survival (e.g. Kaplan-Meier estimation), comparing conditions with the most different rates of dropout (Kolmogorov-Smirnov) and visualizing the result of each in designated plotting functions.
 }
 \seealso{
 Useful links:
