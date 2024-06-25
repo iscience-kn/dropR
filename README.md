@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit this file -->
 
-# dropR: An R Package for Dropout Analysis
+# dropR: An R Package for Dropout Analysis <a href='https://iscience-kn.github.io/dropR/'><img src='man/figures/dropR_logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -38,7 +38,7 @@ or visit the [dropR Web App](https://iscience-kn.shinyapps.io/dropR/)
 You can also use dropR’s functionality within R, i.e., either in the
 console or within your own functions and packages. Read more about
 interactive usage of dropR in our [walkthrough
-article](articles/interactive.html).
+article](https://iscience-kn.github.io/dropR/articles/interactive.html).
 
 <figure>
 <img src="./man/figures/dropR_1717579088.svg"

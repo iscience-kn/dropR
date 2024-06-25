@@ -107,5 +107,5 @@ dropRdemo %>%
 
 
 Next, you may want to run more statistical dropout analyses using `dropR`.
-You can find an in-depth tutorial in our [test article](articles/tests.html).
+You can find an in-depth tutorial in our [test article](https://iscience-kn.github.io/dropR/articles/tests.html).
 
