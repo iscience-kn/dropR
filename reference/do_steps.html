@@ -112,10 +112,91 @@ and are better represented as steps than as a continuum.</p>
 <span class="r-in"><span>by_cond <span class="op">=</span> <span class="st">"experimental_condition"</span>,</span></span>
 <span class="r-in"><span>no_of_vars <span class="op">=</span> <span class="fl">52</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">tot_stats</span> <span class="op">&lt;-</span> <span class="va">do_stats</span><span class="op">[</span><span class="va">stats</span><span class="op">$</span><span class="va">condition</span> <span class="op">==</span> <span class="st">"total"</span>, <span class="op">]</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Object 'stats' not found amongst [q_idx, condition, cs, N, remain, pct_remain]</span>
+<span class="r-in"><span><span class="va">tot_stats</span> <span class="op">&lt;-</span> <span class="va">do_stats</span><span class="op">[</span><span class="va">do_stats</span><span class="op">$</span><span class="va">condition</span> <span class="op">==</span> <span class="st">"total"</span>, <span class="op">]</span></span></span>
 <span class="r-in"><span><span class="fu">do_steps</span><span class="op">(</span><span class="va">tot_stats</span><span class="op">$</span><span class="va">q_idx</span>, <span class="va">tot_stats</span><span class="op">$</span><span class="va">pct_remain</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'tot_stats' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     x         y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1 0.9552846</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2 0.9552846</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   2 0.9430894</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   3 0.9430894</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   3 0.9065041</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   4 0.9065041</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   4 0.8943089</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   5 0.8943089</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   5 0.8902439</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  6 0.8902439</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  6 0.8739837</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  7 0.8739837</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  7 0.8577236</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  8 0.8577236</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  8 0.8495935</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  9 0.8495935</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  9 0.8455285</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 10 0.8455285</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 10 0.8292683</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 11 0.8292683</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 11 0.8252033</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 12 0.8252033</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 12 0.7967480</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 15 0.7967480</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 15 0.7886179</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 16 0.7886179</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 16 0.7845528</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 17 0.7845528</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 17 0.7804878</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 18 0.7804878</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31 18 0.7682927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 19 0.7682927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 19 0.7601626</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34 20 0.7601626</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 20 0.7560976</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36 21 0.7560976</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37 21 0.7479675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38 22 0.7479675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39 22 0.7398374</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 23 0.7398374</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41 23 0.7317073</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42 25 0.7317073</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43 25 0.7235772</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44 26 0.7235772</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45 26 0.7195122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46 27 0.7195122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47 27 0.7154472</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48 28 0.7154472</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49 28 0.7113821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50 29 0.7113821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51 29 0.7073171</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52 30 0.7073171</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53 30 0.7032520</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54 31 0.7032520</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55 31 0.6991870</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56 32 0.6991870</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57 32 0.6951220</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58 33 0.6951220</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59 33 0.6910569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60 34 0.6910569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61 34 0.6869919</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62 35 0.6869919</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63 35 0.6747967</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64 36 0.6747967</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65 36 0.6666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66 37 0.6666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67 37 0.6626016</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68 39 0.6626016</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69 39 0.6585366</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70 40 0.6585366</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71 40 0.6504065</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72 44 0.6504065</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73 44 0.6463415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74 45 0.6463415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75 45 0.6382114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76 46 0.6382114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77 46 0.6300813</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78 47 0.6300813</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79 47 0.6219512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80 48 0.6219512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81 48 0.6178862</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82 52 0.6178862</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
