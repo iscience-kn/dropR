@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit this file -->
 
-# dropR: An R Package for Dropout Analysis <a href='https://iscience-kn.github.io/dropR/'><img src='man/figures/dropR_logo.png' align="right" height="139" /></a>
+# dropR: Dropout Analysis by Condition <a href='https://iscience-kn.github.io/dropR/'><img src='man/figures/dropR_logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 <!-- badges: end -->

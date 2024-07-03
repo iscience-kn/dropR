@@ -37,7 +37,7 @@ do_stats <- compute_stats(df = add_dropout_idx(dropRdemo, 3:54),
 by_cond = "experimental_condition",
 no_of_vars = 52)
 
-tot_stats <- do_stats[stats$condition == "total", ]
+tot_stats <- do_stats[do_stats$condition == "total", ]
 do_steps(tot_stats$q_idx, tot_stats$pct_remain)
 
 }

@@ -6,7 +6,7 @@
 \alias{dropR-package}
 \title{dropR: Dropout Analysis by Condition}
 \description{
-Analysis and visualization of dropout between conditions in surveys and (online) experiments. Features include computation of dropout statistics, comparing dropout between conditions (e.g. Chi square), analyzing survival (e.g. Kaplan-Meier estimation), comparing conditions with the most different rates of dropout (Kolmogorov-Smirnov) and visualizing the result of each in designated plotting functions. Sources: Andrea Frick, Marie-Térèse Bächtiger & Ulf-Dietrich Reips (2001) \url{https://www.researchgate.net/publication/223956222_Financial_incentives_personal_information_and_drop-out_in_online_studies}; Ulf-Dietrich Reips (2002) "Standards for Internet-Basedd Experiemnting" \doi{ 10.1027//1618-3169.49.4.243}
+Analysis and visualization of dropout between conditions in surveys and (online) experiments. Features include computation of dropout statistics, comparing dropout between conditions (e.g. Chi square), analyzing survival (e.g. Kaplan-Meier estimation), comparing conditions with the most different rates of dropout (Kolmogorov-Smirnov) and visualizing the result of each in designated plotting functions. Sources: Andrea Frick, Marie-Térèse Bächtiger & Ulf-Dietrich Reips (2001) \url{https://www.researchgate.net/publication/223956222_Financial_incentives_personal_information_and_drop-out_in_online_studies}; Ulf-Dietrich Reips (2002) "Standards for Internet-Basedd Experiemnting" \doi{ 10.1027//1618-3169.49.4.243}.
 }
 \seealso{
 Useful links:

@@ -46,7 +46,8 @@ plot_do_ks(do_stats, ks, color_palette = "gray")
 # ... or call the do_ks() function directly inside the plotting function
 plot_do_ks(do_stats, do_ks(do_stats, 30))
 
-plot_do_ks(do_stats, ks, linetypes = TRUE, show_confbands = TRUE, color_palette = c("red", "violet"))
+plot_do_ks(do_stats, ks, linetypes = TRUE, 
+show_confbands = TRUE, color_palette = c("red", "violet"))
 
 }
 \seealso{
