@@ -76,26 +76,26 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of dropR from <a href="https://github.com/iscience-kn/dropR" class="external-link">GitHub</a> with:</p>
+<p>You can install the development version of <code>dropR</code> from <a href="https://github.com/iscience-kn/dropR" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"iscience-kn/dropR"</span><span class="op">)</span></span></code></pre></div>
-<p>We are currently working to get <code>dropR</code> back on CRAN. Once it’s up again, you can install dropR via</p>
+<p>We are currently working to get <code>dropR</code> back on CRAN. Once it’s up again, you can install <code>dropR</code> via</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"dropR"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage-as-a-shiny-app-graphical-user-interface">Usage as a Shiny App (Graphical User Interface)<a class="anchor" aria-label="anchor" href="#usage-as-a-shiny-app-graphical-user-interface"></a>
 </h2>
-<p>To start <code>dropR's</code> built-in GUI, run</p>
+<p>To start <code>dropR</code>’s built-in GUI, run</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dropR</span><span class="fu">::</span><span class="fu"><a href="reference/start_app.html">start_app</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>or visit the <a href="https://iscience-kn.shinyapps.io/dropR/" class="external-link">dropR Web App</a></p>
+<p>or visit the <a href="https://iscience-kn.shinyapps.io/dropR/" class="external-link">dropR Web App</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="interactive-usage-use-dropr-on-the-r-console">Interactive Usage (use dropR on the R Console)<a class="anchor" aria-label="anchor" href="#interactive-usage-use-dropr-on-the-r-console"></a>
 </h2>
-<p>You can also use dropR’s functionality within R, i.e., either in the console or within your own functions and packages. Read more about interactive usage of dropR in our <a href="https://iscience-kn.github.io/dropR/articles/interactive.html">walkthrough article</a>.</p>
+<p>You can also use <code>dropR</code>’s functionality within R, i.e., either in the console or within your own functions and packages. Read more about interactive usage of <code>dropR</code> in our <a href="https://iscience-kn.github.io/dropR/articles/interactive.html">walkthrough article</a>.</p>
 <figure><img src="./reference/figures/dropR_1717579088.svg" alt="Fig. 1: dropR Example Plot from plot_do_curve()."><figcaption aria-hidden="true">
 Fig. 1: dropR Example Plot from <code><a href="reference/plot_do_curve.html">plot_do_curve()</a></code>.
 </figcaption></figure><!-- # ```{r do_plot_ex, echo = F} --><!-- # library(dropR) --><!-- # df <- add_dropout_idx(dropRdemo, 3:54) --><!-- # stats <- compute_stats(df, --><!-- #                        by_cond = "experimental_condition", --><!-- #                        no_of_vars = 52) --><!-- # plot_do_curve(stats, full_scale = F) + ggplot2::labs(title = "Dropout by condition") --><!-- # ``` -->
