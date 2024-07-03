@@ -12,7 +12,7 @@ experimental or survey data in x and remaining percent of participants in y."><!
     
     <a class="navbar-brand me-2" href="../index.html">dropR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,6 +29,9 @@ experimental or survey data in x and remaining percent of participants in y."><!
     <a class="dropdown-item" href="../articles/interactive.html">Interactive Dropout Analysis with R</a>
     <a class="dropdown-item" href="../articles/tests.html">Running Dropout related Tests with R</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -58,7 +61,7 @@ experimental or survey data in <code>x</code> and remaining percent of participa
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">do_steps</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, return_df <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">do_steps</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, return_df <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -72,14 +75,14 @@ experimental or survey data in <code>x</code> and remaining percent of participa
 
 
 <dt>return_df</dt>
-<dd><p>Logical. If <code>TRUE</code>, the function returns a data frame; otherwise, it returns a list.</p></dd>
+<dd><p>Logical. If TRUE, the function returns a data frame; otherwise, it returns a list.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A data frame or a list containing the modified <code>x</code> and <code>y</code> values</p>
+<p>Returns a data frame or a list containing the modified <code>x</code> and <code>y</code> values.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -105,95 +108,14 @@ and are better represented as steps than as a continuum.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Using the example dataset dropRdemo</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="compute_stats.html">compute_stats</a></span><span class="op">(</span>df <span class="op">=</span> <span class="fu"><a href="add_dropout_idx.html">add_dropout_idx</a></span><span class="op">(</span><span class="va">dropRdemo</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">54</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span><span class="va">do_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="compute_stats.html">compute_stats</a></span><span class="op">(</span>df <span class="op">=</span> <span class="fu"><a href="add_dropout_idx.html">add_dropout_idx</a></span><span class="op">(</span><span class="va">dropRdemo</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">54</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>by_cond <span class="op">=</span> <span class="st">"experimental_condition"</span>,</span></span>
 <span class="r-in"><span>no_of_vars <span class="op">=</span> <span class="fl">52</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">tot_stats</span> <span class="op">&lt;-</span> <span class="va">stats</span><span class="op">[</span><span class="va">stats</span><span class="op">$</span><span class="va">condition</span> <span class="op">==</span> <span class="st">"total"</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">tot_stats</span> <span class="op">&lt;-</span> <span class="va">do_stats</span><span class="op">[</span><span class="va">stats</span><span class="op">$</span><span class="va">condition</span> <span class="op">==</span> <span class="st">"total"</span>, <span class="op">]</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Object 'stats' not found amongst [q_idx, condition, cs, N, remain, pct_remain]</span>
 <span class="r-in"><span><span class="fu">do_steps</span><span class="op">(</span><span class="va">tot_stats</span><span class="op">$</span><span class="va">q_idx</span>, <span class="va">tot_stats</span><span class="op">$</span><span class="va">pct_remain</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     x         y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1 0.9552846</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2 0.9552846</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   2 0.9430894</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   3 0.9430894</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   3 0.9065041</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   4 0.9065041</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   4 0.8943089</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   5 0.8943089</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   5 0.8902439</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  6 0.8902439</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  6 0.8739837</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  7 0.8739837</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  7 0.8577236</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  8 0.8577236</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  8 0.8495935</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  9 0.8495935</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  9 0.8455285</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 10 0.8455285</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 10 0.8292683</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 11 0.8292683</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 11 0.8252033</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 12 0.8252033</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 12 0.7967480</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 15 0.7967480</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 15 0.7886179</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 16 0.7886179</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 16 0.7845528</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 17 0.7845528</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29 17 0.7804878</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 18 0.7804878</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31 18 0.7682927</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32 19 0.7682927</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33 19 0.7601626</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34 20 0.7601626</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35 20 0.7560976</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 21 0.7560976</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37 21 0.7479675</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38 22 0.7479675</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39 22 0.7398374</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40 23 0.7398374</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41 23 0.7317073</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42 25 0.7317073</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43 25 0.7235772</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44 26 0.7235772</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45 26 0.7195122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46 27 0.7195122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47 27 0.7154472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48 28 0.7154472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49 28 0.7113821</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50 29 0.7113821</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51 29 0.7073171</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52 30 0.7073171</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53 30 0.7032520</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54 31 0.7032520</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55 31 0.6991870</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56 32 0.6991870</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57 32 0.6951220</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58 33 0.6951220</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59 33 0.6910569</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60 34 0.6910569</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61 34 0.6869919</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62 35 0.6869919</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63 35 0.6747967</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64 36 0.6747967</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65 36 0.6666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66 37 0.6666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67 37 0.6626016</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68 39 0.6626016</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69 39 0.6585366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70 40 0.6585366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71 40 0.6504065</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72 44 0.6504065</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73 44 0.6463415</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74 45 0.6463415</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75 45 0.6382114</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76 46 0.6382114</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77 46 0.6300813</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78 47 0.6300813</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79 47 0.6219512</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80 48 0.6219512</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81 48 0.6178862</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 82 52 0.6178862</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'tot_stats' not found</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

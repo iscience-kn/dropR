@@ -14,7 +14,7 @@ to display, confidence intervals, color palettes, and y-axis scaling."><!-- math
     
     <a class="navbar-brand me-2" href="../index.html">dropR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,6 +31,9 @@ to display, confidence intervals, color palettes, and y-axis scaling."><!-- math
     <a class="dropdown-item" href="../articles/interactive.html">Interactive Dropout Analysis with R</a>
     <a class="dropdown-item" href="../articles/tests.html">Running Dropout related Tests with R</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -64,9 +67,9 @@ to display, confidence intervals, color palettes, and y-axis scaling.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_do_kpm</span><span class="op">(</span></span>
 <span>  <span class="va">kds</span>,</span>
 <span>  sel_conds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"11"</span>, <span class="st">"12"</span>, <span class="st">"21"</span>, <span class="st">"22"</span><span class="op">)</span>,</span>
-<span>  kpm_ci <span class="op">=</span> <span class="cn">T</span>,</span>
-<span>  color_palette_kp <span class="op">=</span> <span class="st">"color_blind"</span>,</span>
-<span>  full_scale_kpm <span class="op">=</span> <span class="cn">F</span></span>
+<span>  kpm_ci <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  full_scale_kpm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  color_palette_kp <span class="op">=</span> <span class="st">"color_blind"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -84,20 +87,20 @@ to display, confidence intervals, color palettes, and y-axis scaling.</p>
 <dd><p>boolean Should there be confidence bands in the plot? Defaults to TRUE.</p></dd>
 
 
+<dt>full_scale_kpm</dt>
+<dd><p>boolean Should the Y axis show the full range from 0 to 100? Defaults to FALSE.</p></dd>
+
+
 <dt>color_palette_kp</dt>
 <dd><p>character indicating which color palette to use. Defaults to 'color_blind',
 alternatively choose 'gray' for gray scale values or 'default' for the ggplot2 default colors.</p></dd>
-
-
-<dt>full_scale_kpm</dt>
-<dd><p>boolean Should the Y axis show the full range from 0 to 100? Defaults to FALSE.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>The function returns a <code>ggplot</code> object containing the Kaplan-Meier survival plot. Using the Shiny App version of
+<p>Returns a <code>ggplot</code> object containing the Kaplan-Meier survival plot. Using the Shiny App version of
 dropR, this plot can easily be downloaded in different formats.</p>
     </div>
 
