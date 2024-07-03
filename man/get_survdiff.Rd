@@ -14,6 +14,9 @@ get_survdiff(kds, cond, test_type)
 \item{test_type}{numeric (0 or 1) parameter that controls the type of test (0 means rho = 0; log-rank,
 1 means rho = 1; Peto & Peto Wilcox)}
 }
+\value{
+Returns survival test results as called from \code{\link[survival:survdiff]{survival::survdiff()}}.
+}
 \description{
 This function compares survival curves as modeled with \code{\link[=do_kpm]{do_kpm()}}.
 It outputs a contingency table and a Chisq measure of difference.

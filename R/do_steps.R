@@ -10,9 +10,9 @@
 #'
 #' @param x Numeric vector representing the question numbers
 #' @param y Numeric vector representing the remaining percent of participants
-#' @param return_df Logical. If `TRUE`, the function returns a data frame; otherwise, it returns a list.
+#' @param return_df Logical. If TRUE, the function returns a data frame; otherwise, it returns a list.
 #'
-#' @return A data frame or a list containing the modified `x` and `y` values
+#' @returns Returns a data frame or a list containing the modified `x` and `y` values.
 #'
 #' @examples
 #' x <- c(1, 2, 3, 4, 5)
@@ -21,15 +21,17 @@
 #'
 #' # Using the example dataset dropRdemo
 #' 
-#' stats <- compute_stats(df = add_dropout_idx(dropRdemo, 3:54),
+#' do_stats <- compute_stats(df = add_dropout_idx(dropRdemo, 3:54),
 #' by_cond = "experimental_condition",
 #' no_of_vars = 52)
 #' 
-#' tot_stats <- stats[stats$condition == "total", ]
+#' tot_stats <- do_stats[stats$condition == "total", ]
 #' do_steps(tot_stats$q_idx, tot_stats$pct_remain)
 #'
 #' @export
-do_steps <- function(x, y, return_df = T) {
+do_steps <- function(x, 
+                     y, 
+                     return_df = TRUE){
   keep <- is.finite(x) & is.finite(y)
   if (!any(keep)) 
     return()

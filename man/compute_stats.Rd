@@ -27,7 +27,7 @@ If no experimental condition is added, the stats are only calculated for the
 whole data in total.
 }
 \examples{
-stats <- compute_stats(df = add_dropout_idx(dropRdemo, 3:54),
+do_stats <- compute_stats(df = add_dropout_idx(dropRdemo, 3:54),
 by_cond = "experimental_condition",
 no_of_vars = 52)
   

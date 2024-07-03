@@ -5,7 +5,7 @@
 #' computed by [compute_stats()]. 
 #' The test can be performed on either all conditions (excluding total) or on select conditions.
 #' 
-#' @param stats data.frame of stats as computed by [compute_stats()].
+#' @param do_stats data.frame of dropout statistics as computed by [compute_stats()].
 #' @param chisq_question numeric Which question to compare dropout at.
 #' @param sel_cond_chisq vector (same class as in conditions variable in original data set) selected conditions.
 #' @param p_sim boolean Simulate p value parameter (by Monte Carlo simulation)? Defaults to `TRUE`.
@@ -15,21 +15,23 @@
 #' 
 #' @seealso [add_dropout_idx()] and [compute_stats()] which are necessary for the proper data structure.
 #' 
+#' @returns Returns test results from chisq.test between experimental conditions at defined question.
+#' 
 #' @examples
-#' stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
+#' do_stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
 #' by_cond = "experimental_condition",
 #' no_of_vars = 52)
 #' 
-#' do_chisq(stats, 47, c(12, 22), TRUE)
+#' do_chisq(do_stats, 47, c(12, 22), TRUE)
 #' 
-do_chisq <- function(stats,
+do_chisq <- function(do_stats,
                      chisq_question,
                      sel_cond_chisq,
                      p_sim = TRUE){
   # Resolve global variable issue
   q_idx <- condition <- NULL
   
-  d <- subset(stats, condition %in% sel_cond_chisq)
+  d <- subset(do_stats, condition %in% sel_cond_chisq)
   d$condition <- factor(d$condition)
   
   # d <- subset(d,condition != "total")

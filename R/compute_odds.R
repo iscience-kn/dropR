@@ -7,6 +7,8 @@
 #' @param p vector of probabilities. May not be larger than 1 or smaller than zero.
 #' @export
 #' 
+#' @returns Returns numerical vector of the same length as original input reflecting the odds.
+#' 
 #' @examples
 #' get_odds(0.7)
 #' @examples
@@ -31,6 +33,8 @@ get_odds <- function(p){
 #' @export
 #' 
 #' @seealso [get_odds()], as this is the basis for calculation.
+#' 
+#' @returns Returns numerical vector of the same length as original input reflecting the Odds Ratio (OR).
 #' 
 #' @examples
 #' get_odds_ratio(0.7, 0.6)

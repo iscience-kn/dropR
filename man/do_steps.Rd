@@ -4,17 +4,17 @@
 \alias{do_steps}
 \title{Calculate Steps for Uneven Data Points}
 \usage{
-do_steps(x, y, return_df = T)
+do_steps(x, y, return_df = TRUE)
 }
 \arguments{
 \item{x}{Numeric vector representing the question numbers}
 
 \item{y}{Numeric vector representing the remaining percent of participants}
 
-\item{return_df}{Logical. If \code{TRUE}, the function returns a data frame; otherwise, it returns a list.}
+\item{return_df}{Logical. If TRUE, the function returns a data frame; otherwise, it returns a list.}
 }
 \value{
-A data frame or a list containing the modified \code{x} and \code{y} values
+Returns a data frame or a list containing the modified \code{x} and \code{y} values.
 }
 \description{
 The \code{do_steps} function calculates steps for data points represented by numbers of questions from the original
@@ -33,11 +33,11 @@ do_steps(x, y)
 
 # Using the example dataset dropRdemo
 
-stats <- compute_stats(df = add_dropout_idx(dropRdemo, 3:54),
+do_stats <- compute_stats(df = add_dropout_idx(dropRdemo, 3:54),
 by_cond = "experimental_condition",
 no_of_vars = 52)
 
-tot_stats <- stats[stats$condition == "total", ]
+tot_stats <- do_stats[stats$condition == "total", ]
 do_steps(tot_stats$q_idx, tot_stats$pct_remain)
 
 }

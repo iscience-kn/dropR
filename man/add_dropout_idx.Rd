@@ -15,7 +15,7 @@ add_dropout_idx(df, q_pos)
 \item{q_pos}{numeric range of columns that contain question items}
 }
 \value{
-Original data frame with column \code{do_idx} added.
+Returns original data frame with column \code{do_idx} added.
 }
 \description{
 Find drop out positions in a data.frame that contains multiple

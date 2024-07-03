@@ -19,14 +19,13 @@
 #' again for each condition).
 #' 
 #' @examples
-#' stats <- compute_stats(df = add_dropout_idx(dropRdemo, 3:54),
+#' do_stats <- compute_stats(df = add_dropout_idx(dropRdemo, 3:54),
 #' by_cond = "experimental_condition",
 #' no_of_vars = 52)
 #'   
 compute_stats <- function(df,
-                           by_cond = "None",
-                           no_of_vars
-){
+                          by_cond = "None",
+                          no_of_vars){
   # Resolve global variable issue
   drop_out_count <- cs <- remain <- N <- pct_remain <- condition <- NULL
   
@@ -35,16 +34,16 @@ compute_stats <- function(df,
   if(by_cond %in% names(df)){ # if experimental condition is actually in the data
     # drop out count by conditions
     do_by_cond <- dtable[,list(drop_out_count = .N),
-                         keyby = c("q_idx" = "do_idx",by_cond)]
+                         keyby = c("q_idx" = "do_idx", by_cond)]
     # expand to full grid 
-    no_of_cond <- length(unique(dtable[,get(by_cond)]))
+    no_of_cond <- length(unique(dtable[, get(by_cond)]))
     full_grid <- merge(do_by_cond,
-                       data.table(id = sort(rep(1:no_of_vars,no_of_cond)),
-                                  ec = unique(dtable[,get(by_cond)])),
-                       by.x = c("q_idx",by_cond),
+                       data.table(id = sort(rep(1:no_of_vars, no_of_cond)),
+                                  ec = unique(dtable[, get(by_cond)])),
+                       by.x = c("q_idx", by_cond),
                        by.y = c("id","ec"),
-                       all.y = T,
-                       allow.cartesian = T)
+                       all.y = TRUE,
+                       allow.cartesian = TRUE)
     
     full_grid[is.na(drop_out_count), drop_out_count := 0,]
     
@@ -74,8 +73,8 @@ compute_stats <- function(df,
                       data.table(id = rep(1:no_of_vars)),
                       by.x = "q_idx",
                       by.y = "id",
-                      all.y = T,
-                      allow.cartesian = T)
+                      all.y = TRUE,
+                      allow.cartesian = TRUE)
   
   total_grid[is.na(drop_out_count), drop_out_count := 0,]
   total_grid[,cs := cumsum(drop_out_count)]

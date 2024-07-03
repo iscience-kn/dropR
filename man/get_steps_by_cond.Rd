@@ -9,10 +9,10 @@ get_steps_by_cond(sfit, condition = NULL)
 \arguments{
 \item{sfit}{An object representing survival model results (e.g., from a Kaplan-Meier model).}
 
-\item{condition}{Optional. An experiemtnal condition to include in the output data frame, defaults to \code{NULL}.}
+\item{condition}{Optional. An experimental condition to include in the output data frame, defaults to \code{NULL}.}
 }
 \value{
-A data frame containing the steps data, including time, survival estimates, upper confidence bounds, and lower confidence bounds.
+Returns a data frame containing the steps data, including time, survival estimates, upper confidence bounds, and lower confidence bounds.
 }
 \description{
 The \code{get_steps_by_cond} function calculates steps data based on survival model results.

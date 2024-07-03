@@ -14,7 +14,7 @@ do_kpm(df, condition_col = "experimental_condition", model_fit = "total")
 \item{model_fit}{character Should be either "total" for a total model or "conditions"}
 }
 \value{
-a list containing \code{steps} (survival steps extracted from the fitted models),
+Returns a list containing \code{steps} (survival steps extracted from the fitted models),
 \code{d} (the original data frame), and \code{model_fit} (the model fit type).
 }
 \description{

@@ -12,7 +12,7 @@
 #' @importFrom survival Surv survfit
 #' @export
 #' 
-#' @returns a list containing `steps` (survival steps extracted from the fitted models), 
+#' @returns Returns a list containing `steps` (survival steps extracted from the fitted models), 
 #' `d` (the original data frame), and `model_fit` (the model fit type).
 #' 
 #' @seealso [survival::Surv()] used to fit survival object.
@@ -74,15 +74,15 @@ do_kpm <- function(df,
 #' @param kds list object as modeled by [do_kpm()]
 #' @param sel_conds character Which experimental conditions to plot. 
 #' @param kpm_ci boolean Should there be confidence bands in the plot? Defaults to TRUE.
+#' @param full_scale_kpm boolean Should the Y axis show the full range from 0 to 100? Defaults to FALSE.
 #' @param color_palette_kp character indicating which color palette to use. Defaults to 'color_blind',
 #' alternatively choose 'gray' for gray scale values or 'default' for the ggplot2 default colors. 
-#' @param full_scale_kpm boolean Should the Y axis show the full range from 0 to 100? Defaults to FALSE.
 #' @import ggplot2
 #' @importFrom grDevices gray
-#'@importFrom stats sd
+#' @importFrom stats sd
 #' @export
 #' 
-#' @returns The function returns a `ggplot` object containing the Kaplan-Meier survival plot. Using the Shiny App version of
+#' @returns Returns a `ggplot` object containing the Kaplan-Meier survival plot. Using the Shiny App version of
 #' dropR, this plot can easily be downloaded in different formats. 
 #' 
 #' @examples
@@ -94,13 +94,11 @@ do_kpm <- function(df,
 #' condition_col = "experimental_condition",
 #' model_fit = "conditions"), sel_conds = c("11", "12", "21", "22"))
 #' 
-plot_do_kpm <- function(
-    kds,
-    sel_conds = c("11", "12", "21", "22"),
-    kpm_ci = T,
-    color_palette_kp = "color_blind",
-    full_scale_kpm = F
-){
+plot_do_kpm <- function(kds,
+                        sel_conds = c("11", "12", "21", "22"),
+                        kpm_ci = TRUE,
+                        full_scale_kpm = FALSE,
+                        color_palette_kp = "color_blind"){
   # Resolve global variable issue
   condition <- x <- y <- lwr <- uppr <- NULL
   
@@ -166,13 +164,17 @@ plot_do_kpm <- function(
 #' 1 means rho = 1; Peto & Peto Wilcox)
 #' @export
 #' 
+#' @returns Returns survival test results as called from [survival::survdiff()].
+#' 
 #' @examples
 #' kpm_est <- do_kpm(add_dropout_idx(dropRdemo, 3:54))
 #' get_survdiff(kpm_est$d, "experimental_condition", 0)
 #' get_survdiff(kpm_est$d, "experimental_condition", 1)
 #' 
 #' 
-get_survdiff <- function(kds, cond, test_type){
+get_survdiff <- function(kds, 
+                         cond, 
+                         test_type){
   f <- stats::as.formula(paste("surv", cond, sep="~"))
   survdiff(f, data = kds, rho = test_type)  
 }

@@ -5,28 +5,28 @@
 \title{Plot Most Extreme Conditions to Visualize Kolmogorov-Smirnov Test Results}
 \usage{
 plot_do_ks(
-  stats,
+  do_stats,
   ks,
-  linetypes = F,
-  show_confbands = F,
+  linetypes = FALSE,
+  show_confbands = FALSE,
   color_palette = c("#E69F00", "#CC79A7")
 )
 }
 \arguments{
-\item{stats}{data.frame containing dropout statistics table computed by \code{\link[=compute_stats]{compute_stats()}}.
-Make sure your stats table contains a q_idx column indexing all question-items sequentially.}
+\item{do_stats}{data.frame containing dropout statistics table computed by \code{\link[=compute_stats]{compute_stats()}}.
+Make sure your do_stats table contains a q_idx column indexing all question-items sequentially.}
 
 \item{ks}{List of results from the \code{\link[=do_ks]{do_ks()}} function coding most extreme dropout conditions}
 
-\item{linetypes}{boolean Should different line types be used? Defaults to TRUE.}
+\item{linetypes}{boolean Should different line types be used? Defaults to FALSE.}
 
-\item{show_confbands}{boolean Should there be confidence bands added to the plot?Defaults to FALSE.}
+\item{show_confbands}{boolean Should there be confidence bands added to the plot? Defaults to FALSE.}
 
 \item{color_palette}{character indicating which color palette to use. Defaults to color blind friendly values,
 alternatively choose 'gray' or create your own palette with two colors, e.g. using R \code{\link[=colors]{colors()}} or HEX-values}
 }
 \value{
-The function returns a \code{ggplot} object containing the survival curve plot of the most extreme
+Returns a \code{ggplot} object containing the survival curve plot of the most extreme
 dropout conditions. Using the Shiny App version of dropR, this plot can easily be downloaded in different formats.
 }
 \description{
@@ -35,18 +35,18 @@ different dropout rates at a certain question. You need to define that question 
 \code{\link[=do_ks]{do_ks()}} already, or just call that function directly inside the plot function.
 }
 \examples{
-stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54), 
+do_stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54), 
 by_cond = "experimental_condition",
 no_of_vars = 52)
 
-ks <- do_ks(stats, 52)
+ks <- do_ks(do_stats, 52)
 
-plot_do_ks(stats, ks, color_palette = "gray")
+plot_do_ks(do_stats, ks, color_palette = "gray")
 
 # ... or call the do_ks() function directly inside the plotting function
-plot_do_ks(stats, do_ks(stats, 30))
+plot_do_ks(do_stats, do_ks(do_stats, 30))
 
-plot_do_ks(stats, ks, linetypes = TRUE, show_confbands = TRUE, color_palette = c("red", "violet"))
+plot_do_ks(do_stats, ks, linetypes = TRUE, show_confbands = TRUE, color_palette = c("red", "violet"))
 
 }
 \seealso{

@@ -5,18 +5,18 @@
 \title{Plot Dropout Curves}
 \usage{
 plot_do_curve(
-  stats,
+  do_stats,
   linetypes = TRUE,
   stroke_width = 1,
   full_scale = TRUE,
   show_points = FALSE,
-  color_palette = "color_blind",
-  show_confbands = FALSE
+  show_confbands = FALSE,
+  color_palette = "color_blind"
 )
 }
 \arguments{
-\item{stats}{data.frame containing dropout statistics table computed by \code{\link[=compute_stats]{compute_stats()}}.
-Make sure your stats table contains a q_idx column indexing all question-items sequentially.}
+\item{do_stats}{data.frame containing dropout statistics table computed by \code{\link[=compute_stats]{compute_stats()}}.
+Make sure your do_stats table contains a q_idx column indexing all question-items sequentially.}
 
 \item{linetypes}{boolean Should different line types be used? Defaults to TRUE.}
 
@@ -27,13 +27,13 @@ FALSE cuts off at min percent remaining (>0).}
 
 \item{show_points}{boolean Should dropout curves show individual data points? Defaults to FALSE.}
 
+\item{show_confbands}{boolean Should there be confidence bands added to the plot? Defaults to FALSE.}
+
 \item{color_palette}{character indicating which color palette to use. Defaults to 'color_blind',
 alternatively choose 'gray' or 'default' for the ggplot2 default colors.}
-
-\item{show_confbands}{boolean Should there be confidence bands added to the plot?Defaults to FALSE.}
 }
 \value{
-The function returns a \code{ggplot} object containing the dropout curve plot. Using the Shiny App version of
+Returns a \code{ggplot} object containing the dropout curve plot. Using the Shiny App version of
 dropR, this plot can easily be downloaded in different formats.
 }
 \description{
@@ -43,11 +43,11 @@ data before running this function as it needs a certain data structure and varia
 work properly.
 }
 \examples{
-stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
+do_stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
 by_cond = "experimental_condition",
 no_of_vars = 52)
 
-plot_do_curve(stats)
+plot_do_curve(do_stats)
 
 }
 \seealso{

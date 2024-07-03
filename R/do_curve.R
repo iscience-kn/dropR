@@ -6,46 +6,45 @@
 #' work properly.
 #' 
 #' 
-#' @param stats data.frame containing dropout statistics table computed by [compute_stats()].
-#' Make sure your stats table contains a q_idx column indexing all question-items sequentially.
+#' @param do_stats data.frame containing dropout statistics table computed by [compute_stats()].
+#' Make sure your do_stats table contains a q_idx column indexing all question-items sequentially.
 #' @param linetypes boolean Should different line types be used? Defaults to TRUE.
 #' @param stroke_width numeric stroke width, defaults to 1.
 #' @param full_scale boolean Should y axis range from 0 to 100? Defaults to TRUE, 
 #' FALSE cuts off at min percent remaining (>0).
 #' @param show_points boolean Should dropout curves show individual data points? Defaults to FALSE.
+#' @param show_confbands boolean Should there be confidence bands added to the plot? Defaults to FALSE.
 #' @param color_palette character indicating which color palette to use. Defaults to 'color_blind',
 #' alternatively choose 'gray' or 'default' for the ggplot2 default colors. 
-#' @param show_confbands boolean Should there be confidence bands added to the plot?Defaults to FALSE.
 #' 
 #' @import ggplot2
 #' @importFrom grDevices gray
 #' @importFrom stats sd
 #' @export
 #' 
-#' @returns The function returns a `ggplot` object containing the dropout curve plot. Using the Shiny App version of
+#' @returns Returns a `ggplot` object containing the dropout curve plot. Using the Shiny App version of
 #' dropR, this plot can easily be downloaded in different formats. 
 #' 
 #' @seealso [add_dropout_idx()] and [compute_stats()] which are necessary for the proper data structure.
 #' 
 #' @examples
-#' stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
+#' do_stats <- compute_stats(add_dropout_idx(dropRdemo, 3:54),
 #' by_cond = "experimental_condition",
 #' no_of_vars = 52)
 #' 
-#' plot_do_curve(stats)
+#' plot_do_curve(do_stats)
 #' 
-plot_do_curve <- function(stats,
+plot_do_curve <- function(do_stats,
                           linetypes = TRUE,
                           stroke_width = 1,
                           full_scale = TRUE,
                           show_points = FALSE,
-                          color_palette = "color_blind",
-                          show_confbands = FALSE
-){
+                          show_confbands = FALSE,
+                          color_palette = "color_blind"){
   # Resolve global variable issue
   q_idx <- pct_remain <- condition <- NULL
   
-  do_curve <- ggplot(stats)
+  do_curve <- ggplot(do_stats)
   
   palette <- if(color_palette == "color_blind"){c("#000000", "#E69F00",
                                                   "#56B4E9", "#009E73",
@@ -102,7 +101,7 @@ plot_do_curve <- function(stats,
     }
   }
   
-  if(color_palette != "default" & length(levels(stats$condition) < 9)){
+  if(color_palette != "default" & length(levels(do_stats$condition) < 9)){
     do_curve <- do_curve + scale_color_manual(values=palette)
   }
   

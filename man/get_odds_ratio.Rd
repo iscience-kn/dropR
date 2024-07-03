@@ -11,6 +11,9 @@ get_odds_ratio(a, b)
 
 \item{b}{numeric probability value between 0 and 1.}
 }
+\value{
+Returns numerical vector of the same length as original input reflecting the Odds Ratio (OR).
+}
 \description{
 Computes odds ratio given two probabilities.
 In this package, the function can be used to compare the percentages of remaining

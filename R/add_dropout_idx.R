@@ -24,7 +24,7 @@
 #'
 #' @export
 #' 
-#' @returns Original data frame with column `do_idx` added.
+#' @returns Returns original data frame with column `do_idx` added.
 #' @seealso [compute_stats()] which is usually the next step for dropout analysis.
 #' 
 #' @source R/add_dropout_idx.R

@@ -6,6 +6,9 @@
 \usage{
 start_app()
 }
+\value{
+No return value; starts the shiny app as a helper to get started with dropout analysis. All app procedures are available as functions.
+}
 \description{
 Starts the interactive web application to use dropR in your web browser.
 Make sure to use Google Chrome or Firefox for best experience.
