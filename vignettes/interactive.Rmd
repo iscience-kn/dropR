@@ -1,8 +1,8 @@
 ---
-title: "Interactive Dropout Analysis with R"
+title: "Interactive Dropout Analysis with dropR"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Interactive Dropout Analysis with R}
+  %\VignetteIndexEntry{Interactive Dropout Analysis with dropR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

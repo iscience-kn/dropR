@@ -1,8 +1,8 @@
 ---
-title: "Running Dropout related Tests with R"
+title: "Running Dropout related Tests with dropR"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Running Dropout related Tests with R}
+  %\VignetteIndexEntry{Running Dropout related Tests with dropR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
