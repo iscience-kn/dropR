@@ -8,7 +8,7 @@
 
 ## Installation
 
-You can install the development version of dropR from
+You can install the development version of `dropR` from
 [GitHub](https://github.com/iscience-kn/dropR) with:
 
 ``` r
@@ -17,7 +17,7 @@ remotes::install_github("iscience-kn/dropR")
 ```
 
 We are currently working to get `dropR` back on CRAN. Once it’s up
-again, you can install dropR via
+again, you can install `dropR` via
 
 ``` r
 install.packages("dropR")
@@ -25,19 +25,19 @@ install.packages("dropR")
 
 ## Usage as a Shiny App (Graphical User Interface)
 
-To start `dropR's` built-in GUI, run
+To start `dropR`’s built-in GUI, run
 
 ``` r
 dropR::start_app()
 ```
 
-or visit the [dropR Web App](https://iscience-kn.shinyapps.io/dropR/)
+or visit the [dropR Web App](https://iscience-kn.shinyapps.io/dropR/).
 
 ## Interactive Usage (use dropR on the R Console)
 
-You can also use dropR’s functionality within R, i.e., either in the
+You can also use `dropR`’s functionality within R, i.e., either in the
 console or within your own functions and packages. Read more about
-interactive usage of dropR in our [walkthrough
+interactive usage of `dropR` in our [walkthrough
 article](https://iscience-kn.github.io/dropR/articles/interactive.html).
 
 <figure>
