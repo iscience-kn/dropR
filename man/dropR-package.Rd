@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Annika Tave Overlander \email{annika-tave.overlander@uni.kn}
+\strong{Maintainer}: Annika Tave Overlander \email{annika-tave.overlander@uni.kn} (\href{https://orcid.org/0009-0006-8373-4086}{ORCID})
 
 Authors:
 \itemize{
