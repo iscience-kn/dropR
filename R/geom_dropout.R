@@ -85,69 +85,13 @@ geom_drop <- function(mapping = aes(x = q_idx, y = pct_remain*100,
   ) 
 }
 
-
-ggplot(do_stats) +
-  geom_drop() +
-  dropR_style(palette = 1)
-
-
-plot_do_curve(do_stats, full_scale = F)
-
-ggplot(do_stats, aes(x = q_idx, y = pct_remain*100, color = factor(condition))) +
-  layer(
-     geom = "line", stat = "identity", position = "identity"
-  )
-
-
-  
-
-
-
-theme_drop <- function(){
-
-    theme_bw() +
-    theme(panel.grid.major.x = element_blank(),
-          panel.grid.minor.x = element_blank(),
-          panel.border = element_blank(),
-          axis.line = element_line(colour = "black"),
-          legend.text = element_text(size = 12),
-          axis.text = element_text(size = 12),
-          axis.title = element_text(size = 16)) 
-
-}
-
-
-
-
-# gray_seq <- function(nums){
-#   # n <- length(nums)
-#   # 
-#   # seqs <- seq(0,1, by = 1/n)
-#   
-#   gray(seq(0, 1, 
-#            by = 1/length(nums)))[c(seq(2, length(nums), by = 2), # odd
-#                                    seq(1, length(nums), by = 2))] # even
-#   
-#   # even <- seq(2, n, by=2)
-#   # odd <- seq(1, n, by=2)
-#   
-#   # return(gray(seqs)[c(seq(2, n, by=2), seq(1, n, by=2))])
-# }
-# num <- 1:7
-# gray_seq(num) |> show_col()
-
+# dropR Style function to present dropout in a concise and scientifically sound manner
 dropR_style <- function(palette = 1,
                         n_cond = 5,
                         xlab = "Question", 
                         ylab = "Percent Remaining",
                         colorlab = "Condition"){
-  # # Gray scale function
-  # gray_seq <- function(nums){
-  #   gray(seq(0, 1, 
-  #            by = 1/length(nums)))[c(seq(2, length(nums), by = 2), # odd
-  #                                    seq(1, length(nums), by = 2))] # even
-  # }
-  
+
   # Palette definition
   paletteses <- list(
     color_blind = c("#000000", "#E69F00",
@@ -160,16 +104,29 @@ dropR_style <- function(palette = 1,
     ggdefault = c("#F8766D", "#D39200", "#93AA00",
                   "#C77CFF", "#00C19F", "#00B9E3",
                   "#E68613", "#00A9FF", "#FF61C3"),
-    wextor = c("#326699", "#53D8FB", "#66C3FF", "#B79FAD", "#B3424F") #870058-c97f54-ffeccc-c8d6af-104547-ed1c24
-  )
-  
-  # chosen_pal <- paletteses[[palette]]
+    wextor = c("#326699", "#53D8FB", "#66C3FF", 
+               "#B79FAD", "#B3424F", "#104547", 
+               "#c8d6af", "#c97f54", "#ffeccc")
+    )
   
   style <- list(
-    theme_drop(),
+    # theme_drop(),
+    theme_bw() +
+      theme(panel.grid.major.x = element_blank(),
+            panel.grid.minor.x = element_blank(),
+            panel.border = element_blank(),
+            axis.line = element_line(colour = "black"),
+            legend.text = element_text(size = 12),
+            legend.title = element_text(size = 14),
+            axis.text = element_text(size = 12),
+            axis.title = element_text(size = 14)),
     scale_colour_manual(values = paletteses[[palette]]),
     labs(x = xlab, y = ylab, color = colorlab, linetype = colorlab)
   )
   
   return(style)
 }
+
+ggplot(do_stats) +
+  geom_drop() +
+  dropR_style(palette = 2)
