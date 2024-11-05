@@ -161,26 +161,28 @@ tabViz <- tabItem(tabName = "viz",
                                checkboxInput("full_scale","Show full Y-axis (0 to 100)",value = F)
                                ),
                         
-                        column(width = 5,
+                        column(width = 4,
                                radioButtons("color_palette","Color palettes",
                                             c("color-blind friendly" = "color_blind",
                                               "ggplot default" = "default",
                                               "gray scale" = "gray"),
                                             "color_blind")
                                ),
-                        
-                        textInput("rename_conditions","Rename selected conditions (comma delimited)*"),
-                        selectInput("stroke_width","Stroke width",c(1,2,3,4,5),1),
-                       
-                        
-                        h4("Hints"),
-                        tags$ul(
-                          tags$li("Color-blind friendly palettes support up to 8 different conditions (colors)."),
-                          tags$li("* When renaming conditions, use a comma (,) as a seperator. Make sure to list 
+                        column(width = 12,
+                               textInput("rename_conditions","Rename selected conditions (comma delimited)*"),
+                               selectInput("stroke_width","Stroke width",c(1,2,3,4,5),1)
+                               ),
+                        column(width = 12,
+                               h4("Hints"),
+                               tags$ul(
+                                 tags$li("Color-blind friendly palettes support up to 8 different conditions (colors)."),
+                                 tags$li("* When renaming conditions, use a comma (,) as a seperator. Make sure to list 
                                   as many names as conditions you have selected."),
-                          tags$li("With dropR you can produce graphs for publication in various formats. You may 
+                                 tags$li("With dropR you can produce graphs for publication in various formats. You may 
                                   choose vector formats such as .svg and .pdf or the .png format for rendered pixels.")
-                        )),
+                                  )
+                               )
+                        ),
                     box(width = 8,
                         title = "Dropout by question",
                         div(plotOutput("do_curve_plot"),
