@@ -89,12 +89,12 @@ server <- function(input, output) {
     ## Choose questions #########
   output$choose_questions <- renderUI({
     if(is.null(dataset())) return(NULL)
-    selectInput('quest_cols', 'Select questions',
+    selectInput('quest_cols', label = NULL, #'Hold down Shift key to select multiple.',
                 selected = names(dataset())[c(3:length(names(dataset())))], # previously: -c(1,length(names(dataset())))
                 multiple=TRUE,
                 choices = names(dataset()),
                 selectize = FALSE,
-                size = 15)
+                size = 13)
   })
   
   ## show conditions ############
@@ -354,6 +354,7 @@ server <- function(input, output) {
              chisq_question = input$chisq_question,
              sel_cond_chisq = input$sel_cond_chisq,
              p_sim = input$p_sim)
+ 
   })
   
   output$odds_ratio <- renderTable({
@@ -361,6 +362,13 @@ server <- function(input, output) {
     do_or_table(stats(), chisq_question = input$chisq_question, sel_cond_chisq = input$sel_cond_chisq)
   },
   rownames = TRUE)
+  
+  output$chisq_code <- renderPrint({
+    paste0("do_chisq(d, chisq_question = ", paste(input$chisq_question), ", ",
+           "sel_cond_chisq = ", paste0("c(", paste(input$sel_cond_chisq, collapse = ", "), ")"), ", ",
+           "p_sim = ", paste(input$p_sim), ")"
+    )
+  })
   
   
   output$surv_tests <- renderPrint({

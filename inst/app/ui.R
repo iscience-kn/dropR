@@ -48,7 +48,8 @@ tabHome <- tabItem(tabName = "home",
                          or something similar in your data and select all experimental variables for which to analyze dropout.", br(),
                          "Make sure to click 'update data!' to get started on analyses 
                          and visualization.", class="extraslimtext"),
-                       p("To read more about dropout as a relevant dependent variable in analysis of internet-based
+                       p("We recommend you use a device with a keyboard to conduct your analyses with dropR.", br(), 
+                         "To read more about dropout as a relevant dependent variable in analysis of internet-based
                          experiments, we recommend",
                          a("this paper by Reips (2002)", href = "https://www.uni-konstanz.de/iscience/reips/pubs/papers/Reips2002.pdf"), 
                          "as a starting point.", class="slimtext")
@@ -127,8 +128,9 @@ tabUpload <- tabItem(tabName = "upload",
                        box(width=3,
                            title = "3. Identify",
                            # h3("3. Identify"),
-                           # h5("conditions and questions to analyze"),
                            uiOutput('choose_condition'),
+                           strong("Select questions"), br(),
+                           em("Hold down Shift key to select multiple."),
                            uiOutput("choose_questions"),
                            actionButton("goButton", "Update data!")
                        )
@@ -258,7 +260,8 @@ tabXsq <- tabItem(tabName = "xsq",
                         # h3("Contingency Test Outcomes"),
                         verbatimTextOutput("chisq_tests"),
                         h4("Odds ratio by item"),
-                        tableOutput("odds_ratio"),
+                        tableOutput("odds_ratio")
+                        # verbatimTextOutput("chisq_code")
                         # div(plotOutput("do_curve_plot_2"),
                         #     style = 'overflow:auto')
                         )
