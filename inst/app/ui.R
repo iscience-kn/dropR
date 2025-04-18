@@ -48,8 +48,8 @@ tabHome <- tabItem(tabName = "home",
                          or something similar in your data and select all experimental variables for which to analyze dropout.", br(),
                          "Make sure to click 'update data!' to get started on analyses 
                          and visualization.", class="extraslimtext"),
-                       p("We recommend you use a device with a keyboard to conduct your analyses with dropR.", br(), 
-                         "To read more about dropout as a relevant dependent variable in analysis of internet-based
+                      # "We recommend you use a device with a keyboard to conduct your analyses with dropR.", br(), 
+                          p("To read more about dropout as a relevant dependent variable in analysis of internet-based
                          experiments, we recommend",
                          a("this paper by Reips (2002)", href = "https://www.uni-konstanz.de/iscience/reips/pubs/papers/Reips2002.pdf"), 
                          "as a starting point.", class="slimtext")
@@ -129,8 +129,8 @@ tabUpload <- tabItem(tabName = "upload",
                            title = "3. Identify",
                            # h3("3. Identify"),
                            uiOutput('choose_condition'),
-                           strong("Select questions"), br(),
-                           em("Hold down Shift key to select multiple."),
+                           # strong("Select questions"), br(),
+                           # em("Hold down Shift key to select multiple."),
                            uiOutput("choose_questions"),
                            actionButton("goButton", "Update data!")
                        )

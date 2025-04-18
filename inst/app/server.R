@@ -89,12 +89,30 @@ server <- function(input, output) {
     ## Choose questions #########
   output$choose_questions <- renderUI({
     if(is.null(dataset())) return(NULL)
-    selectInput('quest_cols', label = NULL, #'Hold down Shift key to select multiple.',
-                selected = names(dataset())[c(3:length(names(dataset())))], # previously: -c(1,length(names(dataset())))
-                multiple=TRUE,
-                choices = names(dataset()),
-                selectize = FALSE,
-                size = 13)
+    # selectInput('quest_cols', label = NULL, #'Hold down Shift key to select multiple.',
+    #             selected = names(dataset())[c(3:length(names(dataset())))], # previously: -c(1,length(names(dataset())))
+    #             multiple=TRUE,
+    #             choices = names(dataset()),
+    #             selectize = FALSE,
+    #             size = 13)
+    
+    
+    # checkboxGroupInput('quest_cols', label = NULL,
+    #                    choices = names(dataset()),
+    #                    selected = names(dataset())[c(3:length(names(dataset())))]
+    #                    )
+    
+    pickerInput(
+      inputId = "quest_cols",
+      label = "Select items",
+      choices = names(dataset()),
+      selected = names(dataset())[c(3:length(names(dataset())))],
+      multiple = T,
+      options = list(`actions-box` = TRUE)
+    )
+    
+    
+    
   })
   
   ## show conditions ############
