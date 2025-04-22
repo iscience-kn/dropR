@@ -78,7 +78,7 @@ tabUpload <- tabItem(tabName = "upload",
                                    missing values by default. Add custom missing values
                                    if necessary."),
                                tags$li("3. Identify: Identify the column in your data which codes the experimental condition and
-                                       select all variables that hold data for the questions in your experiment for which to analyze 
+                                       select all variables that hold data for the items in your experiment for which to analyze 
                                        dropout.")
                              ),
                              tags$li("Check the data preview below. If your
@@ -159,7 +159,7 @@ tabViz <- tabItem(tabName = "viz",
                                checkboxInput("show_confbands","Show confidence bands"),
                                checkboxInput("linetypes","Use line type to distinguish conditions",
                                              value = T),
-                               checkboxInput("cutoff","Cut off last question",value = T),
+                               checkboxInput("cutoff","Cut off last item",value = T),
                                checkboxInput("full_scale","Show full Y-axis (0 to 100)",value = F)
                                ),
                         
@@ -186,7 +186,7 @@ tabViz <- tabItem(tabName = "viz",
                                )
                         ),
                     box(width = 8,
-                        title = "Dropout by question",
+                        title = "Dropout by item",
                         div(plotOutput("do_curve_plot"),
                             style = 'overflow:auto'),
                         
@@ -250,7 +250,7 @@ tabXsq <- tabItem(tabName = "xsq",
                         uiOutput("chisq_conditions"),
                         uiOutput("xsq_slider"),
                         checkboxInput("p_sim","Simulate p-values",T),
-                        h4("Dropout by question"),
+                        h4("Dropout by item"),
                         plotOutput("do_curve_plot_2"),
                         HTML('<em>This plot shows the same overview that was created in Visual Inspection.</em>')
                     ),
@@ -361,7 +361,7 @@ tabKS <- tabItem(tabName = "kolsmir",
                                 checkboxInput("ks_ci","Show confidence bands",T),
                                 checkboxInput("ks_linetypes","Use line type to distinguish conditions",
                                               value = T),
-                                checkboxInput("ks_ql","Show question marker line",T),
+                                checkboxInput("ks_ql","Show item marker line",T),
                          ),
                          column(width = 5,
                                 radioButtons("ks_color_palette","Color palettes",
@@ -508,12 +508,12 @@ tabAbout <- tabItem(tabName = "about",
 # Main Page structure ####
 ui <- dashboardPage(
   
-  dashboardHeader(title = "dropR"),
+  dashboardHeader(title = tags$span(tags$img(src='decrease_white.svg', height = '30', width ='30'), "dropR")),
   dashboardSidebar(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("home")),
       menuItem("Start: Upload", tabName = "upload", icon = icon("upload")),
-      menuItem("Visual inspection", tabName = "viz",
+      menuItem("Visual Inspection", tabName = "viz",
                icon = icon("area-chart",lib="font-awesome")),
       menuItem("Contingency Analyses", tabName = "xsq",
                icon = icon("percent",lib="font-awesome")),

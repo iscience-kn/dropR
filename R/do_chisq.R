@@ -42,7 +42,7 @@ do_chisq <- function(do_stats,
                                participants = c("dropout","remaining"))
   # chisq.test(as.table(as.matrix(test_input[,c("condition","cs","remain")])))
   test_result <- chisq.test(test_table, simulate.p.value = p_sim)
-  lname2 <- sprintf("Dropout at question %s", chisq_question)
+  lname2 <- sprintf("Dropout at item %s", chisq_question)
   li <- list("Test result" = test_result,
              lname2 = test_table)
   names(li)[2] <- lname2

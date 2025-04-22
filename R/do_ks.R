@@ -106,7 +106,10 @@ plot_do_ks <- function(do_stats,
     geom_line(aes(ks_steps1$x, ks_steps1$y*100, color = as.character(ks$extremes[1])), linetype = ifelse(linetypes, 3, 1)) +
     geom_line(aes(ks_steps2$x, ks_steps2$y*100, color = as.character(ks$extremes[2])), linetype = ifelse(linetypes, 5, 1)) +
     scale_color_manual(name = "Conditions", 
-                       values = c(palette[1], palette[2]))
+                       values = c(palette[1], palette[2])) +
+    scale_x_continuous(breaks = function(x) {
+      pretty(x)[pretty(x) %% 1 == 0]
+    })
   
   
   if(show_confbands){
@@ -133,7 +136,7 @@ plot_do_ks <- function(do_stats,
           legend.text = element_text(size = 12),
           axis.text = element_text(size = 12),
           axis.title = element_text(size = 16)) + 
-    xlab("Question Index") +
+    xlab("Item Index") +
     ylab("Survival in %")
 }
 

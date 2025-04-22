@@ -74,8 +74,11 @@ plot_do_curve <- function(do_stats,
           legend.text = element_text(size = 12),
           axis.text = element_text(size = 12),
           axis.title = element_text(size = 16)) + 
-    xlab("Question Index") +
-    ylab("Percent Remaining")
+    xlab("Item Index") +
+    ylab("Percent Remaining") +
+    scale_x_continuous(breaks = function(x) {
+      pretty(x)[pretty(x) %% 1 == 0]
+    })
   
   if(full_scale){
     do_curve <- do_curve + 

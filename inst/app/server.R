@@ -167,7 +167,7 @@ server <- function(input, output) {
 
   ## Chisq slider ############  
   output$xsq_slider <- renderUI({
-    sliderInput('chisq_question', "Select question",
+    sliderInput('chisq_question', "Select item",
                 1, length(input$quest_cols)-1,
                 value = length(input$quest_cols)-1, step = 1)
   })
@@ -245,7 +245,7 @@ server <- function(input, output) {
 # KS TAB #######
   ## KS slider ############  
   output$ks_slider <- renderUI({
-    sliderInput('ks_question', "Select question",
+    sliderInput('ks_question', "Select item",
                 1, length(input$quest_cols),
                 value = length(input$quest_cols),
                 step = 1)

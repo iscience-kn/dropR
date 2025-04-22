@@ -126,7 +126,11 @@ plot_do_kpm <- function(kds,
           axis.line = element_line(colour = "black"),
           legend.text = element_text(size = 12),
           axis.text = element_text(size = 12),
-          axis.title = element_text(size = 16))
+          axis.title = element_text(size = 16)) +
+    scale_x_continuous(breaks = function(x) {
+      pretty(x)[pretty(x) %% 1 == 0]
+    })
+  
   if(kpm_ci){
     k <- k + geom_ribbon(aes(ymin = lwr*100,
                              ymax = uppr*100),
@@ -145,7 +149,7 @@ plot_do_kpm <- function(kds,
   
   k <- k + guides(color = guide_legend(title = NULL),
                   fill = guide_legend(title = NULL)) +
-    xlab("Question Index") + 
+    xlab("Item Index") + 
     ylab("Survival Probability in %")
   
   k
