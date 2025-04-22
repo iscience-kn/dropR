@@ -506,7 +506,7 @@ tabAbout <- tabItem(tabName = "about",
                     )
 
 # Main Page structure ####
-ui <- dashboardPage(
+ui <- dashboardPage(title = "dropR",
   
   dashboardHeader(title = tags$span(tags$img(src='decrease_white.svg', height = '30', width ='30'), "dropR")),
   dashboardSidebar(
