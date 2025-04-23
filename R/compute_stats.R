@@ -37,41 +37,41 @@ compute_stats <- function(df,
                          keyby = c("q_idx" = "do_idx", by_cond)]
     # expand to full grid 
     no_of_cond <- length(unique(dtable[, get(by_cond)]))
-    pre_grid <- merge(do_by_cond,
+    full_grid <- merge(do_by_cond,
                        data.table(id = sort(rep(1:no_of_vars, no_of_cond)),
                                   ec = unique(dtable[, get(by_cond)])),
                        by.x = c("q_idx", by_cond),
                        by.y = c("id","ec"),
                        all.y = TRUE,
                        allow.cartesian = TRUE)
-    ####
-    # NEW APPROACH
-    # ADD SOME DUMMY DOCING THAT AT QUESTION 0 NO CONDITION HAS ANY DROPOUT
-    
-    # The issue is with fully empty rows and also if the dropout occurs after question one the coding gets whacky because item 1 is the starting point.
-    # So, solution: add a dummy line with q_idx = 0 for each condition in the data and dropout_count = NA.
-    # Then, if in the full_grid until then there is any dropout in the last available question (aka Q_idx == no_of_vars) then 
-    # recode that to dropout_count = NA and add the dropout to position q_idx == 0
-    
-    dummy_grid <- data.frame(q_idx = rep(0, no_of_cond),
-                             condition =  unique(df[by_cond]), 
-                             drop_out_count = rep(NA, no_of_cond))
-    full_grid <- rbind(pre_grid, dummy_grid)[order(condition, q_idx)]
-    
-    # move the value of dropout equal to number of questions (a.k.a. empty data altogether) to q_idx==0
-    full_grid2 <- full_grid
-    # For each unique condition
-    for (cond in unique(full_grid$condition)) {
-      val <- with(full_grid, drop_out_count[condition == cond & q_idx == 10])
-      
-      if (length(val) == 1 && !is.na(val)) {
-        full_grid$drop_out_count[full_grid$condition == cond & full_grid$q_idx == 0] <- val # add number of drops
-        full_grid$drop_out_count[full_grid$condition == cond & full_grid$q_idx == 10] <- NA # remove drop from last question
-      }
-    }
-    
-    
-    ####
+    # ####
+    # # NEW APPROACH
+    # # ADD SOME DUMMY DOCING THAT AT QUESTION 0 NO CONDITION HAS ANY DROPOUT
+    # 
+    # # The issue is with fully empty rows and also if the dropout occurs after question one the coding gets whacky because item 1 is the starting point.
+    # # So, solution: add a dummy line with q_idx = 0 for each condition in the data and dropout_count = NA.
+    # # Then, if in the full_grid until then there is any dropout in the last available question (aka Q_idx == no_of_vars) then 
+    # # recode that to dropout_count = NA and add the dropout to position q_idx == 0
+    # 
+    # dummy_grid <- data.frame(q_idx = rep(0, no_of_cond),
+    #                          condition =  unique(df[by_cond]), 
+    #                          drop_out_count = rep(NA, no_of_cond))
+    # full_grid <- rbind(pre_grid, dummy_grid)[order(condition, q_idx)]
+    # 
+    # # move the value of dropout equal to number of questions (a.k.a. empty data altogether) to q_idx==0
+    # full_grid2 <- full_grid
+    # # For each unique condition
+    # for (cond in unique(full_grid$condition)) {
+    #   val <- with(full_grid, drop_out_count[condition == cond & q_idx == 10])
+    #   
+    #   if (length(val) == 1 && !is.na(val)) {
+    #     full_grid$drop_out_count[full_grid$condition == cond & full_grid$q_idx == 0] <- val # add number of drops
+    #     full_grid$drop_out_count[full_grid$condition == cond & full_grid$q_idx == 10] <- NA # remove drop from last question
+    #   }
+    # }
+    # 
+    # 
+    # ####
     
     full_grid[is.na(drop_out_count), drop_out_count := 0,]
     
@@ -95,19 +95,19 @@ compute_stats <- function(df,
     cond_grid <- NULL
   }
   ## Alternative coding for consistency with new approach
-  # do_by_total <- dtable[,list(drop_out_count = .N),
-  #                       keyby = c("q_idx" ="do_idx")]
-  bla <- tidyr::pivot_wider(full_grid, names_from = q_idx, values_from = drop_out_count)
-  drops <- colSums(bla[, 6:(no_of_vars+6)], na.rm = T) 
-  total_grid <- data.table(q_idx = as.numeric(names(drops)),
-                            drop_out_count = drops)
+  do_by_total <- dtable[,list(drop_out_count = .N),
+                        keyby = c("q_idx" ="do_idx")]
+  # bla <- tidyr::pivot_wider(full_grid, names_from = q_idx, values_from = drop_out_count)
+  # drops <- colSums(bla[, 6:(no_of_vars+6)], na.rm = T) 
+  # total_grid <- data.table(q_idx = as.numeric(names(drops)),
+  #                           drop_out_count = drops)
   
-  # total_grid <- merge(do_by_total,
-  #                     data.table(id = rep(1:no_of_vars)),
-  #                     by.x = "q_idx",
-  #                     by.y = "id",
-  #                     all.y = TRUE,
-  #                     allow.cartesian = TRUE)
+  total_grid <- merge(do_by_total,
+                      data.table(id = rep(1:no_of_vars)),
+                      by.x = "q_idx",
+                      by.y = "id",
+                      all.y = TRUE,
+                      allow.cartesian = TRUE)
   ##
   
   total_grid[is.na(drop_out_count), drop_out_count := 0,]

@@ -51,7 +51,7 @@ tabHome <- tabItem(tabName = "home",
                       # "We recommend you use a device with a keyboard to conduct your analyses with dropR.", br(), 
                           p("To read more about dropout as a relevant dependent variable in analysis of internet-based
                          experiments, we recommend",
-                         a("this paper by Reips (2002)", href = "https://www.uni-konstanz.de/iscience/reips/pubs/papers/Reips2002.pdf"), 
+                         a("this paper by Reips (2002)", href = "https://www.uni-konstanz.de/iscience/reips/pubs/papers/Reips2002.pdf", target = "_blank"), 
                          "as a starting point.", class="slimtext")
                        )
                    # ,textOutput("debug_txt")
@@ -497,12 +497,12 @@ tabAbout <- tabItem(tabName = "about",
                     h2("About"),
                     p("dropR is a joint project by Ulf-Dietrich Reips, Matthias Bannert and Annika Tave Overlander that 
                       followed naturally from the long-standing need in",
-                      a("Internet science", href = "https://iscience.uni-konstanz.de/"), 
+                      a("Internet science", href = "https://iscience.uni-konstanz.de/", target="_blank"), 
                       "and online research for methods and tools to address the fact that dropout (aka attrition, mortality, 
                       break-off) occurs much more frequently when research is conducted via the Internet than traditionally
                       in the lab.", class="slimtext"),
                     p("You can find the full documentation of the dropR package on",
-                      a("GitHub.", href = "https://iscience-kn.github.io/dropR/index.html"), class="slimtext")
+                      a("GitHub.", href = "https://iscience-kn.github.io/dropR/index.html", target="_blank"), class="slimtext")
                     )
 
 # Main Page structure ####
