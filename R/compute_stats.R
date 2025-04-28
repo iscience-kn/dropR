@@ -10,6 +10,8 @@
 #' @param df data.frame containing variable `do_idx` from [add_dropout_idx()]
 #' @param by_cond character name of condition variable in the data, defaults to 'None' to output total statistics.
 #' @param no_of_vars numeric number of variables that contain questions
+#' @param excl_cond_NA boolean Exclude NAs in the condition variable? This typically means that there is an entirely empty row in your data,
+#' i.e. someone quit before being assigned an experimental condition. This is not technically dropout and will skew results. Default is `TRUE`.
 #'
 #' @import data.table
 #' @export
@@ -25,14 +27,22 @@
 #'   
 compute_stats <- function(df,
                           by_cond = "None",
-                          no_of_vars){
+                          no_of_vars,
+                          excl_cond_NA = T){
   # Resolve global variable issue
   drop_out_count <- cs <- remain <- N <- pct_remain <- condition <- NULL
   
-  dtable <- data.table(df)
+  # dtable <- data.table(df)
   
   if(by_cond %in% names(df)){ # if experimental condition is actually in the data
     # drop out count by conditions
+    
+    if(excl_cond_NA){ # if condition is NA 
+      df <- df[!is.na(df[by_cond]),]
+    }
+    
+    dtable <- data.table(df)
+    
     do_by_cond <- dtable[,list(drop_out_count = .N),
                          keyby = c("q_idx" = "do_idx", by_cond)]
     # expand to full grid 
@@ -63,6 +73,7 @@ compute_stats <- function(df,
     cond_grid <- full_grid[,c("q_idx","condition","cs","N","remain",
                               "pct_remain"),with = FALSE]
   } else{
+    dtable <- data.table(df)
     cond_grid <- NULL
   }
   
