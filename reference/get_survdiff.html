@@ -80,23 +80,23 @@ It outputs a contingency table and a Chisq measure of difference.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> survdiff(formula = f, data = kds, rho = test_type)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                            N Observed Expected (O-E)^2/E (O-E)^2/V</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=11 72       72     72.1  0.000148  0.000358</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=12 57       56     50.1  0.689840  1.587210</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=21 56       56     58.2  0.084353  0.185905</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=22 61       61     64.6  0.196369  0.443239</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=11 72       27     27.6    0.0148    0.0212</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=12 57       15     23.6    3.1164    4.2203</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=21 56       23     21.2    0.1505    0.1972</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=22 61       29     21.6    2.5533    3.3664</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Chisq= 1.8  on 3 degrees of freedom, p= 0.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Chisq= 5.9  on 3 degrees of freedom, p= 0.1 </span>
 <span class="r-in"><span><span class="fu">get_survdiff</span><span class="op">(</span><span class="va">kpm_est</span><span class="op">$</span><span class="va">d</span>, <span class="st">"experimental_condition"</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> survdiff(formula = f, data = kds, rho = test_type)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                            N Observed Expected (O-E)^2/E (O-E)^2/V</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=11 72     50.5     49.8   0.00726    0.0278</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=12 57     44.9     38.3   1.12936    3.9254</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=21 56     37.5     39.3   0.08966    0.3173</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=22 61     37.9     43.2   0.64983    2.3712</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=11 72     22.1     22.6   0.00792    0.0137</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=12 57     12.2     19.1   2.54844    4.1614</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=21 56     18.7     17.3   0.10125    0.1596</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> experimental_condition=22 61     23.9     17.8   2.08041    3.2905</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Chisq= 5.1  on 3 degrees of freedom, p= 0.2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Chisq= 5.8  on 3 degrees of freedom, p= 0.1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
