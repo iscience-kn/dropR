@@ -48,9 +48,17 @@ add_dropout_idx <- function(df, q_pos){
   difmat <- t(apply(na_cumsum, 1, diff))
   minmat <- apply(difmat, 1, which.min)
   
+  # df$do_idx <- ifelse(minmat == 1 & na_cumsum[,2] == 1, length(q_pos)-1, # if index is 1 and only the last question was dropped, it's dropout of length(q_pos)-1
+  #                     ifelse(minmat == 1 & na_cumsum[,1] != 1, 0, # if index is 1 because nothing was dropped it should be 0
+  #                            ifelse(na_cumsum[, length(q_pos)] == length(q_pos), length(q_pos), # if nothing was answered, the index should be length(q_pos),
+  #                                   length(q_pos) - minmat)# otherwise it should give the last answered question
+  #                     )
+  # )
+  
+  # New Version taking into account entirely empty rows
   df$do_idx <- ifelse(minmat == 1 & na_cumsum[,2] == 1, length(q_pos)-1, # if index is 1 and only the last question was dropped, it's dropout of length(q_pos)-1
-                      ifelse(minmat == 1 & na_cumsum[,1] != 1, 0, # if index is 1 because nothing was dropped it should be 0
-                             ifelse(na_cumsum[, length(q_pos)] == length(q_pos), length(q_pos), # if nothing was answered, the index should be length(q_pos),
+                      ifelse(minmat == 1 & na_cumsum[,1] != 1, length(q_pos)+1, # if index is 1 because nothing was dropped it should be length(q_pos) + 1 as a value that cannot exist with the data
+                             ifelse(na_cumsum[, length(q_pos)] == length(q_pos), 0, # if nothing was answered, the index should be 0,
                                     length(q_pos) - minmat)# otherwise it should give the last answered question
                       )
   )

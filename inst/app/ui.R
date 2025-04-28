@@ -35,18 +35,18 @@ tabHome <- tabItem(tabName = "home",
                        experiments for", strong("differences in dropout between conditions."), 
                          class="slimtext"),
                        p("Currently, dropR supports visual 
-                         inspection of dropout, Odds ratio by item, Chi 
+                         inspection of dropout, odds ratio by item, Chi 
                          Square tests of differences at any particular 
                          item (e.g. test for overall dropout difference), 
-                         Kaplan-Maier survival estimation, Rho family 
-                         tests.", class="slimtext"),
-                       p(strong("dropR follows a simple step-by-step process which starts in the Upload tab."), br(),
+                         Kaplan-Meier survival estimation, Rho family 
+                         tests and Kolmogorov-Smirnov analyses.", class="slimtext"),
+                       p(strong("dropR follows a simple step-by-step process that starts in the Upload tab."), br(),
                          "1. Upload your data under 'Upload your 
-                         data' or choose our demo file.", br(),
+                         data' or choose our demo data.", br(),
                          "2. Specify some datafile characteristics, such as column delimiter or NA coding.", br(),
-                         "3. Identify the experimental condition variable, i.e. 'experimental_condition' in demo data 
-                         or something similar in your data and select all experimental variables for which to analyze dropout.", br(),
-                         "Make sure to click 'update data!' to get started on analyses 
+                         "3. Identify the experimental condition variable (e.g., 'experimental_condition' in the demo data 
+                         or something similar in your own data), and select all experimental variables to analyze dropout.", br(),
+                         "Make sure to click 'Update data!' to get started on analyses 
                          and visualization.", class="extraslimtext"),
                       # "We recommend you use a device with a keyboard to conduct your analyses with dropR.", br(), 
                           p("To read more about dropout as a relevant dependent variable in analysis of internet-based
@@ -159,7 +159,7 @@ tabViz <- tabItem(tabName = "viz",
                                checkboxInput("show_confbands","Show confidence bands"),
                                checkboxInput("linetypes","Use line type to distinguish conditions",
                                              value = T),
-                               checkboxInput("cutoff","Cut off last item",value = T),
+                               # checkboxInput("cutoff","Cut off last item",value = T),
                                checkboxInput("full_scale","Show full Y-axis (0 to 100)",value = F)
                                ),
                         
@@ -171,15 +171,19 @@ tabViz <- tabItem(tabName = "viz",
                                             "color_blind")
                                ),
                         column(width = 12,
-                               textInput("rename_conditions","Rename selected conditions (comma delimited)*"),
+                               strong("Rename displayed conditions"), br(),
+                               em("When renaming conditions, use a comma as a separator. Make sure to list 
+                                 as many names as conditions you have selected (e.g. cond1, cond2,...)."),
+                               textInput("rename_conditions", NULL),
+                               
                                selectInput("stroke_width","Stroke width",c(1,2,3,4,5),1)
                                ),
                         column(width = 12,
                                h4("Hints"),
                                tags$ul(
                                  tags$li("Color-blind friendly palettes support up to 8 different conditions (colors)."),
-                                 tags$li("* When renaming conditions, use a comma (,) as a seperator. Make sure to list 
-                                  as many names as conditions you have selected."),
+                                 # tags$li("* When renaming conditions, use a comma (,) as a seperator. Make sure to list 
+                                 #  as many names as conditions you have selected."),
                                  tags$li("With dropR you can produce graphs for publication in various formats. You may 
                                   choose vector formats such as .svg and .pdf or the .png format for rendered pixels.")
                                   )
@@ -227,7 +231,7 @@ tabViz <- tabItem(tabName = "viz",
                                  icon = icon("gear"), 
                                  width = "180px",
                                  
-                                 tooltip = tooltipOptions(title = "Resolution, height & width can be adjusted",
+                                 tooltip = tooltipOptions(title = "Resolution, height and width can be adjusted",
                                                           placement = "left")
                                ),
                                

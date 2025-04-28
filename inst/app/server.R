@@ -139,7 +139,7 @@ server <- function(input, output) {
       NULL
     } else{
       
-      # remove total from the list cause that's a seperate thing
+      # remove total from the list cause that's a separate thing
       # from the dropdown box... 
       cs <- levels(stats()[,get("condition")])
       cs <- cs[-match("total",cs)]
@@ -158,7 +158,7 @@ server <- function(input, output) {
       
       checkboxGroupInput('sel_cond_chisq', 'Compute test for selected conditions',
                          cs,
-                         selected = levels(stats()[,get("condition")]))  
+                         selected = input$sel_cond)# levels(stats()[,get("condition")]))  
     
   })
   
@@ -168,8 +168,8 @@ server <- function(input, output) {
   ## Chisq slider ############  
   output$xsq_slider <- renderUI({
     sliderInput('chisq_question', "Select item",
-                1, length(input$quest_cols)-1,
-                value = length(input$quest_cols)-1, step = 1)
+                1, length(input$quest_cols), # previously length - 1
+                value = length(input$quest_cols), step = 1)
   })
   
   ## Log RANK ###############
@@ -193,10 +193,10 @@ server <- function(input, output) {
     
    
     d <- as.data.frame(stats())
-    if(input$cutoff){
-      last_q <- length(input$quest_cols)
-      d <- subset(d, q_idx != last_q)
-    }
+    # if(input$cutoff){
+    #   last_q <- length(input$quest_cols)
+    #   d <- subset(d, q_idx != last_q)
+    # }
     
     d$condition <- factor(d$condition)
     d <- d[d$condition %in% react_cond_col(),]
