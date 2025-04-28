@@ -71,14 +71,14 @@ tabUpload <- tabItem(tabName = "upload",
                              tags$li("If you are working with your own data, continue in steps 2-3:"),
                              tags$ul(
                                tags$li("2. Specify: Indicate whether the first line of your
-                                   data is a header and choose the proper column delimiter and
+                                   data is a header and choose the proper delimiter and
                                    text quotes."),
                                tags$li("2.1 Missings: Make sure to use reasonable coding for
                                    missing values in your data. Note that empty cells are recognized as 
                                    missing values by default. Add custom missing values
                                    if necessary."),
-                               tags$li("3. Identify: Identify the column in your data which codes the experimental condition and
-                                       select all variables that hold data for the items in your experiment for which to analyze 
+                               tags$li("3. Identify: Identify the column in your data that codes the experimental condition and
+                                       select all variables that hold data for the items in your experiment from which to analyze 
                                        dropout.")
                              ),
                              tags$li("Check the data preview below. If your

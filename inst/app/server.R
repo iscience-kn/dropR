@@ -345,10 +345,15 @@ server <- function(input, output) {
 ####################################################  
   
   # Preview data Table ####
+  # Should show full data if no item selection, otherwise show data of selected items
   output$table <- renderDataTable(datatable({
     if(is.null(input$file1) & !input$demo_ds) return(NULL)
     else{
-      dataset()
+      if(is.null(input$quest_cols)){
+        dataset()
+      } else{
+        dataset()[, c(input$cond_col, input$quest_cols)]
+      }
     }
   }
   ))
