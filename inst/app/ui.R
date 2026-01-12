@@ -506,8 +506,16 @@ tabAbout <- tabItem(tabName = "about",
                       break-off) occurs much more frequently when research is conducted via the Internet than traditionally
                       in the lab.", class="slimtext"),
                     p("You can find the full documentation of the dropR package on",
-                      a("GitHub.", href = "https://iscience-kn.github.io/dropR/index.html", target="_blank"), class="slimtext")
+                      a("GitHub.", href = "https://iscience-kn.github.io/dropR/index.html", target="_blank"), class="slimtext"),
+                    br(),
+                    p( "In 2025, we published a paper in Behavior Research Methods that explains the methodology of dropout analysis in 
+                    more detail and also how to use the tool. You can find the full-text open access here: ",
+                       a("doi.org/10.3758/s13428-025-02730-2.", href = "https://doi.org/10.3758/s13428-025-02730-2", target="_blank"), class="slimtext"),
+                    p("Reips, U.-D., Overlander, A. T., & Bannert, M. (2025). Dropout analysis: A method for data from Internet-based 
+                    research and dropR, an R-based web app and package to analyze and visualize dropout.",
+                      em("Behavior Research Methods, 57"), "(8), 231. https://doi.org/10.3758/s13428-025-02730-2", class="slimtext"
                     )
+                   )
 
 # Main Page structure ####
 ui <- dashboardPage(title = "dropR",

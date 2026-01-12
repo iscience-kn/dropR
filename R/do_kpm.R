@@ -33,8 +33,10 @@ do_kpm <- function(df,
     fit1 <- survfit(surv~1, data = df)
     steps <- get_steps_by_cond(fit1, "total")
     steps
-  } else {
-    by_cond <- split(df, factor(df[ ,condition_col]))
+  } else if (condition_col %in% names(df)){
+    df[[condition_col]] <- as.factor(df[[condition_col]])
+    
+    by_cond <- split(df, condition_col)
     by_cond_fit <- lapply(by_cond,
                           function(x) survfit(surv~1, data = x))
     
@@ -56,7 +58,11 @@ do_kpm <- function(df,
     })
     
     steps <- do.call("rbind", by_cond_steps)
+  } else{
+    return("Please make sure that the experimental_condition matches the variable name in your df exactly!")
   }
+  
+  
   out <- list()
   out$steps <- steps
   out$d <- df

@@ -349,7 +349,7 @@ server <- function(input, output) {
   output$table <- renderDataTable(datatable({
     if(is.null(input$file1) & !input$demo_ds) return(NULL)
     else{
-      if(is.null(input$quest_cols)){
+      if(is.null(input$cond_col) | input$cond_col == "None" | is.null(input$quest_cols)){
         dataset()
       } else{
         dataset()[, c(input$cond_col, input$quest_cols)]

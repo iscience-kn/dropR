@@ -55,3 +55,9 @@ alt="Fig. 1: dropR Example Plot from plot_do_curve()." />
 <!-- #                        no_of_vars = 52) -->
 <!-- # plot_do_curve(stats, full_scale = F) + ggplot2::labs(title = "Dropout by condition") -->
 <!-- # ``` -->
+
+## Reference
+
+Reips, U.-D., Overlander, A. T., & Bannert, M. (2025). Dropout analysis: A method for data from Internet-based
+research and dropR, an R-based web app and package to analyze and visualize dropout. 
+_Behavior Research Methods, 57_(8), 231. https://doi.org/10.3758/s13428-025-02730-2. 
