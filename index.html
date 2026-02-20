@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Dropout Analysis by Condition">
-<meta name="description" content='Analysis and visualization of dropout between conditions in surveys and (online) experiments. Features include computation of dropout statistics, comparing dropout between conditions (e.g. Chi square), analyzing survival (e.g. Kaplan-Meier estimation), comparing conditions with the most different rates of dropout (Kolmogorov-Smirnov) and visualizing the result of each in designated plotting functions. Sources: Andrea Frick, Marie-Terese Baechtiger &amp; Ulf-Dietrich Reips (2001) &lt;https://www.researchgate.net/publication/223956222_Financial_incentives_personal_information_and_drop-out_in_online_studies&gt;; Ulf-Dietrich Reips (2002) "Standards for Internet-Based Experimenting" &lt;doi:10.1027//1618-3169.49.4.243&gt;.'>
-<meta property="og:description" content='Analysis and visualization of dropout between conditions in surveys and (online) experiments. Features include computation of dropout statistics, comparing dropout between conditions (e.g. Chi square), analyzing survival (e.g. Kaplan-Meier estimation), comparing conditions with the most different rates of dropout (Kolmogorov-Smirnov) and visualizing the result of each in designated plotting functions. Sources: Andrea Frick, Marie-Terese Baechtiger &amp; Ulf-Dietrich Reips (2001) &lt;https://www.researchgate.net/publication/223956222_Financial_incentives_personal_information_and_drop-out_in_online_studies&gt;; Ulf-Dietrich Reips (2002) "Standards for Internet-Based Experimenting" &lt;doi:10.1027//1618-3169.49.4.243&gt;.'>
+<meta name="description" content="Analysis and visualization of dropout between conditions in surveys and (online) experiments. Features include computation of dropout statistics, comparing dropout between conditions (e.g. Chi squared), analyzing survival (e.g. Kaplan-Meier estimation), comparing conditions with the most different rates of dropout (Kolmogorov-Smirnov) and visualizing the result of each in designated plotting functions. Article published in BRM on dropR by the authors: Dropout analysis: A method for data from Internet-based research and dropR, an R-based web app and package to analyze and visualize dropout. (2025) &lt;doi:10.3758//s13428-025-02730-2&gt;. Sources: Andrea Frick, Marie-Terese Baechtiger &amp; Ulf-Dietrich Reips (2001) &lt;doi:10.5167//uzh-19758&gt;; Ulf-Dietrich Reips (2002) &lt;doi:10.1027//1618-3169.49.4.243&gt;.">
+<meta property="og:description" content="Analysis and visualization of dropout between conditions in surveys and (online) experiments. Features include computation of dropout statistics, comparing dropout between conditions (e.g. Chi squared), analyzing survival (e.g. Kaplan-Meier estimation), comparing conditions with the most different rates of dropout (Kolmogorov-Smirnov) and visualizing the result of each in designated plotting functions. Article published in BRM on dropR by the authors: Dropout analysis: A method for data from Internet-based research and dropR, an R-based web app and package to analyze and visualize dropout. (2025) &lt;doi:10.3758//s13428-025-02730-2&gt;. Sources: Andrea Frick, Marie-Terese Baechtiger &amp; Ulf-Dietrich Reips (2001) &lt;doi:10.5167//uzh-19758&gt;; Ulf-Dietrich Reips (2002) &lt;doi:10.1027//1618-3169.49.4.243&gt;.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -82,14 +82,13 @@
 <h2 id="interactive-usage-use-dropr-on-the-r-console">Interactive Usage (use dropR on the R Console)<a class="anchor" aria-label="anchor" href="#interactive-usage-use-dropr-on-the-r-console"></a>
 </h2>
 <p>You can also use <code>dropR</code>’s functionality within R, i.e., either in the console or within your own functions and packages. Read more about interactive usage of <code>dropR</code> in our <a href="https://iscience-kn.github.io/dropR/articles/interactive.html">walkthrough article</a>.</p>
-<figure><img src="./reference/figures/dropR_1717579088.svg" alt="Fig. 1: dropR Example Plot from plot_do_curve()."><figcaption aria-hidden="true">
-Fig. 1: dropR Example Plot from <code><a href="reference/plot_do_curve.html">plot_do_curve()</a></code>.
-</figcaption></figure><!-- # ```{r do_plot_ex, echo = F} --><!-- # library(dropR) --><!-- # df <- add_dropout_idx(dropRdemo, 3:54) --><!-- # stats <- compute_stats(df, --><!-- #                        by_cond = "experimental_condition", --><!-- #                        no_of_vars = 52) --><!-- # plot_do_curve(stats, full_scale = F) + ggplot2::labs(title = "Dropout by condition") --><!-- # ``` -->
-</div>
-<div class="section level2">
-<h2 id="reference">Reference<a class="anchor" aria-label="anchor" href="#reference"></a>
-</h2>
-<p>Reips, U.-D., Overlander, A. T., &amp; Bannert, M. (2025). Dropout analysis: A method for data from Internet-based research and dropR, an R-based web app and package to analyze and visualize dropout. <em>Behavior Research Methods, 57</em>(8), 231. <a href="https://doi.org/10.3758/s13428-025-02730-2" class="external-link uri">https://doi.org/10.3758/s13428-025-02730-2</a>.</p>
+<!-- ![Fig. 1: dropR Example Plot from `plot_do_curve()`.](./man/figures/dropR_1717579088.svg) -->
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">#&gt; ℹ Loading dropR</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; Welcome to dropR,</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; to start the interactive Graphical User Interface locally in your R session,</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; run start_app()</span></span></code></pre></div>
+<p><img src="reference/figures/README-do_plot_ex-1.png"><!-- --></p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -121,7 +120,7 @@ Fig. 1: dropR Example Plot from <code><a href="reference/plot_do_curve.html">plo
 <ul class="list-unstyled">
 <li>Annika Tave Overlander <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0009-0006-8373-4086" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>Matthias Bannert <br><small class="roles"> Author </small>   </li>
-<li>Ulf-Dietrich Reips <br><small class="roles"> Author </small>   </li>
+<li>Ulf-Dietrich Reips <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-1566-4745" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 </ul>
 </div>
 

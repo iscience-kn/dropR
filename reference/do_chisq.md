@@ -1,4 +1,4 @@
-# Compute Chisq-Test Given a Question Position
+# Compute Chi-Squared Test Given a Question Position
 
 This function performs a chi-squared contingency table test on dropout
 for a given question in the data. Note that the input data should be in
@@ -10,7 +10,12 @@ on select conditions.
 ## Usage
 
 ``` r
-do_chisq(do_stats, chisq_question, sel_cond_chisq, p_sim = TRUE)
+do_chisq(
+  do_stats,
+  chisq_question = max(unique(do_stats$q_idx)),
+  sel_cond_chisq = NULL,
+  p_sim = TRUE
+)
 ```
 
 ## Arguments
@@ -63,10 +68,12 @@ do_chisq(do_stats, 47, c(12, 22), TRUE)
 #> X-squared = 5.8536, df = NA, p-value = 0.02149
 #> 
 #> 
-#> $`Dropout at item 47`
+#> $`Dropout up to item 47`
 #>           participants
 #> conditions dropout remaining
 #>         12      14        43
 #>         22      28        33
 #> 
+#> attr(,"class")
+#> [1] "do_chi" "list"  
 ```

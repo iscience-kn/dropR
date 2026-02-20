@@ -82,10 +82,10 @@
 <p><strong><em>NOTE:</em></strong> Chi-sq. tests are only available when
 an column denoting the experimental condition is given.</p>
 </blockquote>
-<p>Let’s compute a Chisq test at question 15 for experimentatl
+<p>Let’s compute a Chi-Squared test at question 15 for experimental
 conditions <code>11</code> and <code>12</code>. dropR’s dropout
-Chisq-Test returns a list containing the actual <em>test results</em>
-and dropout overview table at the selected question.</p>
+Chi-Squared test returns a list containing the actual <em>test
+results</em> and dropout overview table at the selected question.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/do_chisq.html">do_chisq</a></span><span class="op">(</span><span class="va">stats</span>,</span>
 <span>         chisq_question <span class="op">=</span> <span class="fl">15</span>,</span>
@@ -100,11 +100,14 @@ and dropout overview table at the selected question.</p>
 <span><span class="co">#&gt; X-squared = 1.9315, df = NA, p-value = 0.2214</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`Dropout at item 15`</span></span>
+<span><span class="co">#&gt; $`Dropout up to item 15`</span></span>
 <span><span class="co">#&gt;           participants</span></span>
 <span><span class="co">#&gt; conditions dropout remaining</span></span>
 <span><span class="co">#&gt;         11      14        58</span></span>
-<span><span class="co">#&gt;         12       6        51</span></span></code></pre></div>
+<span><span class="co">#&gt;         12       6        51</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "do_chi" "list"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="kaplan-meier-estimation">Kaplan-Meier Estimation<a class="anchor" aria-label="anchor" href="#kaplan-meier-estimation"></a>

@@ -16,10 +16,10 @@ stats <- compute_stats(dropRdemo,
 > ***NOTE:*** Chi-sq. tests are only available when an column denoting
 > the experimental condition is given.
 
-Let’s compute a Chisq test at question 15 for experimentatl conditions
-`11` and `12`. dropR’s dropout Chisq-Test returns a list containing the
-actual *test results* and dropout overview table at the selected
-question.
+Let’s compute a Chi-Squared test at question 15 for experimental
+conditions `11` and `12`. dropR’s dropout Chi-Squared test returns a
+list containing the actual *test results* and dropout overview table at
+the selected question.
 
 ``` r
 do_chisq(stats,
@@ -35,11 +35,14 @@ do_chisq(stats,
 #> X-squared = 1.9315, df = NA, p-value = 0.2214
 #> 
 #> 
-#> $`Dropout at item 15`
+#> $`Dropout up to item 15`
 #>           participants
 #> conditions dropout remaining
 #>         11      14        58
 #>         12       6        51
+#> 
+#> attr(,"class")
+#> [1] "do_chi" "list"
 ```
 
 ### Kaplan-Meier Estimation

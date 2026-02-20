@@ -106,13 +106,13 @@ plot_do_curve(stats)
 ![](interactive_files/figure-html/unnamed-chunk-6-1.png)
 
 By default, the function to plot dropout curves chooses a color palette
-which is designed to de distinguishable for color blind individuals.
+which is designed to be distinguishable for color blind individuals.
 Adhering to some journal guidelines, you may also choose a gray color
 palette, distinguishing the lines by line type and gray value.
 
 ## Full Workflow Example using `tidyverse`
 
-To wrap up this Walkthrough, we want to show you a full analysis example
+To wrap up this walkthrough, we want to show you a full analysis example
 in just six lines of code using `tidyverse` workflow with functions from
 `magrittr` and `ggplot2`. Specifically, it is very easy to `pipe`
 several dropR functions to create the full analysis as well as plotting
@@ -124,9 +124,9 @@ this like so:
 ``` r
 library(ggplot2)
 
-dropRdemo %>% 
-  add_dropout_idx(3:54) %>% 
-  compute_stats(by_cond = "experimental_condition", no_of_vars = 52) %>% 
+dropRdemo |>  
+  add_dropout_idx(3:54) |> 
+  compute_stats(by_cond = "experimental_condition", no_of_vars = 52) |>  
   plot_do_curve(linetypes = F, full_scale = F, show_confbands = T) +
   labs(title = "Dropout Plot with tidyverse Workflow") +
   scale_color_brewer(palette = "Dark2") + scale_fill_brewer(palette = "Dark2")
@@ -141,3 +141,32 @@ dropRdemo %>%
 Next, you may want to run more statistical dropout analyses using
 `dropR`. You can find an in-depth tutorial in our [test
 article](https://iscience-kn.github.io/dropR/articles/tests.html).
+
+## Reporting dropout
+
+As of package version 1.0.4 you can also use the
+[`do_print()`](https://iscience-kn.github.io/dropR/reference/do_print.md)
+function to report dropout: Either as a nicely formatted console output,
+as a string object or as a prepared markdown object (e.g. for use in
+RMarkdown or Quarto documents).
+
+``` r
+do_print(stats)
+#> [1] "dropout up to item 52: total=38.2%, 11=37.5%, 12=26.3%, 21=41.1%, 22=47.5%."
+```
+
+This can be used with inline code (`as_markdown = TRUE` is recommended)
+to produce the following output: **dropout** up to item 52: dropout up
+to item 52: total=38.2%, 11=37.5%, 12=26.3%, 21=41.1%, 22=47.5%..
+
+It can also handle results from Chi-Squared analysis of dropout:
+
+``` r
+chi <- do_chisq(stats, p_sim = T) # automatically compares all conditions up to the last item
+do_print(chi)
+#> [1] "item 52: X^2(df NA) = 5.87, p = 0.112; dropout: 11=37.5%, 12=26.3%, 21=41.1%, 22=47.5%."
+```
+
+In an RMarkdown or Quarto document the output is formatted like so:
+$\chi^{2}$(df NA) = 5.87 *p* = 0.112; **dropout**: 11=37.5%, 12=26.3%,
+21=41.1%, 22=47.5%.

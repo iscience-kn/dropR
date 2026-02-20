@@ -401,7 +401,7 @@ conveniently.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_do_curve.html">plot_do_curve</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span></span></code></pre></div>
 <p><img src="interactive_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="700"></p>
 <p>By default, the function to plot dropout curves chooses a color
-palette which is designed to de distinguishable for color blind
+palette which is designed to be distinguishable for color blind
 individuals. Adhering to some journal guidelines, you may also choose a
 gray color palette, distinguishing the lines by line type and gray
 value.</p>
@@ -410,7 +410,7 @@ value.</p>
 <div class="section level2">
 <h2 id="full-workflow-example-using-tidyverse">Full Workflow Example using <code>tidyverse</code><a class="anchor" aria-label="anchor" href="#full-workflow-example-using-tidyverse"></a>
 </h2>
-<p>To wrap up this Walkthrough, we want to show you a full analysis
+<p>To wrap up this walkthrough, we want to show you a full analysis
 example in just six lines of code using <code>tidyverse</code> workflow
 with functions from <code>magrittr</code> and <code>ggplot2</code>.
 Specifically, it is very easy to <code>pipe</code> several dropR
@@ -422,9 +422,9 @@ this like so:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">dropRdemo</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu"><a href="../reference/add_dropout_idx.html">add_dropout_idx</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">54</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu"><a href="../reference/compute_stats.html">compute_stats</a></span><span class="op">(</span>by_cond <span class="op">=</span> <span class="st">"experimental_condition"</span>, no_of_vars <span class="op">=</span> <span class="fl">52</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span><span class="va">dropRdemo</span> <span class="op">|&gt;</span>  </span>
+<span>  <span class="fu"><a href="../reference/add_dropout_idx.html">add_dropout_idx</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">54</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/compute_stats.html">compute_stats</a></span><span class="op">(</span>by_cond <span class="op">=</span> <span class="st">"experimental_condition"</span>, no_of_vars <span class="op">=</span> <span class="fl">52</span><span class="op">)</span> <span class="op">|&gt;</span>  </span>
 <span>  <span class="fu"><a href="../reference/plot_do_curve.html">plot_do_curve</a></span><span class="op">(</span>linetypes <span class="op">=</span> <span class="cn">F</span>, full_scale <span class="op">=</span> <span class="cn">F</span>, show_confbands <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Dropout Plot with tidyverse Workflow"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span></span>
@@ -436,6 +436,30 @@ this like so:</p>
 <p>Next, you may want to run more statistical dropout analyses using
 <code>dropR</code>. You can find an in-depth tutorial in our <a href="https://iscience-kn.github.io/dropR/articles/tests.html">test
 article</a>.</p>
+</div>
+<div class="section level2">
+<h2 id="reporting-dropout">Reporting dropout<a class="anchor" aria-label="anchor" href="#reporting-dropout"></a>
+</h2>
+<p>As of package version 1.0.4 you can also use the
+<code><a href="../reference/do_print.html">do_print()</a></code> function to report dropout: Either as a nicely
+formatted console output, as a string object or as a prepared markdown
+object (e.g. for use in RMarkdown or Quarto documents).</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/do_print.html">do_print</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "dropout up to item 52: total=38.2%, 11=37.5%, 12=26.3%, 21=41.1%, 22=47.5%."</span></span></code></pre></div>
+<p>This can be used with inline code (<code>as_markdown = TRUE</code> is
+recommended) to produce the following output: <strong>dropout</strong>
+up to item 52: dropout up to item 52: total=38.2%, 11=37.5%, 12=26.3%,
+21=41.1%, 22=47.5%..</p>
+<p>It can also handle results from Chi-Squared analysis of dropout:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">chi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/do_chisq.html">do_chisq</a></span><span class="op">(</span><span class="va">stats</span>, p_sim <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="co"># automatically compares all conditions up to the last item</span></span>
+<span><span class="fu"><a href="../reference/do_print.html">do_print</a></span><span class="op">(</span><span class="va">chi</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "item 52: X^2(df NA) = 5.87, p = 0.112; dropout: 11=37.5%, 12=26.3%, 21=41.1%, 22=47.5%."</span></span></code></pre></div>
+<p>In an RMarkdown or Quarto document the output is formatted like so:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>χ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\chi^2</annotation></semantics></math>(df
+NA) = 5.87 <em>p</em> = 0.112; <strong>dropout</strong>: 11=37.5%,
+12=26.3%, 21=41.1%, 22=47.5%.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

@@ -10,7 +10,7 @@ calculated for the whole data in total.
 ## Usage
 
 ``` r
-compute_stats(df, by_cond = "None", no_of_vars)
+compute_stats(df, by_cond = "None", no_of_vars, excl_cond_NA = T)
 ```
 
 ## Arguments
@@ -28,6 +28,13 @@ compute_stats(df, by_cond = "None", no_of_vars)
 - no_of_vars:
 
   numeric number of variables that contain questions
+
+- excl_cond_NA:
+
+  boolean Exclude NAs in the condition variable? This typically means
+  that there is an entirely empty row in your data, i.e. someone quit
+  before being assigned an experimental condition. This is not
+  technically dropout and will skew results. Default is `TRUE`.
 
 ## Value
 

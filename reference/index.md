@@ -7,13 +7,15 @@
 - [`compute_stats()`](https://iscience-kn.github.io/dropR/reference/compute_stats.md)
   : Compute Dropout Statistics
 - [`do_chisq()`](https://iscience-kn.github.io/dropR/reference/do_chisq.md)
-  : Compute Chisq-Test Given a Question Position
+  : Compute Chi-Squared Test Given a Question Position
 - [`do_kpm()`](https://iscience-kn.github.io/dropR/reference/do_kpm.md)
   : Kaplan-Meier Survival Estimation
 - [`do_ks()`](https://iscience-kn.github.io/dropR/reference/do_ks.md) :
   Compute Kolmogorov-Smirnov Test for most extreme conditions
 - [`do_or_table()`](https://iscience-kn.github.io/dropR/reference/do_or_table.md)
   : Dropout Odds Ratio Table
+- [`do_print()`](https://iscience-kn.github.io/dropR/reference/do_print.md)
+  : Print dropout / test results in a compact, report-ready string
 - [`do_steps()`](https://iscience-kn.github.io/dropR/reference/do_steps.md)
   : Calculate Steps for Uneven Data Points
 - [`dropRdemo`](https://iscience-kn.github.io/dropR/reference/dropRdemo.md)

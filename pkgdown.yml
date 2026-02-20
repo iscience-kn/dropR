@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   interactive: interactive.html
   tests: tests.html
-last_built: 2026-01-12T08:56Z
+last_built: 2026-02-20T14:54Z
 urls:
   reference: https://iscience-kn.github.io/dropR/reference
   article: https://iscience-kn.github.io/dropR/articles

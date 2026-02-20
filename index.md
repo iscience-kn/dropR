@@ -34,15 +34,12 @@ console or within your own functions and packages. Read more about
 interactive usage of `dropR` in our [walkthrough
 article](https://iscience-kn.github.io/dropR/articles/interactive.html).
 
-![Fig. 1: dropR Example Plot from
-plot_do_curve().](./reference/figures/dropR_1717579088.svg)
+``` R
+#> ℹ Loading dropR
+#> 
+#> Welcome to dropR,
+#> to start the interactive Graphical User Interface locally in your R session,
+#> run start_app()
+```
 
-Fig. 1: dropR Example Plot from
-[`plot_do_curve()`](https://iscience-kn.github.io/dropR/reference/plot_do_curve.md).
-
-## Reference
-
-Reips, U.-D., Overlander, A. T., & Bannert, M. (2025). Dropout analysis:
-A method for data from Internet-based research and dropR, an R-based web
-app and package to analyze and visualize dropout. *Behavior Research
-Methods, 57*(8), 231. <https://doi.org/10.3758/s13428-025-02730-2>.
+![](reference/figures/README-do_plot_ex-1.png)
