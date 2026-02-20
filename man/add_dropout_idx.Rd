@@ -19,7 +19,7 @@ Returns original data frame with column \code{do_idx} added.
 }
 \description{
 Find drop out positions in a data.frame that contains multiple
-questions that had been asked sequentially.
+questions/items that had been asked/worked on sequentially.
 This function adds the Dropout Index variable \code{do_idx} to the data.frame which is necessary
 for further analyses of dropout.
 
@@ -32,6 +32,10 @@ data frame. Any missing data which is somewhere in between, i.e.
 a single item that was skipped or forgotten will not be counted as dropout.
 The function will identify sequences of missing data that go until the end of the
 data frame and add the number of the last answered question in \code{do_idx}.
+
+The Dropout Index variable \code{do_idx} will therefore code the last item in sequence that is not NA.
+If every item is not NA (every item was answered), the \code{do_idx} will be one longer than the number of items in the analysis
+to ensure that this is not counted as dropout in further analyses, e.g. in \code{\link[=compute_stats]{compute_stats()}}.
 
 Therefore, the variables must be in the order that they were asked, otherwise analyses
 will not be valid.

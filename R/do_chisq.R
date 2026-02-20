@@ -1,4 +1,4 @@
-#' Compute Chisq-Test Given a Question Position
+#' Compute Chi-Squared Test Given a Question Position
 #' 
 #' This function performs a chi-squared contingency table test on dropout for
 #' a given question in the data. Note that the input data should be in the format as 
@@ -25,16 +25,20 @@
 #' do_chisq(do_stats, 47, c(12, 22), TRUE)
 #' 
 do_chisq <- function(do_stats,
-                     chisq_question,
-                     sel_cond_chisq,
+                     chisq_question = max(unique(do_stats$q_idx)),
+                     sel_cond_chisq = NULL,
                      p_sim = TRUE){
   # Resolve global variable issue
   q_idx <- condition <- NULL
   
-  d <- subset(do_stats, condition %in% sel_cond_chisq)
-  d$condition <- factor(d$condition)
+  # If no conditions are selected, all but the total will be used
+  if(is.null(sel_cond_chisq)){
+    d <- subset(do_stats, condition != "total")
+  } else{
+    d <- subset(do_stats, condition %in% sel_cond_chisq)
+  }
   
-  # d <- subset(d,condition != "total")
+  d$condition <- factor(d$condition)
   
   test_input <- subset(d, q_idx == chisq_question)
   test_table <- as.table(as.matrix(test_input[,c("cs","remain")]))
@@ -42,9 +46,13 @@ do_chisq <- function(do_stats,
                                participants = c("dropout","remaining"))
   # chisq.test(as.table(as.matrix(test_input[,c("condition","cs","remain")])))
   test_result <- chisq.test(test_table, simulate.p.value = p_sim)
-  lname2 <- sprintf("Dropout at item %s", chisq_question)
+  
+  lname2 <- sprintf("Dropout up to item %s", chisq_question)
   li <- list("Test result" = test_result,
              lname2 = test_table)
   names(li)[2] <- lname2
-  li
+  
+  # Return
+  structure(li,
+            class = c("do_chi", "list"))
 }

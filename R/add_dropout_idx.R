@@ -2,7 +2,7 @@
 #' 
 #' @description
 #' Find drop out positions in a data.frame that contains multiple 
-#' questions that had been asked sequentially.
+#' questions/items that had been asked/worked on sequentially.
 #' This function adds the Dropout Index variable `do_idx` to the data.frame which is necessary
 #' for further analyses of dropout.
 #' 
@@ -15,6 +15,10 @@
 #' a single item that was skipped or forgotten will not be counted as dropout.
 #' The function will identify sequences of missing data that go until the end of the 
 #' data frame and add the number of the last answered question in `do_idx`.
+#' 
+#' The Dropout Index variable `do_idx` will therefore code the last item in sequence that is not NA.
+#' If every item is not NA (every item was answered), the `do_idx` will be one longer than the number of items in the analysis
+#' to ensure that this is not counted as dropout in further analyses, e.g. in [compute_stats()].
 #' 
 #' Therefore, the variables must be in the order that they were asked, otherwise analyses
 #' will not be valid.
@@ -48,20 +52,22 @@ add_dropout_idx <- function(df, q_pos){
   difmat <- t(apply(na_cumsum, 1, diff))
   minmat <- apply(difmat, 1, which.min)
   
+  # New Version taking into account entirely empty rows
   # df$do_idx <- ifelse(minmat == 1 & na_cumsum[,2] == 1, length(q_pos)-1, # if index is 1 and only the last question was dropped, it's dropout of length(q_pos)-1
-  #                     ifelse(minmat == 1 & na_cumsum[,1] != 1, 0, # if index is 1 because nothing was dropped it should be 0
-  #                            ifelse(na_cumsum[, length(q_pos)] == length(q_pos), length(q_pos), # if nothing was answered, the index should be length(q_pos),
+  #                     ifelse(minmat == 1 & na_cumsum[,1] != 1, length(q_pos)+1, # if index is 1 because nothing was dropped it should be length(q_pos) + 1 as a value that cannot exist with the data
+  #                            ifelse(na_cumsum[, length(q_pos)] == length(q_pos), 0, # if nothing was answered, the index should be 0,
   #                                   length(q_pos) - minmat)# otherwise it should give the last answered question
   #                     )
   # )
   
-  # New Version taking into account entirely empty rows
-  df$do_idx <- ifelse(minmat == 1 & na_cumsum[,2] == 1, length(q_pos)-1, # if index is 1 and only the last question was dropped, it's dropout of length(q_pos)-1
-                      ifelse(minmat == 1 & na_cumsum[,1] != 1, length(q_pos)+1, # if index is 1 because nothing was dropped it should be length(q_pos) + 1 as a value that cannot exist with the data
-                             ifelse(na_cumsum[, length(q_pos)] == length(q_pos), 0, # if nothing was answered, the index should be 0,
-                                    length(q_pos) - minmat)# otherwise it should give the last answered question
-                      )
-  )
+  # New 1.0.4 version, more nicely readable :)
+  idx <- length(q_pos) - minmat
+  
+  idx[minmat == 1 & na_cumsum[,2] == 1] <- length(q_pos) - 1
+  idx[minmat == 1 & na_cumsum[,1] != 1] <- length(q_pos) + 1
+  idx[na_cumsum[, length(q_pos)] == length(q_pos)] <- 0
+  
+  df$do_idx <- idx
   
   return(df)
 }

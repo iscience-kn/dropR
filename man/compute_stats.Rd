@@ -4,7 +4,7 @@
 \alias{compute_stats}
 \title{Compute Dropout Statistics}
 \usage{
-compute_stats(df, by_cond = "None", no_of_vars)
+compute_stats(df, by_cond = "None", no_of_vars, excl_cond_NA = T)
 }
 \arguments{
 \item{df}{data.frame containing variable \code{do_idx} from \code{\link[=add_dropout_idx]{add_dropout_idx()}}}
@@ -12,6 +12,9 @@ compute_stats(df, by_cond = "None", no_of_vars)
 \item{by_cond}{character name of condition variable in the data, defaults to 'None' to output total statistics.}
 
 \item{no_of_vars}{numeric number of variables that contain questions}
+
+\item{excl_cond_NA}{boolean Exclude NAs in the condition variable? This typically means that there is an entirely empty row in your data,
+i.e. someone quit before being assigned an experimental condition. This is not technically dropout and will skew results. Default is \code{TRUE}.}
 }
 \value{
 A data frame with 6 columns (q_idx, condition, cs, N, remain, pct_remain)

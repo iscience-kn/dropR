@@ -2,9 +2,14 @@
 % Please edit documentation in R/do_chisq.R
 \name{do_chisq}
 \alias{do_chisq}
-\title{Compute Chisq-Test Given a Question Position}
+\title{Compute Chi-Squared Test Given a Question Position}
 \usage{
-do_chisq(do_stats, chisq_question, sel_cond_chisq, p_sim = TRUE)
+do_chisq(
+  do_stats,
+  chisq_question = max(unique(do_stats$q_idx)),
+  sel_cond_chisq = NULL,
+  p_sim = TRUE
+)
 }
 \arguments{
 \item{do_stats}{data.frame of dropout statistics as computed by \code{\link[=compute_stats]{compute_stats()}}.}

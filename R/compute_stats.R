@@ -30,7 +30,7 @@ compute_stats <- function(df,
                           no_of_vars,
                           excl_cond_NA = T){
   # Resolve global variable issue
-  drop_out_count <- cs <- remain <- N <- pct_remain <- condition <- NULL
+  drop_out_count <- cs <- remain <- N <- pct_remain <- condition <- q_idx <- NULL
   
   # dtable <- data.table(df)
   
@@ -101,6 +101,9 @@ compute_stats <- function(df,
   
   all_grid <- all_grid[q_idx < no_of_vars, ] # remove last row per condition, which currently equals the second to last row
   all_grid[,"q_idx"] <- all_grid[,"q_idx"]+1 # add one so calculation now correctly depicts the remaining percent at each item
+  
+  # Add custom class to the object
+  class(all_grid) <- c("do_stats", "data.frame")
   
   return(all_grid)
 }
